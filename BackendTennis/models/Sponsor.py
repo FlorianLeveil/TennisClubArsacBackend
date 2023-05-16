@@ -11,7 +11,7 @@ class Sponsor(models.Model):
         "BackendTennis.Image",
         on_delete=models.SET_NULL,
         related_name="Sponsor",
-        null=False
+        null=True
     )
     createAt = models.DateTimeField(auto_now_add=True)
     updateAt = models.DateTimeField(auto_now=True)
