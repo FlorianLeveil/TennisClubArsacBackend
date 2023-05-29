@@ -1,8 +1,5 @@
-from django.utils import timezone
 from rest_framework import serializers
-
 from BackendTennis.models import Booking
-from BackendTennis.utils import create_id
 
 
 class BookingSerializer(serializers.ModelSerializer):
@@ -19,15 +16,15 @@ class BookingSerializer(serializers.ModelSerializer):
     end = serializers.DateField(required=True)
     createAt = serializers.DateTimeField(read_only=True)
     updateAt = serializers.DateTimeField(read_only=True)
-
+    
     class Meta:
         model = Booking
         fields = "__all__"
-
+    
     def create(self, validated_data):
-        validated_data["id"] = create_id()
         return Booking.objects.create(**validated_data)
-
+    
+    
     def update(self, instance, validated_data):
         instance.id = validated_data.get('id', instance.id)
         instance.clientFirstName = validated_data.get('clientFirstName', instance.clientFirstName)

@@ -1,8 +1,5 @@
-from django.utils import timezone
 from rest_framework import serializers
-
 from BackendTennis.models import Image
-from BackendTennis.utils import create_id
 
 
 class ImageSerializer(serializers.ModelSerializer):
@@ -13,14 +10,15 @@ class ImageSerializer(serializers.ModelSerializer):
     imageUrl = serializers.ImageField(required=False)
     uploadedAt = serializers.DateTimeField(read_only=True)
     updateAt = serializers.DateTimeField(read_only=True)
-
+    
     class Meta:
         model = Image
         fields = "__all__"
-
+    
     def create(self, validated_data):
         return Image.objects.create(**validated_data)
-
+    
+    
     def update(self, instance, validated_data):
         instance.id = validated_data.get('id', instance.id)
         instance.title = validated_data.get('title', instance.title)

@@ -10,21 +10,22 @@ class Sponsor(models.Model):
     image = models.ForeignKey(
         "BackendTennis.Image",
         on_delete=models.SET_NULL,
-        related_name="Sponsor",
+        related_name="sponsors",
         null=True
     )
     createAt = models.DateTimeField(auto_now_add=True)
     updateAt = models.DateTimeField(auto_now=True)
-
+    
+    
     def __str__(self):
         to_return = {
-            "id": self.id,
+            "id"       : self.id,
             "brandName": self.brandName,
-            "image": self.image,
-            "createAt": self.createAt,
-            "updateAt": self.updateAt
+            "image"    : self.image,
+            "createAt" : self.createAt,
+            "updateAt" : self.updateAt
         }
         return "%s" % to_return
-
+    
     class Meta:
         app_label = "BackendTennis"
