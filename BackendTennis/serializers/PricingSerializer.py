@@ -6,7 +6,7 @@ from BackendTennis.validators import validate_pricing_type
 
 
 class PricingSerializer(serializers.ModelSerializer):
-    id = serializers.CharField(read_only=True)
+    id = serializers.UUIDField(read_only=True)
     title = serializers.CharField(max_length=100, required=True)
     image = serializers.PrimaryKeyRelatedField(queryset=Image.objects.all())
     description = serializers.CharField(max_length=1000, required=True)

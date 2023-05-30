@@ -1,20 +1,21 @@
 import uuid
 from django.db import models
-from BackendTennis.validators import validate_pricing_type
 
 
-class Pricing(models.Model):
+class News(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField(max_length=100, blank=False, null=False)
-    image = models.ForeignKey(
+    title = models.CharField(max_length=250, blank=False, null=False)
+    content = models.CharField(max_length=2000, blank=False, null=False)
+    images = models.ManyToManyField(
         "BackendTennis.Image",
+        related_name="newss"
+    )
+    category = models.ForeignKey(
+        "BackendTennis.Category",
         on_delete=models.SET_NULL,
-        related_name="pricings",
+        related_name="newss",
         null=True
     )
-    description = models.CharField(max_length=1000)
-    price = models.FloatField(null=False)
-    type = models.CharField(max_length=1000, validators=[validate_pricing_type])
     createAt = models.DateTimeField(auto_now_add=True)
     updateAt = models.DateTimeField(auto_now=True)
     
@@ -23,10 +24,9 @@ class Pricing(models.Model):
         to_return = {
             "id"         : self.id,
             "title"      : self.title,
-            "image"      : self.image,
-            "description": self.description,
-            "price"      : self.price,
-            "type"       : self.type,
+            "content": self.content,
+            "images"     : self.images,
+            "category"   : self.category,
             "createAt"   : self.createAt,
             "updateAt"   : self.updateAt
         }

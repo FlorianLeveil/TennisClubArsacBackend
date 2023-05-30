@@ -1,4 +1,4 @@
-from rest_framework.generics import (get_object_or_404)
+from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -9,7 +9,8 @@ from BackendTennis.utils import check_if_is_valid_save_and_return
 
 
 class PricingView(APIView):
-    def get(self, request, id=None, *args, **kwargs):
+    @staticmethod
+    def get(request, id=None, *args, **kwargs):
         if id:
             result = get_object_or_404(Pricing, id=id)
             serializers = PricingDetailSerializer(result)
@@ -19,18 +20,21 @@ class PricingView(APIView):
         return Response({'status': 'success', "data": serializers.data}, status=200)
     
     
-    def post(self, request):
+    @staticmethod
+    def post(request):
         serializer = PricingSerializer(data=request.data)
         return check_if_is_valid_save_and_return(serializer, PricingDetailSerializer)
     
     
-    def patch(self, request, id):
+    @staticmethod
+    def patch(request, id):
         result = get_object_or_404(Pricing, id=id)
         serializer = PricingSerializer(result, data=request.data, partial=True)
         return check_if_is_valid_save_and_return(serializer, PricingDetailSerializer)
     
     
-    def delete(self, request, id):
+    @staticmethod
+    def delete(request, id):
         result = get_object_or_404(Pricing, id=id)
         result.delete()
         return Response({"status": "success", "data": "Pricing Deleted"})

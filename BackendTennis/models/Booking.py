@@ -1,9 +1,9 @@
+import uuid
 from django.db import models
-from BackendTennis.utils import create_id
 
 
 class Booking(models.Model):
-    id = models.CharField(primary_key=True, max_length=100, default=create_id, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     clientFirstName = models.CharField(max_length=50)
     clientLastName = models.CharField(max_length=50)
     clientEmail = models.EmailField(max_length=100)

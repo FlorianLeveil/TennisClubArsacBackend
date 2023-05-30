@@ -4,7 +4,7 @@ from BackendTennis.serializers import ImageSerializer
 
 
 class SponsorSerializer(serializers.ModelSerializer):
-    id = serializers.CharField(read_only=True)
+    id = serializers.UUIDField(read_only=True)
     brandName = serializers.CharField(max_length=100, required=True)
     image = serializers.PrimaryKeyRelatedField(queryset=Image.objects.all())
     createAt = serializers.DateTimeField(read_only=True)

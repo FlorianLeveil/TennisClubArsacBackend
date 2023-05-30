@@ -1,6 +1,6 @@
 from django.urls import path
 
-from BackendTennis.views import BookingView, ImageView, SponsorView
+from BackendTennis.views import BookingView, ImageView, SponsorView, PricingView, CategoryView, EventView, NewsView
 
 app_name = 'BackendTennis'
 urlpatterns = [
@@ -16,5 +16,25 @@ urlpatterns = [
 
     path('sponsor/', SponsorView.as_view()),  # GET, POST
     path('sponsor/<str:id>/', SponsorView.as_view()),  # DELETE, GET
-    path('sponsor/<str:id>/update/', SponsorView.as_view())  # PATCH
+    path('sponsor/<str:id>/update/', SponsorView.as_view()),  # PATCH
+    
+    
+    path('pricing/', PricingView.as_view()),  # GET, POST
+    path('pricing/<str:id>/', PricingView.as_view()),  # DELETE, GET
+    path('pricing/<str:id>/update/', PricingView.as_view()),  # PATCH
+    
+    
+    path('category/', CategoryView.as_view()),  # GET, POST
+    path('category/<str:id>/', CategoryView.as_view()),  # DELETE, GET
+    path('category/<str:id>/update/', CategoryView.as_view()),  # PATCH
+    
+    
+    path('event/', EventView.as_view()),  # GET, POST
+    path('event/<str:id>/', EventView.as_view()),  # DELETE, GET
+    path('event/<str:id>/update/', EventView.as_view()),  # PATCH
+    
+    
+    path('news/', NewsView.as_view()),  # GET, POST
+    path('news/<str:id>/', NewsView.as_view()),  # DELETE, GET
+    path('news/<str:id>/update/', NewsView.as_view())  # PATCH
 ]

@@ -3,7 +3,7 @@ from BackendTennis.models import Booking
 
 
 class BookingSerializer(serializers.ModelSerializer):
-    id = serializers.CharField(read_only=True)
+    id = serializers.UUIDField(read_only=True)
     clientFirstName = serializers.CharField(max_length=50, required=True)
     clientLastName = serializers.CharField(max_length=50, required=True)
     clientEmail = serializers.EmailField(max_length=100, required=True)
@@ -26,7 +26,6 @@ class BookingSerializer(serializers.ModelSerializer):
     
     
     def update(self, instance, validated_data):
-        instance.id = validated_data.get('id', instance.id)
         instance.clientFirstName = validated_data.get('clientFirstName', instance.clientFirstName)
         instance.clientLastName = validated_data.get('clientLastName', instance.clientLastName)
         instance.clientEmail = validated_data.get('clientEmail', instance.clientEmail)
