@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from BackendTennis.models import Image, Pricing
-from BackendTennis.serializers import ImageSerializer
+from BackendTennis.serializers import ImageDetailSerializer
 from BackendTennis.validators import validate_pricing_type
 
 
@@ -34,7 +34,7 @@ class PricingSerializer(serializers.ModelSerializer):
 
 
 class PricingDetailSerializer(serializers.ModelSerializer):
-    image = ImageSerializer()
+    image = ImageDetailSerializer()
     
     class Meta:
         model = Pricing

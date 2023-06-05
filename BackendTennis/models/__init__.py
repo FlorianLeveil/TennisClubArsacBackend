@@ -5,3 +5,4 @@ from .Pricing import Pricing
 from .Category import Category
 from .Event import Event
 from .News import News
+from .Tag import Tag

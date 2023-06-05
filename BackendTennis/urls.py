@@ -1,6 +1,6 @@
 from django.urls import path
 
-from BackendTennis.views import BookingView, ImageView, SponsorView, PricingView, CategoryView, EventView, NewsView
+from BackendTennis.views import BookingView, ImageView, SponsorView, PricingView, CategoryView, EventView, NewsView, TagView
 
 app_name = 'BackendTennis'
 urlpatterns = [
@@ -36,5 +36,11 @@ urlpatterns = [
     
     path('news/', NewsView.as_view()),  # GET, POST
     path('news/<str:id>/', NewsView.as_view()),  # DELETE, GET
-    path('news/<str:id>/update/', NewsView.as_view())  # PATCH
+    path('news/<str:id>/update/', NewsView.as_view()),  # PATCH
+    
+    
+    path('tag/', TagView.as_view()),  # GET, POST
+    path('tag/<str:id>/', TagView.as_view()),  # DELETE, GET
+    path('tag/<str:id>/update/', TagView.as_view())  # PATCH
+    
 ]

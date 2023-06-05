@@ -1,19 +1,42 @@
 [
 	{
+		"model": "BackendTennis.tag",
+		"fields": {
+			"id": "11111101-5254-4f16-a4b3-44aac292c781",
+			"name": "Tag 1",
+			"createAt": "2023-05-25T16:23:32.723838+02:00",
+			"updateAt": "2023-05-30T11:01:26.151680+02:00"
+		}
+	},
+	{
+		"model": "BackendTennis.tag",
+		"fields": {
+			"id": "11111102-5254-4f16-a4b3-44aac292c781",
+			"name": "Tag 2",
+			"createAt": "2023-05-25T16:23:32.723838+02:00",
+			"updateAt": "2023-05-30T11:01:26.151680+02:00"
+		}
+	},
+	{
+		"model": "BackendTennis.tag",
+		"fields": {
+			"id": "11111103-5254-4f16-a4b3-44aac292c781",
+			"name": "Tag 3",
+			"createAt": "2023-05-25T16:23:32.723838+02:00",
+			"updateAt": "2023-05-30T11:01:26.151680+02:00"
+		}
+	},
+	{
 		"model": "BackendTennis.image",
 		"fields": {
 			"id": "11111111-5254-4f16-a4b3-44aac292c781",
 			"title": "Image 1",
 			"tags": [
-				"Tag 1",
-				"Tag 2",
-				"Tag 3"
+				"11111101-5254-4f16-a4b3-44aac292c781",
+				"11111102-5254-4f16-a4b3-44aac292c781",
+				"11111103-5254-4f16-a4b3-44aac292c781"
 			],
-			"type": [
-				"Type 1",
-				"Type 2",
-				"Type 3"
-			],
+			"type": "pricing",
 			"imageUrl": "C:\\Users\\fleveil\\Downloads\\images\\download\\attachments\\611287768",
 			"createAt": "2023-05-25T16:23:32.723838+02:00",
 			"updateAt": "2023-05-30T11:01:26.151680+02:00"
@@ -25,15 +48,11 @@
 			"id": "11111112-5254-4f16-a4b3-44aac292c781",
 			"title": "Image 2",
 			"tags": [
-				"Tag 1",
-				"Tag 2",
-				"Tag 3"
+				"11111101-5254-4f16-a4b3-44aac292c781",
+				"11111102-5254-4f16-a4b3-44aac292c781",
+				"11111103-5254-4f16-a4b3-44aac292c781"
 			],
-			"type": [
-				"Type 1",
-				"Type 2",
-				"Type 3"
-			],
+			"type": "pricing",
 			"imageUrl": "C:\\Users\\fleveil\\Downloads\\images\\download\\attachments\\611287768",
 			"createAt": "2023-05-25T16:23:32.723838+02:00",
 			"updateAt": "2023-05-30T11:01:26.151680+02:00"
@@ -45,15 +64,11 @@
 			"id": "11111113-5254-4f16-a4b3-44aac292c781",
 			"title": "Image 3",
 			"tags": [
-				"Tag 1",
-				"Tag 2",
-				"Tag 3"
+				"11111101-5254-4f16-a4b3-44aac292c781",
+				"11111102-5254-4f16-a4b3-44aac292c781",
+				"11111103-5254-4f16-a4b3-44aac292c781"
 			],
-			"type": [
-				"Type 1",
-				"Type 2",
-				"Type 3"
-			],
+			"type": "pricing",
 			"imageUrl": "C:\\Users\\fleveil\\Downloads\\images\\download\\attachments\\611287768",
 			"createAt": "2023-05-25T16:23:32.723838+02:00",
 			"updateAt": "2023-05-30T11:01:26.151680+02:00"
@@ -222,7 +237,7 @@
 			"category": "11111114-5254-4f16-a4b3-44aac292c781",
 			"start": "2023-06-04",
 			"end": "2023-06-04",
-			"images": ["11111111-5254-4f16-a4b3-44aac292c781", "11111112-5254-4f16-a4b3-44aac292c781"],
+			"image": "11111111-5254-4f16-a4b3-44aac292c781",
 			"createAt": "2023-05-25T16:23:32.723838+02:00",
 			"updateAt": "2023-05-30T11:01:26.151680+02:00"
 		}
@@ -237,7 +252,7 @@
 			"category": "11111114-5254-4f16-a4b3-44aac292c781",
 			"start": "2023-06-04",
 			"end": "2023-06-04",
-			"images": ["11111111-5254-4f16-a4b3-44aac292c781", "11111112-5254-4f16-a4b3-44aac292c781"],
+			"image": "11111111-5254-4f16-a4b3-44aac292c781",
 			"createAt": "2023-05-25T16:23:32.723838+02:00",
 			"updateAt": "2023-05-30T11:01:26.151680+02:00"
 		}
@@ -252,7 +267,55 @@
 			"category": "11111114-5254-4f16-a4b3-44aac292c781",
 			"start": "2023-06-04",
 			"end": "2023-06-04",
-			"images": ["11111111-5254-4f16-a4b3-44aac292c781", "11111112-5254-4f16-a4b3-44aac292c781"],
+			"image": "11111112-5254-4f16-a4b3-44aac292c781",
+			"createAt": "2023-05-25T16:23:32.723838+02:00",
+			"updateAt": "2023-05-30T11:01:26.151680+02:00"
+		}
+	},
+	{
+		"model": "BackendTennis.news",
+		"fields": {
+			"id": "11111130-5254-4f16-a4b3-44aac292c781",
+			"title": "News 1",
+			"content": "content 1",
+			"subtitle": "subtitle 1",
+			"category": "11111114-5254-4f16-a4b3-44aac292c781",
+			"images": [
+				"11111111-5254-4f16-a4b3-44aac292c781",
+				"11111112-5254-4f16-a4b3-44aac292c781"
+			],
+			"createAt": "2023-05-25T16:23:32.723838+02:00",
+			"updateAt": "2023-05-30T11:01:26.151680+02:00"
+		}
+	},
+	{
+		"model": "BackendTennis.news",
+		"fields": {
+			"id": "11111131-5254-4f16-a4b3-44aac292c781",
+			"title": "News 2",
+			"content": "content 2",
+			"subtitle": "subtitle 2",
+			"category": "11111114-5254-4f16-a4b3-44aac292c781",
+			"images": [
+				"11111111-5254-4f16-a4b3-44aac292c781",
+				"11111112-5254-4f16-a4b3-44aac292c781"
+			],
+			"createAt": "2023-05-25T16:23:32.723838+02:00",
+			"updateAt": "2023-05-30T11:01:26.151680+02:00"
+		}
+	},
+	{
+		"model": "BackendTennis.news",
+		"fields": {
+			"id": "11111132-5254-4f16-a4b3-44aac292c781",
+			"title": "News 3",
+			"content": "content 3",
+			"subtitle": "subtitle 3",
+			"category": "11111114-5254-4f16-a4b3-44aac292c781",
+			"images": [
+				"11111111-5254-4f16-a4b3-44aac292c781",
+				"11111112-5254-4f16-a4b3-44aac292c781"
+			],
 			"createAt": "2023-05-25T16:23:32.723838+02:00",
 			"updateAt": "2023-05-30T11:01:26.151680+02:00"
 		}

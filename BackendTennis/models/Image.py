@@ -1,5 +1,5 @@
 import uuid
-from django.contrib.postgres.fields import ArrayField
+
 from django.db import models
 from BackendTennis.utils import compute_image_url
 from BackendTennis.validators import validate_image_type
@@ -8,7 +8,10 @@ from BackendTennis.validators import validate_image_type
 class Image(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=100, blank=False, null=False)
-    tags = ArrayField(models.CharField(max_length=100), default=list)
+    tags = models.ManyToManyField(
+        "BackendTennis.Tag",
+        related_name="images"
+    )
     type = models.CharField(max_length=100, validators=[validate_image_type])
     imageUrl = models.ImageField(upload_to=compute_image_url, blank=True, null=True)
     createAt = models.DateTimeField(auto_now_add=True)

@@ -9,9 +9,11 @@ class Event(models.Model):
     dateType = models.CharField(max_length=50, blank=False, null=False)
     start = models.DateField()
     end = models.DateField()
-    images = models.ManyToManyField(
+    image = models.ForeignKey(
         "BackendTennis.Image",
-        related_name="events"
+        on_delete=models.SET_NULL,
+        related_name="events",
+        null=True
     )
     category = models.ForeignKey(
         "BackendTennis.Category",
@@ -31,7 +33,7 @@ class Event(models.Model):
             "dateType"   : self.dateType,
             "start"      : self.start,
             "end"        : self.end,
-            "images"     : self.images,
+            "image"      : self.image,
             "category"   : self.category,
             "createAt"   : self.createAt,
             "updateAt"   : self.updateAt

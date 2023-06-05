@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from BackendTennis.models import Image, Category, Event
-from BackendTennis.serializers import ImageSerializer, CategorySerializer
+from BackendTennis.serializers import ImageDetailSerializer, CategorySerializer
 
 
 class EventSerializer(serializers.ModelSerializer):
@@ -8,7 +8,7 @@ class EventSerializer(serializers.ModelSerializer):
     title = serializers.CharField(max_length=250, required=True)
     description = serializers.CharField(max_length=2000, required=True)
     dateType = serializers.CharField(max_length=50, required=True)
-    images = serializers.PrimaryKeyRelatedField(queryset=Image.objects.all(), many=True)
+    image = serializers.PrimaryKeyRelatedField(queryset=Image.objects.all())
     category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
     start = serializers.DateField()
     end = serializers.DateField()
@@ -20,9 +20,7 @@ class EventSerializer(serializers.ModelSerializer):
         fields = "__all__"
     
     def create(self, validated_data):
-        images_data = validated_data.pop('images', [])
         event = Event.objects.create(**validated_data)
-        event.images.set(images_data)
         return event
     
     
@@ -30,8 +28,7 @@ class EventSerializer(serializers.ModelSerializer):
         instance.title = validated_data.get('title', instance.title)
         instance.description = validated_data.get('description', instance.description)
         instance.dateType = validated_data.get('dateType', instance.dateType)
-        images_data = validated_data.get('images', [])
-        instance.images.set(images_data)
+        instance.image = validated_data.get('image', instance.image)
         instance.category = validated_data.get('category', instance.category)
         instance.start = validated_data.get('start', instance.start)
         instance.end = validated_data.get('end', instance.end)
@@ -40,7 +37,7 @@ class EventSerializer(serializers.ModelSerializer):
 
 
 class EventDetailSerializer(serializers.ModelSerializer):
-    images = ImageSerializer(many=True)
+    image = ImageDetailSerializer()
     category = CategorySerializer()
     
     class Meta:

@@ -33,7 +33,7 @@ class BookingView(APIView):
     
     
     @staticmethod
-    def delete(request):
+    def delete(request, id):
         result = get_object_or_404(Booking, id=id)
         result.delete()
         return Response({"status": "success", "data": "Booking Deleted"})

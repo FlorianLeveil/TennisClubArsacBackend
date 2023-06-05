@@ -1,5 +1,6 @@
 from .BookingSerializer import BookingSerializer
-from .ImageSerializer import ImageSerializer
+from .TagSerializer import TagSerializer
+from .ImageSerializer import ImageSerializer, ImageDetailSerializer
 from .SponsorSerializer import SponsorSerializer, SponsorDetailSerializer
 from .PricingSerializer import PricingSerializer
 from .CategorySerializer import CategorySerializer

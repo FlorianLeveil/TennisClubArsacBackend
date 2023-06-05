@@ -5,3 +5,4 @@ from .PricingView import PricingView
 from .CategoryView import CategoryView
 from .EventView import EventView
 from .NewsView import NewsView
+from .TagView import TagView

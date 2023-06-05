@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from BackendTennis.models import Image, Sponsor
-from BackendTennis.serializers import ImageSerializer
+from BackendTennis.serializers import ImageDetailSerializer
 
 
 class SponsorSerializer(serializers.ModelSerializer):
@@ -26,7 +26,7 @@ class SponsorSerializer(serializers.ModelSerializer):
 
 
 class SponsorDetailSerializer(serializers.ModelSerializer):
-    image = ImageSerializer()
+    image = ImageDetailSerializer()
     
     class Meta:
         model = Sponsor

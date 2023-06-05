@@ -6,6 +6,7 @@ class News(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=250, blank=False, null=False)
     content = models.CharField(max_length=2000, blank=False, null=False)
+    subtitle = models.CharField(max_length=250, blank=False, null=False)
     images = models.ManyToManyField(
         "BackendTennis.Image",
         related_name="newss"
@@ -25,6 +26,7 @@ class News(models.Model):
             "id"         : self.id,
             "title"      : self.title,
             "content": self.content,
+            "subtitle": self.subtitle,
             "images"     : self.images,
             "category"   : self.category,
             "createAt"   : self.createAt,
