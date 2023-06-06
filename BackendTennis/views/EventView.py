@@ -1,3 +1,4 @@
+from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -5,30 +6,51 @@ from datetime import date
 
 from BackendTennis.constant import Constant
 from BackendTennis.models import Event
+from BackendTennis.pagination import EventPagination
 from BackendTennis.serializers import EventSerializer, EventDetailSerializer
 from BackendTennis.utils import check_if_is_valid_save_and_return
 
 
 class EventView(APIView):
-    @staticmethod
-    def get(request, id=None, *args, **kwargs):
+    def get(self, request, id=None, *args, **kwargs):
         if id:
             result = get_object_or_404(Event, id=id)
             serializers = EventDetailSerializer(result)
             return Response({'status': 'success', "data": serializers.data}, status=200)
+        
         mode = request.query_params.get('mode')
+        page_size_all = request.query_params.get('page_size') == 'all'
+        today = date.today()
+        
+        if page_size_all and not mode:
+            queryset = Event.objects.all().order_by('createAt')
+            serializer = EventDetailSerializer(queryset, many=True)
+            return Response({'status': 'success', 'count': queryset.count(), 'data': serializer.data})
         if mode == Constant.EVENT_MODE.HISTORY:
-            today = date.today()
-            events = Event.objects.filter(end__lt=today)
-            result = events.order_by('end')
+            result = self._get_end_lower_than_today(today)
+            if not page_size_all:
+                paginator = EventPagination()
+                result = paginator.paginate_queryset(result, request)
         elif mode == Constant.EVENT_MODE.FUTURE_EVENT:
-            today = date.today()
-            events = Event.objects.filter(end__gte=today)
-            result = events.order_by('start')
+            result = self._get_end_greater_or_equal_than_today(today)
+            if not page_size_all:
+                paginator = EventPagination()
+                result = paginator.paginate_queryset(result, request)
         else:
-            result = Event.objects.all()
+            raise ValidationError("Bad Mode. Mode available : %s" % ', '.join(Constant.EVENT_MODE.__str__()))
         serializers = EventDetailSerializer(result, many=True)
         return Response({'status': 'success', "data": serializers.data}, status=200)
+    
+    @staticmethod
+    def _get_end_lower_than_today(today):
+        events = Event.objects.filter(end__lt=today)
+        return events.order_by('end')
+    
+    
+    @staticmethod
+    def _get_end_greater_or_equal_than_today(today):
+        events = Event.objects.filter(end__gte=today)
+        return events.order_by('start')
     
     
     @staticmethod

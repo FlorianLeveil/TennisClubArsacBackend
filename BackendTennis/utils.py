@@ -7,10 +7,6 @@ from rest_framework import status
 from rest_framework.response import Response
 
 
-def create_id():
-    now = datetime.datetime.now()
-    return str(now.year) + str(now.month) + str(now.day) + str(uuid4())[:7]
-
 
 def compute_image_url(instance, filename):
     return os.path.join('images', '{}.{}'.format(instance.pk, filename.split('.')[-1]))
