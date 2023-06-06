@@ -23,6 +23,15 @@ class NewsPagination(PageNumberPagination):
         return _get_paginated_response(self, data)
 
 
+class ImagePagination(PageNumberPagination):
+    page_size = 30  # Nombre d'éléments par page
+    page_size_query_param = 'page_size'
+    max_page_size = None
+
+    def get_paginated_response(self, data):
+        return _get_paginated_response(self, data)
+
+
 class EventPagination(PageNumberPagination):
     page_size = 1  # Nombre d'éléments par page
     page_size_query_param = 'page_size'

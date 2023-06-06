@@ -1,38 +1,71 @@
+from datetime import datetime
+
+from django.db.models import Q, Count
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from BackendTennis.models import Image
+from BackendTennis.pagination import ImagePagination
 from BackendTennis.serializers import ImageSerializer
 from BackendTennis.serializers.ImageSerializer import ImageDetailSerializer
 from BackendTennis.utils import check_if_is_valid_save_and_return, move_deleted_image_to_new_path
 
 
 class ImageView(APIView):
-    @staticmethod
-    def get(request, id=None):
+    def get(self, request, id=None):
         if id:
             result = get_object_or_404(Image, id=id)
-            serializers = ImageDetailSerializer(result)
-            return Response({'status': 'success', "data": serializers.data}, status=200)
-        result = Image.objects.all()
-        serializers = ImageDetailSerializer(result, many=True)
-        return Response({'status': 'success', "data": serializers.data}, status=200)
-    
-    
+            serializer = ImageDetailSerializer(result)
+            return Response({'status': 'success', "data": serializer.data}, status=200)
+        tags = request.query_params.get("tags").split(",") if request.query_params.get("tags") else None
+        page_size = request.query_params.get("page_size")
+        page = request.query_params.get("page")
+        image_type = request.query_params.get("type")
+
+        date_format = "%d-%m-%Y"
+        end = datetime.strptime(request.query_params.get("end"), date_format) if request.query_params.get(
+            "end") else None
+        start = datetime.strptime(request.query_params.get("start"), date_format) if request.query_params.get(
+            "start") else None
+
+        if tags:
+            if image_type:
+                result = Image.objects.filter(type=image_type, tags__name__in=tags).annotate(
+                    tag_count=Count('tags__name')).filter(tag_count=len(tags)).order_by('createAt')
+            else:
+                result = Image.objects.filter(tags__name__in=tags).annotate(tag_count=Count('tags__name')).filter(
+                    tag_count=len(tags)).order_by('createAt')
+            return self._return_with_pagination_if_needed(result, page, page_size, request)
+        else:
+            if image_type:
+                result = Image.objects.filter(type=image_type).order_by('createAt')
+            else:
+                result = Image.objects.all().order_by('createAt')
+            return self._return_with_pagination_if_needed(result, page, page_size, request)
+
+    @staticmethod
+    def _return_with_pagination_if_needed(result, page, page_size, request):
+        if page or (page_size or not page_size == "all"):
+            paginator = ImagePagination()
+            result = paginator.paginate_queryset(result, request)
+            serializer = ImageDetailSerializer(result, many=True)
+            return paginator.get_paginated_response(serializer.data)
+        else:
+            serializer = ImageDetailSerializer(result, many=True)
+            return Response({'status': 'success', 'count': result.count(), 'data': serializer.data})
+
     @staticmethod
     def post(request):
         serializer = ImageSerializer(data=request.data)
         return check_if_is_valid_save_and_return(serializer, ImageDetailSerializer)
-    
-    
+
     @staticmethod
     def patch(request, id):
         result = get_object_or_404(Image, id=id)
         serializer = ImageSerializer(result, data=request.data, partial=True)
         return check_if_is_valid_save_and_return(serializer, ImageDetailSerializer)
-    
-    
+
     @staticmethod
     def delete(request, id):
         result = get_object_or_404(Image, id=id)
