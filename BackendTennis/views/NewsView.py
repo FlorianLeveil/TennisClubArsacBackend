@@ -11,11 +11,14 @@ from BackendTennis.utils import check_if_is_valid_save_and_return
 class NewsView(APIView):
     @staticmethod
     def get(request, id=None, *args, **kwargs):
+        page_size = request.query_params.get('page_size')
+        page = request.query_params.get('page')
+
         if id:
             result = get_object_or_404(News, id=id)
             serializer = NewsDetailSerializer(result)
             return Response({'status': 'success', "data": serializer.data}, status=200)
-        elif request.query_params.get('page_size') == 'all':
+        elif (not page_size and not page) or page_size == "all":
             queryset = News.objects.all().order_by('createAt')
             serializer = NewsDetailSerializer(queryset, many=True)
             return Response({'status': 'success', 'count': queryset.count(), 'data': serializer.data})

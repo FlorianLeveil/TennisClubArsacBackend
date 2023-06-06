@@ -14,16 +14,15 @@ class EventSerializer(serializers.ModelSerializer):
     end = serializers.DateField()
     createAt = serializers.DateTimeField(read_only=True)
     updateAt = serializers.DateTimeField(read_only=True)
-    
+
     class Meta:
         model = Event
         fields = "__all__"
-    
+
     def create(self, validated_data):
         event = Event.objects.create(**validated_data)
         return event
-    
-    
+
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)
         instance.description = validated_data.get('description', instance.description)
@@ -39,7 +38,7 @@ class EventSerializer(serializers.ModelSerializer):
 class EventDetailSerializer(serializers.ModelSerializer):
     image = ImageDetailSerializer()
     category = CategorySerializer()
-    
+
     class Meta:
         model = Event
         fields = '__all__'
