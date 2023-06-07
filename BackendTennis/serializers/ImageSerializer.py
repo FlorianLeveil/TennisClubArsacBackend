@@ -28,8 +28,9 @@ class ImageSerializer(serializers.ModelSerializer):
     
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)
-        tags_data = validated_data.get('tags', [])
-        instance.tags.set(tags_data)
+        tags_data = validated_data.get('tags', None)
+        if tags_data:
+            instance.tags.set(tags_data)
         instance.type = validated_data.get('type', instance.type)
         instance.save()
         return instance

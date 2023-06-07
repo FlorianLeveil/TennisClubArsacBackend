@@ -14,8 +14,7 @@ def _get_paginated_response(element, data):
     })
 
 
-class NewsPagination(PageNumberPagination):
-    page_size = 2  # Nombre d'éléments par page
+class CustomPagination(PageNumberPagination):
     page_size_query_param = 'page_size'
     max_page_size = None
 
@@ -23,19 +22,21 @@ class NewsPagination(PageNumberPagination):
         return _get_paginated_response(self, data)
 
 
-class ImagePagination(PageNumberPagination):
-    page_size = 30  # Nombre d'éléments par page
-    page_size_query_param = 'page_size'
-    max_page_size = None
-
-    def get_paginated_response(self, data):
-        return _get_paginated_response(self, data)
+class NewsPagination(CustomPagination):
+    page_size = 5
 
 
-class EventPagination(PageNumberPagination):
-    page_size = 1  # Nombre d'éléments par page
-    page_size_query_param = 'page_size'
-    max_page_size = None
+class ImagePagination(CustomPagination):
+    page_size = 40
 
-    def get_paginated_response(self, data):
-        return _get_paginated_response(self, data)
+
+class EventPagination(CustomPagination):
+    page_size = 5
+
+
+class TagPagination(CustomPagination):
+    page_size = 100
+
+class TagPagination(CustomPagination):
+    page_size = 100
+

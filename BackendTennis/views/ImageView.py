@@ -22,27 +22,23 @@ class ImageView(APIView):
         page_size = request.query_params.get("page_size")
         page = request.query_params.get("page")
         image_type = request.query_params.get("type")
-
-        date_format = "%d-%m-%Y"
-        end = datetime.strptime(request.query_params.get("end"), date_format) if request.query_params.get(
-            "end") else None
-        start = datetime.strptime(request.query_params.get("start"), date_format) if request.query_params.get(
-            "start") else None
-
+        end = request.query_params.get("end")
+        start = request.query_params.get("start")
+        
+        result = Image.objects.all()
+        
+        if image_type:
+            result = result.filter(type=image_type)
         if tags:
-            if image_type:
-                result = Image.objects.filter(type=image_type, tags__name__in=tags).annotate(
-                    tag_count=Count('tags__name')).filter(tag_count=len(tags)).order_by('createAt')
-            else:
-                result = Image.objects.filter(tags__name__in=tags).annotate(tag_count=Count('tags__name')).filter(
-                    tag_count=len(tags)).order_by('createAt')
-            return self._return_with_pagination_if_needed(result, page, page_size, request)
-        else:
-            if image_type:
-                result = Image.objects.filter(type=image_type).order_by('createAt')
-            else:
-                result = Image.objects.all().order_by('createAt')
-            return self._return_with_pagination_if_needed(result, page, page_size, request)
+            result = result.filter(tags__name__in=tags).annotate(
+                    tag_count=Count('tags__name')).filter(tag_count=len(tags))
+        if start:
+            result = result.filter(createAt__gte=datetime.strptime(start, "%d-%m-%Y").strftime("%Y-%m-%d"))
+        if end:
+            result = result.filter(createAt__lte=datetime.strptime(end, "%d-%m-%Y").strftime("%Y-%m-%d"))
+    
+        result = result.order_by('createAt')
+        return self._return_with_pagination_if_needed(result, page, page_size, request)
 
     @staticmethod
     def _return_with_pagination_if_needed(result, page, page_size, request):
