@@ -10,6 +10,7 @@ from BackendTennis.pagination import ImagePagination
 from BackendTennis.serializers import ImageSerializer
 from BackendTennis.serializers.ImageSerializer import ImageDetailSerializer
 from BackendTennis.utils import check_if_is_valid_save_and_return, move_deleted_image_to_new_path
+from BackendTennis.validators import validate_image_type
 
 
 class ImageView(APIView):
@@ -28,6 +29,7 @@ class ImageView(APIView):
         result = Image.objects.all()
         
         if image_type:
+            validate_image_type(image_type)
             result = result.filter(type=image_type)
         if tags:
             result = result.filter(tags__name__in=tags).annotate(
