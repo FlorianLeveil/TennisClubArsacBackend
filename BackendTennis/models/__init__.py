@@ -6,3 +6,4 @@ from .Category import Category
 from .Event import Event
 from .News import News
 from .Tag import Tag
+from .User import User
