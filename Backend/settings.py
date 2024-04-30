@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'BackendTennis',
-    'phonenumber_field'
+    'phonenumber_field',
+    'rest_framework_swagger',
+    'drf_yasg'
 ]
 PHONENUMBER_DEFAULT_REGION = 'FR'
 PHONENUMBER_FORMATS = {
@@ -100,9 +102,9 @@ WSGI_APPLICATION = 'Backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'TennisArsacBackendDev',
+        'NAME': 'tennisarsacbackenddev',
         'USER': 'postgres',
-        'PASSWORD': 'Jesus123',
+        'PASSWORD': 'postgres',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
