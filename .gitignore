@@ -1,0 +1,12 @@
+# Python
+*.pyc
+__pycache__/
+
+# Django
+*.sqlite3
+
+#Pycharm
+.idea
+
+# Environnement virtuel
+venv/

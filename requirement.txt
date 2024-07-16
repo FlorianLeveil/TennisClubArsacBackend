@@ -10,3 +10,6 @@ PyJWT==2.7.0
 pytz==2022.7.1
 sqlparse==0.4.3
 tzdata==2023.3
+django-rest-swagger==2.2.0
+drf-yasg==1.21.7
+setuptools==70.3.0
