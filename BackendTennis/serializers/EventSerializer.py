@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from BackendTennis.models import Image, Category, Event
+from BackendTennis.models import Event, Image, Category
 from BackendTennis.serializers import ImageDetailSerializer, CategorySerializer
 
 
@@ -18,6 +18,11 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = "__all__"
+
+    def validate(self, attrs):
+        if attrs['start'] >= attrs['end']:
+            raise serializers.ValidationError("Start date must be before end date.")
+        return attrs
 
     def create(self, validated_data):
         event = Event.objects.create(**validated_data)

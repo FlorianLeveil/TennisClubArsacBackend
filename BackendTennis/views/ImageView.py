@@ -1,72 +1,86 @@
 from datetime import datetime
-
-from django.db.models import Q, Count
-from rest_framework.generics import get_object_or_404
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
-from rest_framework.views import APIView
-
+from django.shortcuts import get_object_or_404
+from django.db.models import Count
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 from BackendTennis.models import Image
 from BackendTennis.pagination import ImagePagination
-from BackendTennis.serializers import ImageSerializer
-from BackendTennis.serializers.ImageSerializer import ImageDetailSerializer
+from BackendTennis.serializers import ImageSerializer, ImageDetailSerializer
 from BackendTennis.utils import check_if_is_valid_save_and_return, move_deleted_image_to_new_path
 from BackendTennis.validators import validate_image_type
+from BackendTennis.constant import Constant
 
 
-class ImageView(APIView):
-    def get(self, request, id=None):
-        if id:
-            result = get_object_or_404(Image, id=id)
-            serializer = ImageDetailSerializer(result)
-            return Response({'status': 'success', "data": serializer.data}, status=200)
-        tags = request.query_params.get("tags").split(",") if request.query_params.get("tags") else None
-        page_size = request.query_params.get("page_size")
-        page = request.query_params.get("page")
-        image_type = request.query_params.get("type")
-        end = request.query_params.get("end")
-        start = request.query_params.get("start")
-        
-        result = Image.objects.all()
-        
+class ImageView(ListCreateAPIView):
+    queryset = Image.objects.all()
+    serializer_class = ImageSerializer
+    pagination_class = ImagePagination
+
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter('type', in_=openapi.IN_QUERY, type=openapi.TYPE_STRING, description='Type of the image',
+                              enum=[Constant.IMAGE_TYPE.PRICING, Constant.IMAGE_TYPE.NEWS,
+                                    Constant.IMAGE_TYPE.EVENTS, Constant.IMAGE_TYPE.SPONSOR,
+                                    Constant.IMAGE_TYPE.PICTURE]),
+            openapi.Parameter('tags', in_=openapi.IN_QUERY, type=openapi.TYPE_STRING, description='Comma-separated list of tags'),
+            openapi.Parameter('start', in_=openapi.IN_QUERY, type=openapi.TYPE_STRING, format='date',
+                              description='Start date for filtering images (format: dd-mm-yyyy)'),
+            openapi.Parameter('end', in_=openapi.IN_QUERY, type=openapi.TYPE_STRING, format='date',
+                              description='End date for filtering images (format: dd-mm-yyyy)'),
+        ],
+        responses={200: ImageDetailSerializer(many=True)},
+    )
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        return self.list(request, *args, **kwargs)
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        tags = self.request.query_params.get("tags")
+        image_type = self.request.query_params.get("type")
+        start = self.request.query_params.get("start")
+        end = self.request.query_params.get("end")
+
         if image_type:
             validate_image_type(image_type)
-            result = result.filter(type=image_type)
+            if image_type in [Constant.IMAGE_TYPE.PRICING, Constant.IMAGE_TYPE.NEWS,
+                              Constant.IMAGE_TYPE.EVENTS, Constant.IMAGE_TYPE.SPONSOR,
+                              Constant.IMAGE_TYPE.PICTURE]:
+                queryset = queryset.filter(type=image_type)
+            else:
+                # Handle invalid image type
+                queryset = queryset.none()
+
         if tags:
-            result = result.filter(tags__name__in=tags).annotate(
-                    tag_count=Count('tags__name')).filter(tag_count=len(tags))
+            tags_list = tags.split(",")
+            queryset = queryset.filter(tags__name__in=tags_list).annotate(
+                tag_count=Count('tags__name')).filter(tag_count=len(tags_list))
+
         if start:
-            result = result.filter(createAt__gte=datetime.strptime(start, "%d-%m-%Y").strftime("%Y-%m-%d"))
+            start_date = datetime.strptime(start, "%d-%m-%Y").strftime("%Y-%m-%d")
+            queryset = queryset.filter(createAt__gte=start_date)
+
         if end:
-            result = result.filter(createAt__lte=datetime.strptime(end, "%d-%m-%Y").strftime("%Y-%m-%d"))
-    
-        result = result.order_by('createAt')
-        return self._return_with_pagination_if_needed(result, page, page_size, request)
+            end_date = datetime.strptime(end, "%d-%m-%Y").strftime("%Y-%m-%d")
+            queryset = queryset.filter(createAt__lte=end_date)
 
-    @staticmethod
-    def _return_with_pagination_if_needed(result, page, page_size, request):
-        if page or (page_size or not page_size == "all"):
-            paginator = ImagePagination()
-            result = paginator.paginate_queryset(result, request)
-            serializer = ImageDetailSerializer(result, many=True)
-            return paginator.get_paginated_response(serializer.data)
-        else:
-            serializer = ImageDetailSerializer(result, many=True)
-            return Response({'status': 'success', 'count': result.count(), 'data': serializer.data})
+        return queryset.order_by('createAt')
 
-    @staticmethod
-    def post(request):
-        serializer = ImageSerializer(data=request.data)
-        return check_if_is_valid_save_and_return(serializer, ImageDetailSerializer)
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
-    @staticmethod
-    def patch(request, id):
-        result = get_object_or_404(Image, id=id)
-        serializer = ImageSerializer(result, data=request.data, partial=True)
-        return check_if_is_valid_save_and_return(serializer, ImageDetailSerializer)
 
-    @staticmethod
-    def delete(request, id):
-        result = get_object_or_404(Image, id=id)
-        move_deleted_image_to_new_path(result)
-        result.delete()
-        return Response({"status": "success", "data": "Image Deleted"})
+class ImageRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+    queryset = Image.objects.all()
+    serializer_class = ImageSerializer
+    lookup_field = 'id'
+
+    def patch(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        instance = self.get_object()
+        move_deleted_image_to_new_path(instance)
+        return self.destroy(request, *args, **kwargs)

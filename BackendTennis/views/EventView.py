@@ -1,9 +1,9 @@
-from rest_framework.exceptions import ValidationError
-from rest_framework.generics import get_object_or_404
-from rest_framework.response import Response
-from rest_framework.views import APIView
 from datetime import date
-
+from rest_framework import generics
+from rest_framework.exceptions import ValidationError
+from rest_framework.response import Response
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 from BackendTennis.constant import Constant
 from BackendTennis.models import Event
 from BackendTennis.pagination import EventPagination
@@ -11,70 +11,70 @@ from BackendTennis.serializers import EventSerializer, EventDetailSerializer
 from BackendTennis.utils import check_if_is_valid_save_and_return
 
 
-class EventView(APIView):
-    def get(self, request, id=None, *args, **kwargs):
-        if id:
-            result = get_object_or_404(Event, id=id)
-            serializers = EventDetailSerializer(result)
-            return Response({'status': 'success', "data": serializers.data}, status=200)
-
-        mode = request.query_params.get('mode')
-        page_size = request.query_params.get('page_size')
-        page = request.query_params.get('page')
+class EventModeMixin:
+    def get_queryset(self):
+        queryset = Event.objects.all()
+        mode = self.request.query_params.get('mode')
         today = date.today()
 
-        if ((not page and not page_size) or page_size == "all") and not mode:
-            queryset = Event.objects.all().order_by('createAt')
-            serializer = EventDetailSerializer(queryset, many=True)
-            return Response({'status': 'success', 'count': queryset.count(), 'data': serializer.data})
-        elif (page or page_size) and not mode and not page_size == "all":
-            queryset = Event.objects.all().order_by('createAt')
-            paginator = EventPagination()
-            result = paginator.paginate_queryset(queryset, request)
-            return paginator.get_paginated_response(result.data)
-        elif mode == Constant.EVENT_MODE.HISTORY:
-            result = self._get_end_lower_than_today(today)
-            count = result.count()
-            if not page_size == "all":
-                paginator = EventPagination()
-                result = paginator.paginate_queryset(result, request)
-                return paginator.get_paginated_response(result.data)
+        if mode == Constant.EVENT_MODE.HISTORY:
+            return Event.objects.filter(end__lt=today).order_by('end')
         elif mode == Constant.EVENT_MODE.FUTURE_EVENT:
-            result = self._get_end_greater_or_equal_than_today(today)
-            count = result.count()
-            if not page_size == "all":
-                paginator = EventPagination()
-                result = paginator.paginate_queryset(result, request)
-                return paginator.get_paginated_response(result.data)
-
-        else:
+            return Event.objects.filter(end__gte=today).order_by('start')
+        elif mode:
             raise ValidationError("Bad Mode. Mode available : %s" % ', '.join(Constant.EVENT_MODE.__dict__.values()))
-        serializers = EventDetailSerializer(result, many=True)
-        return Response({'status': 'success', 'count': count, "data": serializers.data}, status=200)
 
-    @staticmethod
-    def _get_end_lower_than_today(today):
-        events = Event.objects.filter(end__lt=today)
-        return events.order_by('end')
+        return queryset
 
-    @staticmethod
-    def _get_end_greater_or_equal_than_today(today):
-        events = Event.objects.filter(end__gte=today)
-        return events.order_by('start')
 
-    @staticmethod
-    def post(request):
-        serializer = EventSerializer(data=request.data)
+class EventListCreateView(EventModeMixin, generics.ListCreateAPIView):
+    queryset = Event.objects.all()
+    serializer_class = EventDetailSerializer
+    pagination_class = EventPagination
+
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter('mode', in_=openapi.IN_QUERY, type=openapi.TYPE_STRING,
+                              description='Mode for filtering events',
+                              enum=[Constant.EVENT_MODE.HISTORY, Constant.EVENT_MODE.FUTURE_EVENT]),
+            openapi.Parameter('page_size', in_=openapi.IN_QUERY, type=openapi.TYPE_INTEGER,
+                              description='Number of results to return per page'),
+            openapi.Parameter('page', in_=openapi.IN_QUERY, type=openapi.TYPE_INTEGER,
+                              description='Page number within the paginated result set'),
+        ],
+        responses={200: EventDetailSerializer(many=True)},
+    )
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
         return check_if_is_valid_save_and_return(serializer, EventDetailSerializer)
 
-    @staticmethod
-    def patch(request, id):
-        result = get_object_or_404(Event, id=id)
-        serializer = EventSerializer(result, data=request.data, partial=True)
+
+class EventRetrieveUpdateDestroyView(EventModeMixin, generics.RetrieveUpdateDestroyAPIView):
+    queryset = Event.objects.all()
+    serializer_class = EventDetailSerializer
+    lookup_field = 'id'
+
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter('mode', in_=openapi.IN_QUERY, type=openapi.TYPE_STRING,
+                              description='Mode for filtering events',
+                              enum=[Constant.EVENT_MODE.HISTORY, Constant.EVENT_MODE.FUTURE_EVENT]),
+        ],
+        responses={200: EventDetailSerializer()},
+    )
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def patch(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
         return check_if_is_valid_save_and_return(serializer, EventDetailSerializer)
 
-    @staticmethod
-    def delete(request, id):
-        result = get_object_or_404(Event, id=id)
-        result.delete()
+    def delete(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.delete()
         return Response({"status": "success", "data": "Event Deleted"})
