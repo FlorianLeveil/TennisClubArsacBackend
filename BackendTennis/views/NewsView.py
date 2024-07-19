@@ -1,50 +1,60 @@
-from rest_framework.generics import get_object_or_404
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
-from rest_framework.views import APIView
-
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 from BackendTennis.models import News
 from BackendTennis.pagination import NewsPagination
 from BackendTennis.serializers import NewsSerializer, NewsDetailSerializer
 from BackendTennis.utils import check_if_is_valid_save_and_return
 
+class NewsListCreateView(ListCreateAPIView):
+    queryset = News.objects.all()
+    serializer_class = NewsDetailSerializer
+    pagination_class = NewsPagination
 
-class NewsView(APIView):
-    @staticmethod
-    def get(request, id=None, *args, **kwargs):
-        page_size = request.query_params.get('page_size')
-        page = request.query_params.get('page')
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter(
+                'page_size', in_=openapi.IN_QUERY, type=openapi.TYPE_INTEGER,
+                description='Page size for pagination'
+            ),
+            openapi.Parameter(
+                'page', in_=openapi.IN_QUERY, type=openapi.TYPE_INTEGER,
+                description='Page number for pagination'
+            ),
+        ],
+        responses={200: NewsDetailSerializer(many=True)},
+    )
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        return self.list(request, *args, **kwargs)
 
-        if id:
-            result = get_object_or_404(News, id=id)
-            serializer = NewsDetailSerializer(result)
-            return Response({'status': 'success', "data": serializer.data}, status=200)
-        elif (not page_size and not page) or page_size == "all":
-            queryset = News.objects.all().order_by('createAt')
-            serializer = NewsDetailSerializer(queryset, many=True)
-            return Response({'status': 'success', 'count': queryset.count(), 'data': serializer.data})
-        else:
-            paginator = NewsPagination()
-            queryset = News.objects.all().order_by('createAt')
-            result_page = paginator.paginate_queryset(queryset, request)
-            serializer = NewsDetailSerializer(result_page, many=True)
-            return paginator.get_paginated_response(serializer.data)
-    
-    
-    @staticmethod
-    def post(request):
+    @swagger_auto_schema(
+        request_body=NewsSerializer,
+        responses={201: NewsDetailSerializer()},
+    )
+    def post(self, request, *args, **kwargs):
         serializer = NewsSerializer(data=request.data)
         return check_if_is_valid_save_and_return(serializer, NewsDetailSerializer)
-    
-    
-    @staticmethod
-    def patch(request, id):
-        result = get_object_or_404(News, id=id)
-        serializer = NewsSerializer(result, data=request.data, partial=True)
+
+class NewsRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+    queryset = News.objects.all()
+    serializer_class = NewsDetailSerializer
+    lookup_field = 'id'
+
+    @swagger_auto_schema(
+        request_body=NewsSerializer,
+        responses={200: NewsDetailSerializer},
+    )
+    def patch(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = NewsSerializer(instance, data=request.data, partial=True)
         return check_if_is_valid_save_and_return(serializer, NewsDetailSerializer)
-    
-    
-    @staticmethod
-    def delete(request, id):
-        result = get_object_or_404(News, id=id)
-        result.delete()
-        return Response({"status": "success", "data": "News Deleted"})
+
+    @swagger_auto_schema(
+        responses={204: 'No Content'}
+    )
+    def delete(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.delete()
+        return Response({"status": "success", "data": "News Deleted"}, status=204)

@@ -4,9 +4,11 @@ from .ImageView import ImageRetrieveUpdateDestroyView
 from .ImageView import ImageView
 from .SponsorView import SponsorView
 from .PricingView import PricingView
+from .PricingView import PricingRetrieveUpdateDestroyView
 from .CategoryView import CategoryListCreateView
 from .CategoryView import CategoryRetrieveUpdateDestroyView
 from .EventView import EventListCreateView
 from .EventView import EventRetrieveUpdateDestroyView
-from .NewsView import NewsView
+from .NewsView import NewsRetrieveUpdateDestroyView
+from .NewsView import NewsListCreateView
 from .TagView import TagView

@@ -1,7 +1,7 @@
-from datetime import date
 from rest_framework import generics
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
+from datetime import date
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from BackendTennis.constant import Constant
@@ -22,7 +22,7 @@ class EventModeMixin:
         elif mode == Constant.EVENT_MODE.FUTURE_EVENT:
             return Event.objects.filter(end__gte=today).order_by('start')
         elif mode:
-            raise ValidationError("Bad Mode. Mode available : %s" % ', '.join(Constant.EVENT_MODE.__dict__.values()))
+            raise ValidationError("Bad Mode. Mode available: %s" % ', '.join(Constant.EVENT_MODE.__dict__.values()))
 
         return queryset
 
@@ -34,20 +34,33 @@ class EventListCreateView(EventModeMixin, generics.ListCreateAPIView):
 
     @swagger_auto_schema(
         manual_parameters=[
-            openapi.Parameter('mode', in_=openapi.IN_QUERY, type=openapi.TYPE_STRING,
-                              description='Mode for filtering events',
+            openapi.Parameter('mode', in_=openapi.IN_QUERY, type=openapi.TYPE_STRING, description='Mode of the event',
                               enum=[Constant.EVENT_MODE.HISTORY, Constant.EVENT_MODE.FUTURE_EVENT]),
-            openapi.Parameter('page_size', in_=openapi.IN_QUERY, type=openapi.TYPE_INTEGER,
-                              description='Number of results to return per page'),
-            openapi.Parameter('page', in_=openapi.IN_QUERY, type=openapi.TYPE_INTEGER,
-                              description='Page number within the paginated result set'),
         ],
         responses={200: EventDetailSerializer(many=True)},
     )
-    def list(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         queryset = self.get_queryset()
         return self.list(request, *args, **kwargs)
 
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return EventSerializer
+        return EventDetailSerializer
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response({'status': 'success', 'count': queryset.count(), 'data': serializer.data})
+
+    @swagger_auto_schema(
+        request_body=EventSerializer,
+        responses={201: EventDetailSerializer()},
+    )
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         return check_if_is_valid_save_and_return(serializer, EventDetailSerializer)
@@ -59,21 +72,17 @@ class EventRetrieveUpdateDestroyView(EventModeMixin, generics.RetrieveUpdateDest
     lookup_field = 'id'
 
     @swagger_auto_schema(
-        manual_parameters=[
-            openapi.Parameter('mode', in_=openapi.IN_QUERY, type=openapi.TYPE_STRING,
-                              description='Mode for filtering events',
-                              enum=[Constant.EVENT_MODE.HISTORY, Constant.EVENT_MODE.FUTURE_EVENT]),
-        ],
+        request_body=EventSerializer,
         responses={200: EventDetailSerializer()},
     )
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
-
     def patch(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data, partial=True)
         return check_if_is_valid_save_and_return(serializer, EventDetailSerializer)
 
+    @swagger_auto_schema(
+        responses={204: 'No Content'}
+    )
     def delete(self, request, *args, **kwargs):
         instance = self.get_object()
         instance.delete()
