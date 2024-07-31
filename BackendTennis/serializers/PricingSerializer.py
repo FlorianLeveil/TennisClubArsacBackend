@@ -14,15 +14,14 @@ class PricingSerializer(serializers.ModelSerializer):
     type = serializers.CharField(validators=[validate_pricing_type], required=True)
     createAt = serializers.DateTimeField(read_only=True)
     updateAt = serializers.DateTimeField(read_only=True)
-    
+
     class Meta:
         model = Pricing
         fields = "__all__"
-    
+
     def create(self, validated_data):
         return Pricing.objects.create(**validated_data)
-    
-    
+
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)
         instance.image = validated_data.get('image', instance.image)
@@ -35,7 +34,7 @@ class PricingSerializer(serializers.ModelSerializer):
 
 class PricingDetailSerializer(serializers.ModelSerializer):
     image = ImageDetailSerializer()
-    
+
     class Meta:
         model = Pricing
         fields = '__all__'

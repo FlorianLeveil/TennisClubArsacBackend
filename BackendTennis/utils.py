@@ -7,7 +7,6 @@ from rest_framework import status
 from rest_framework.response import Response
 
 
-
 def compute_image_url(instance, filename):
     return os.path.join('images', '{}.{}'.format(instance.pk, filename.split('.')[-1]))
 
@@ -29,7 +28,8 @@ def check_if_is_valid_save_and_return(serializer, serializer_detail=None):
     if serializer.is_valid():
         object_for_serializer_detail = serializer.save()
         if serializer_detail:
-            return Response({"status": "success", "data": serializer_detail(object_for_serializer_detail).data}, status=status.HTTP_200_OK)
+            return Response({"status": "success", "data": serializer_detail(object_for_serializer_detail).data},
+                            status=status.HTTP_200_OK)
         return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
     else:
         return Response({"status": "error", "data": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)

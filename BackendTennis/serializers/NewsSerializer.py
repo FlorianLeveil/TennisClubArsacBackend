@@ -12,18 +12,17 @@ class NewsSerializer(serializers.ModelSerializer):
     category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
     createAt = serializers.DateTimeField(read_only=True)
     updateAt = serializers.DateTimeField(read_only=True)
-    
+
     class Meta:
         model = News
         fields = "__all__"
-    
+
     def create(self, validated_data):
         images_data = validated_data.pop('images', [])
         news = News.objects.create(**validated_data)
         news.images.set(images_data)
         return news
-    
-    
+
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)
         instance.content = validated_data.get('content', instance.content)
@@ -38,7 +37,7 @@ class NewsSerializer(serializers.ModelSerializer):
 class NewsDetailSerializer(serializers.ModelSerializer):
     images = ImageDetailSerializer(many=True)
     category = CategorySerializer()
-    
+
     class Meta:
         model = News
         fields = '__all__'

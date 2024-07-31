@@ -1,4 +1,5 @@
 from django.core.validators import RegexValidator
+from django.db import transaction
 from phonenumber_field.serializerfields import PhoneNumberField
 from rest_framework import serializers
 from BackendTennis.models import User
@@ -9,9 +10,10 @@ class UserSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(max_length=255)
     last_name = serializers.CharField(max_length=255)
     birthdate = serializers.DateField()
-    email = serializers.EmailField(unique=True)
+    email = serializers.EmailField()
     phone_number = PhoneNumberField()
-    postal_code = serializers.CharField(max_length=10, validators=[RegexValidator(regex=r'^\d{5}$', message="Le code postal doit être composé de 5 chiffres.")])
+    postal_code = serializers.CharField(max_length=10, validators=[
+        RegexValidator(regex=r'^\d{5}$', message="Le code postal doit être composé de 5 chiffres.")])
     address = serializers.CharField(max_length=500)
     street = serializers.CharField(max_length=100)
     city = serializers.CharField(max_length=100)
@@ -21,37 +23,42 @@ class UserSerializer(serializers.ModelSerializer):
     createAt = serializers.DateTimeField(read_only=True)
     updateAt = serializers.DateTimeField(read_only=True)
 
+    def validate_email(self, value):
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("This email is already in use.")
+        return value
+
     def create(self, validated_data):
-        children_data = validated_data.pop('children', [])
-        spouse_data = validated_data.pop('spouse', None)
+        with transaction.atomic():
+            children_data = validated_data.pop('children', [])
+            spouse_data = validated_data.pop('spouse', None)
 
-        user = User.objects.create(**validated_data)
+            user = User.objects.create(**validated_data)
 
-        # Création des enfants
-        children = []
-        for child_data in children_data:
-            child_data['parent'] = user
-            child_data = self._set_child_data_or_spouse_data(child_data, user)
-            child_serializer = self.__class__(data=child_data)
-            child_serializer.is_valid(raise_exception=True)
-            child = child_serializer.save()
-            children.append(child)
+            # Création des enfants
+            children = []
+            for child_data in children_data:
+                child_data['parent'] = user
+                child_data = self._set_child_data_or_spouse_data(child_data, user)
+                child_serializer = self.__class__(data=child_data)
+                child_serializer.is_valid(raise_exception=True)
+                child = child_serializer.save()
+                children.append(child)
 
-        user.children.set(children)
+            user.children.set(children)
 
-        # Création du conjoint (spouse)
-        if spouse_data:
-            spouse_data['spouse'] = user
-            spouse_data = self._set_child_data_or_spouse_data(spouse_data, user)
-            spouse_serializer = self.__class__(data=spouse_data)
-            spouse_serializer.is_valid(raise_exception=True)
-            spouse = spouse_serializer.save()
-            user.spouse = spouse
-            user.save()
+            # Création du conjoint (spouse)
+            if spouse_data:
+                spouse_data['spouse'] = user
+                spouse_data = self._set_child_data_or_spouse_data(spouse_data, user)
+                spouse_serializer = self.__class__(data=spouse_data)
+                spouse_serializer.is_valid(raise_exception=True)
+                spouse = spouse_serializer.save()
+                user.spouse = spouse
+                user.save()
 
-        return user
-    
-    
+            return user
+
     @staticmethod
     def _set_child_data_or_spouse_data(user, data):
         data['last_name'] = data['last_name'] if data['last_name'] else user.last_name
@@ -63,7 +70,7 @@ class UserSerializer(serializers.ModelSerializer):
         data['city'] = data['city'] if data['city'] else user.city
         data['country'] = data['country'] if data['country'] else user.country
         return data
-        
+
     class Meta:
         model = User
         fields = (

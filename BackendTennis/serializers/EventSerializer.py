@@ -10,8 +10,8 @@ class EventSerializer(serializers.ModelSerializer):
     dateType = serializers.CharField(max_length=50, required=True)
     image = serializers.PrimaryKeyRelatedField(queryset=Image.objects.all())
     category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
-    start = serializers.DateField()
-    end = serializers.DateField()
+    start = serializers.DateTimeField()
+    end = serializers.DateTimeField()
     createAt = serializers.DateTimeField(read_only=True)
     updateAt = serializers.DateTimeField(read_only=True)
 

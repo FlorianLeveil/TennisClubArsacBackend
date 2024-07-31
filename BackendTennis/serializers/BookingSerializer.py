@@ -16,15 +16,14 @@ class BookingSerializer(serializers.ModelSerializer):
     end = serializers.DateField(required=True)
     createAt = serializers.DateTimeField(read_only=True)
     updateAt = serializers.DateTimeField(read_only=True)
-    
+
     class Meta:
         model = Booking
         fields = "__all__"
-    
+
     def create(self, validated_data):
         return Booking.objects.create(**validated_data)
-    
-    
+
     def update(self, instance, validated_data):
         instance.clientFirstName = validated_data.get('clientFirstName', instance.clientFirstName)
         instance.clientLastName = validated_data.get('clientLastName', instance.clientLastName)

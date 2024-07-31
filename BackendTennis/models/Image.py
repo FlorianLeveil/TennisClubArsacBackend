@@ -16,19 +16,18 @@ class Image(models.Model):
     imageUrl = models.ImageField(upload_to=compute_image_url, blank=True, null=True)
     createAt = models.DateTimeField(auto_now_add=True)
     updateAt = models.DateTimeField(auto_now=True)
-    
-    
+
     def __str__(self):
         to_return = {
-            "id"      : self.id,
-            "title"   : self.title,
-            "tags"    : self.tags,
-            "type"    : self.type,
+            "id": self.id,
+            "title": self.title,
+            "tags": self.tags,
+            "type": self.type,
             "imageUrl": self.imageUrl,
             "createAt": self.createAt,
             "updateAt": self.updateAt
         }
         return "%s" % to_return
-    
+
     class Meta:
         app_label = "BackendTennis"

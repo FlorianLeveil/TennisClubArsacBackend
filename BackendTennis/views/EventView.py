@@ -1,17 +1,22 @@
-from rest_framework import generics
-from rest_framework.exceptions import ValidationError
-from rest_framework.response import Response
 from datetime import date
-from drf_yasg.utils import swagger_auto_schema
-from drf_yasg import openapi
-from BackendTennis.constant import Constant
+
+from drf_spectacular.utils import extend_schema, OpenApiParameter
+from rest_framework.exceptions import ValidationError
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.response import Response
+
+from BackendTennis.constant import Constant, constant_event_mode_list
 from BackendTennis.models import Event
 from BackendTennis.pagination import EventPagination
+from BackendTennis.permissions.event_permissions import EventPermissions
 from BackendTennis.serializers import EventSerializer, EventDetailSerializer
 from BackendTennis.utils import check_if_is_valid_save_and_return
 
 
 class EventModeMixin:
+    def __init__(self):
+        self.request = None
+
     def get_queryset(self):
         queryset = Event.objects.all()
         mode = self.request.query_params.get('mode')
@@ -27,20 +32,23 @@ class EventModeMixin:
         return queryset
 
 
-class EventListCreateView(EventModeMixin, generics.ListCreateAPIView):
+class EventListCreateView(EventModeMixin, ListCreateAPIView):
     queryset = Event.objects.all()
     serializer_class = EventDetailSerializer
     pagination_class = EventPagination
+    permission_classes = [EventPermissions]
 
-    @swagger_auto_schema(
-        manual_parameters=[
-            openapi.Parameter('mode', in_=openapi.IN_QUERY, type=openapi.TYPE_STRING, description='Mode of the event',
-                              enum=[Constant.EVENT_MODE.HISTORY, Constant.EVENT_MODE.FUTURE_EVENT]),
+    @extend_schema(
+        summary="Get a list of events",
+        parameters=[
+            OpenApiParameter(name='mode', required=True, type=str, description='Mode of the event',
+                             enum=constant_event_mode_list),
         ],
         responses={200: EventDetailSerializer(many=True)},
+        tags=['Events']
     )
     def get(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
+        self.get_queryset()
         return self.list(request, *args, **kwargs)
 
     def get_serializer_class(self):
@@ -57,31 +65,55 @@ class EventListCreateView(EventModeMixin, generics.ListCreateAPIView):
         serializer = self.get_serializer(queryset, many=True)
         return Response({'status': 'success', 'count': queryset.count(), 'data': serializer.data})
 
-    @swagger_auto_schema(
-        request_body=EventSerializer,
+    @extend_schema(
+        summary="Create a new event",
+        request=EventSerializer,
         responses={201: EventDetailSerializer()},
+        tags=['Events']
     )
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         return check_if_is_valid_save_and_return(serializer, EventDetailSerializer)
 
 
-class EventRetrieveUpdateDestroyView(EventModeMixin, generics.RetrieveUpdateDestroyAPIView):
+class EventRetrieveUpdateDestroyView(EventModeMixin, RetrieveUpdateDestroyAPIView):
     queryset = Event.objects.all()
     serializer_class = EventDetailSerializer
     lookup_field = 'id'
 
-    @swagger_auto_schema(
-        request_body=EventSerializer,
+    @extend_schema(
+        summary="Get event with Id",
         responses={200: EventDetailSerializer()},
+        request=serializer_class,
+        tags=['Events']
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
+    @extend_schema(
+        summary="Update a event",
+        request=EventSerializer,
+        responses={200: EventDetailSerializer()},
+        tags=['Events']
     )
     def patch(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data, partial=True)
         return check_if_is_valid_save_and_return(serializer, EventDetailSerializer)
 
-    @swagger_auto_schema(
-        responses={204: 'No Content'}
+    @extend_schema(
+        summary="Update a event",
+        responses={200: EventDetailSerializer()},
+        request=EventSerializer,
+        tags=['Events']
+    )
+    def put(self, request, *args, **kwargs):
+        return super().put(request, *args, **kwargs)
+
+    @extend_schema(
+        summary="Delete a event",
+        responses={204: None},
+        tags=['Events']
     )
     def delete(self, request, *args, **kwargs):
         instance = self.get_object()

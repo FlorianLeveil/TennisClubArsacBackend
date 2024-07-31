@@ -7,3 +7,4 @@ from .Event import Event
 from .News import News
 from .Tag import Tag
 from .User import User
+from .UserManager import UserManager
