@@ -1,6 +1,8 @@
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
+from BackendTennis.authentication import CustomAPIKeyAuthentication
 from BackendTennis.models import News
 from BackendTennis.pagination import NewsPagination
 from BackendTennis.permissions.news_permissions import NewsPermissions
@@ -10,8 +12,9 @@ from BackendTennis.utils import check_if_is_valid_save_and_return
 
 class NewsListCreateView(ListCreateAPIView):
     queryset = News.objects.all()
-    serializer_class = NewsDetailSerializer
+    serializer_class = NewsSerializer
     pagination_class = NewsPagination
+    authentication_classes = [CustomAPIKeyAuthentication, JWTAuthentication]
     permission_classes = [NewsPermissions]
 
     @extend_schema(
@@ -42,8 +45,9 @@ class NewsListCreateView(ListCreateAPIView):
 
 class NewsRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     queryset = News.objects.all()
-    serializer_class = NewsDetailSerializer
+    serializer_class = NewsSerializer
     lookup_field = 'id'
+    authentication_classes = [CustomAPIKeyAuthentication, JWTAuthentication]
     permission_classes = [NewsPermissions]
 
     @extend_schema(

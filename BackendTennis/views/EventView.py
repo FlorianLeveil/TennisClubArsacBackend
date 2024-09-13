@@ -4,7 +4,9 @@ from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
+from BackendTennis.authentication import CustomAPIKeyAuthentication
 from BackendTennis.constant import Constant, constant_event_mode_list
 from BackendTennis.models import Event
 from BackendTennis.pagination import EventPagination
@@ -36,6 +38,7 @@ class EventListCreateView(EventModeMixin, ListCreateAPIView):
     queryset = Event.objects.all()
     serializer_class = EventDetailSerializer
     pagination_class = EventPagination
+    authentication_classes = [CustomAPIKeyAuthentication, JWTAuthentication]
     permission_classes = [EventPermissions]
 
     @extend_schema(
@@ -78,8 +81,10 @@ class EventListCreateView(EventModeMixin, ListCreateAPIView):
 
 class EventRetrieveUpdateDestroyView(EventModeMixin, RetrieveUpdateDestroyAPIView):
     queryset = Event.objects.all()
-    serializer_class = EventDetailSerializer
+    serializer_class = EventSerializer
     lookup_field = 'id'
+    authentication_classes = [CustomAPIKeyAuthentication, JWTAuthentication]
+    permission_classes = [EventPermissions]
 
     @extend_schema(
         summary="Get event with Id",
@@ -92,7 +97,7 @@ class EventRetrieveUpdateDestroyView(EventModeMixin, RetrieveUpdateDestroyAPIVie
 
     @extend_schema(
         summary="Update a event",
-        request=EventSerializer,
+        request=serializer_class,
         responses={200: EventDetailSerializer()},
         tags=['Events']
     )
@@ -104,7 +109,7 @@ class EventRetrieveUpdateDestroyView(EventModeMixin, RetrieveUpdateDestroyAPIVie
     @extend_schema(
         summary="Update a event",
         responses={200: EventDetailSerializer()},
-        request=EventSerializer,
+        request=serializer_class,
         tags=['Events']
     )
     def put(self, request, *args, **kwargs):

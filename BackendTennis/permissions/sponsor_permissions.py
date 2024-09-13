@@ -3,7 +3,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.exceptions import AuthenticationFailed
 
 
-class PricingPermissions(permissions.BasePermission):
+class SponsorPermissions(permissions.BasePermission):
     def has_permission(self, request, view):
         if request.method in permissions.SAFE_METHODS:
             return True
@@ -23,10 +23,10 @@ class PricingPermissions(permissions.BasePermission):
                 return False
 
             model_perms = {
-                'POST': 'add_pricing',
-                'PUT': 'change_pricing',
-                'PATCH': 'change_pricing',
-                'DELETE': 'delete_pricing',
+                'POST': 'add_sponsor',
+                'PUT': 'change_sponsor',
+                'PATCH': 'change_sponsor',
+                'DELETE': 'delete_sponsor',
             }
             perm = model_perms.get(request.method, None)
             if perm and request.user.has_perm(f'BackendTennis.{perm}'):

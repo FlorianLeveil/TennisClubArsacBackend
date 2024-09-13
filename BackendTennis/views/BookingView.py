@@ -1,6 +1,8 @@
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
+from BackendTennis.authentication import CustomAPIKeyAuthentication
 from BackendTennis.models import Booking
 from BackendTennis.pagination import BookingPagination
 from BackendTennis.permissions.booking_permissions import BookingPermissions
@@ -11,6 +13,7 @@ class BookingListCreateView(ListCreateAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
     pagination_class = BookingPagination
+    authentication_classes = [CustomAPIKeyAuthentication, JWTAuthentication]
     permission_classes = [BookingPermissions]
 
     def get_queryset(self):
@@ -45,6 +48,7 @@ class BookingRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
     lookup_field = 'id'
+    authentication_classes = [CustomAPIKeyAuthentication, JWTAuthentication]
     permission_classes = [BookingPermissions]
 
     @extend_schema(

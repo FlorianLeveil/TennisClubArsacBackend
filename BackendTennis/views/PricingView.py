@@ -1,7 +1,9 @@
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
+from BackendTennis.authentication import CustomAPIKeyAuthentication
 from BackendTennis.constant import constant_pricing_type_list
 from BackendTennis.models import Pricing
 from BackendTennis.pagination import PricingPagination
@@ -14,8 +16,9 @@ from BackendTennis.validators import validate_pricing_type
 
 class PricingListCreateView(ListCreateAPIView):
     queryset = Pricing.objects.all()
-    serializer_class = PricingDetailSerializer
+    serializer_class = PricingSerializer
     pagination_class = PricingPagination
+    authentication_classes = [CustomAPIKeyAuthentication, JWTAuthentication]
     permission_classes = [PricingPermissions]
 
     @extend_schema(
@@ -66,8 +69,10 @@ class PricingListCreateView(ListCreateAPIView):
 
 class PricingRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     queryset = Pricing.objects.all()
-    serializer_class = PricingDetailSerializer
+    serializer_class = PricingSerializer
     lookup_field = 'id'
+    authentication_classes = [CustomAPIKeyAuthentication, JWTAuthentication]
+    permission_classes = [PricingPermissions]
 
     @extend_schema(
         summary="Get pricing with Id",

@@ -1,6 +1,8 @@
 from drf_spectacular.utils import extend_schema
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
+from BackendTennis.authentication import CustomAPIKeyAuthentication
 from BackendTennis.models import Category
 from BackendTennis.permissions.category_permissions import CategoryPermissions
 from BackendTennis.serializers import CategorySerializer
@@ -9,6 +11,7 @@ from BackendTennis.serializers import CategorySerializer
 class CategoryListCreateView(ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    authentication_classes = [CustomAPIKeyAuthentication, JWTAuthentication]
     permission_classes = [CategoryPermissions]
 
     def get_queryset(self):
@@ -17,7 +20,7 @@ class CategoryListCreateView(ListCreateAPIView):
     @extend_schema(
         summary="Get a list of categories",
         responses={200: CategorySerializer(many=True)},
-        request=CategorySerializer,
+        request=serializer_class,
         tags=['Categories']
     )
     def get(self, request, *args, **kwargs):
@@ -26,7 +29,7 @@ class CategoryListCreateView(ListCreateAPIView):
     @extend_schema(
         summary="Create a new category",
         responses={201: CategorySerializer()},
-        request=CategorySerializer,
+        request=serializer_class,
         tags=['Categories']
     )
     def post(self, request, *args, **kwargs):
@@ -37,12 +40,13 @@ class CategoryRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     lookup_field = 'id'
+    authentication_classes = [CustomAPIKeyAuthentication, JWTAuthentication]
     permission_classes = [CategoryPermissions]
 
     @extend_schema(
         summary="Get category with Id",
         responses={200: CategorySerializer()},
-        request=CategorySerializer,
+        request=serializer_class,
         tags=['Categories']
     )
     def get(self, request, *args, **kwargs):
@@ -51,7 +55,7 @@ class CategoryRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     @extend_schema(
         summary="Update a category",
         responses={200: CategorySerializer()},
-        request=CategorySerializer,
+        request=serializer_class,
         tags=['Categories']
     )
     def patch(self, request, *args, **kwargs):
@@ -60,7 +64,7 @@ class CategoryRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     @extend_schema(
         summary="Update a category",
         responses={200: CategorySerializer()},
-        request=CategorySerializer,
+        request=serializer_class,
         tags=['Categories']
     )
     def put(self, request, *args, **kwargs):

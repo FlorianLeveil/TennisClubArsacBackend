@@ -29,9 +29,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     createAt = models.DateTimeField(auto_now_add=True)
     updateAt = models.DateTimeField(auto_now=True)
 
-    objects = UserManager()  # Utilisez le UserManager personnalisé
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    is_superuser = models.BooleanField(default=False)
+
+    objects = UserManager()
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']  # Mettez ici les champs requis lors de la création d'un super utilisateur, en dehors de l'email et du mot de passe
+    REQUIRED_FIELDS = ['first_name', 'last_name']
 
     def __str__(self):
         to_return = {

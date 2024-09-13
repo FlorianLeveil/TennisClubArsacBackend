@@ -3,7 +3,9 @@ from datetime import datetime
 from django.db.models import Count
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
+from BackendTennis.authentication import CustomAPIKeyAuthentication
 from BackendTennis.constant import constant_image_type_list
 from BackendTennis.models import Image
 from BackendTennis.pagination import ImagePagination
@@ -17,6 +19,7 @@ class ImageListCreateView(ListCreateAPIView):
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
     pagination_class = ImagePagination
+    authentication_classes = [CustomAPIKeyAuthentication, JWTAuthentication]
     permission_classes = [ImagePermissions]
 
     @extend_schema(
@@ -68,7 +71,7 @@ class ImageListCreateView(ListCreateAPIView):
     @extend_schema(
         summary="Create a new image",
         request=ImageSerializer,
-        responses={201: ImageSerializer},
+        responses={201: ImageDetailSerializer},
         tags=['Images']
     )
     def post(self, request, *args, **kwargs):
@@ -79,11 +82,12 @@ class ImageRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
     lookup_field = 'id'
+    authentication_classes = [CustomAPIKeyAuthentication, JWTAuthentication]
     permission_classes = [ImagePermissions]
 
     @extend_schema(
         summary="Get image with Id",
-        responses={200: ImageSerializer()},
+        responses={200: ImageDetailSerializer()},
         request=serializer_class,
         tags=['Images']
     )
@@ -92,7 +96,7 @@ class ImageRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
 
     @extend_schema(
         summary="Update a image",
-        responses={200: ImageSerializer()},
+        responses={200: ImageDetailSerializer()},
         request=serializer_class,
         tags=['Images']
     )
@@ -101,7 +105,7 @@ class ImageRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
 
     @extend_schema(
         summary="Update a image",
-        responses={200: ImageSerializer()},
+        responses={200: ImageDetailSerializer()},
         request=serializer_class,
         tags=['Images']
     )

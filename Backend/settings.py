@@ -33,7 +33,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'BackendTennis',
     'phonenumber_field',
-    'drf_spectacular',  # Replace drf_yasg with drf_spectacular
+    'drf_spectacular',
+    "rest_framework_api_key",
 ]
 
 MIDDLEWARE = [
@@ -64,24 +65,20 @@ TEMPLATES = [
     },
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-}
-
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Tennis API',
     'DESCRIPTION': 'API documentation for Tennis Backend',
     'VERSION': '1.0',
-    'SECURITY': [{
-        'bearerAuth': []
-    }]
+    'SERVE_INCLUDE_SCHEMA': True,
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
@@ -95,10 +92,8 @@ SIMPLE_JWT = {
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
     'TOKEN_TYPE_CLAIM': 'token_type',
 }
-
 WSGI_APPLICATION = 'Backend.wsgi.application'
 
-# Database configuration
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -107,6 +102,11 @@ DATABASES = {
         'PASSWORD': 'tennis_sarsac109ZDFDSLFK!!:QSD',
         'HOST': '127.0.0.1',
         'PORT': '5432',
+        'TEST': {
+            'NAME': 'test_tennisarsacbackenddev',
+            'USER': 'testuser',
+            'PASSWORD': 'testpassword',
+        },
     }
 }
 
@@ -125,6 +125,46 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard'
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'django_debug.log',
+            'formatter': 'standard'
+        },
+    },
+    'loggers': {
+        '': {  # 'root' logger
+            'handlers': ['console', 'file'],
+            'level': 'WARNING',
+            'propagate': False
+        },
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'BackendTennis.authentication': {  # Custom app logger
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    }
+}
+
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'Europe/Paris'
 USE_I18N = True
@@ -134,4 +174,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DATETIME_FORMAT = '%d-%m-%Y %H:%M:%S'
 USE_L10N = False
 DATE_INPUT_FORMATS = ["%d-%m-%Y"]
-AUTH_USER_MODEL = 'BackendTennis.User'  # Remplacez 'BackendTennis' par le nom de votre application Django où se trouve le modèle
+AUTH_USER_MODEL = 'BackendTennis.User'

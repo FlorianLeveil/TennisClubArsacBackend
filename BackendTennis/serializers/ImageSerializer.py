@@ -14,18 +14,17 @@ class ImageSerializer(serializers.ModelSerializer):
     imageUrl = serializers.ImageField(required=False)
     createAt = serializers.DateTimeField(read_only=True)
     updateAt = serializers.DateTimeField(read_only=True)
-    
+
     class Meta:
         model = Image
         fields = "__all__"
-    
+
     def create(self, validated_data):
         tags_data = validated_data.pop('tags', [])
         image = Image.objects.create(**validated_data)
         image.tags.set(tags_data)
         return image
-    
-    
+
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)
         tags_data = validated_data.get('tags', None)
@@ -38,7 +37,7 @@ class ImageSerializer(serializers.ModelSerializer):
 
 class ImageDetailSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True)
-    
+
     class Meta:
         model = Image
         fields = '__all__'

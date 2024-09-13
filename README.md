@@ -89,6 +89,24 @@ python manage.py migrate
 ```sh
 python manage.py createsuperuser
 ```
+## Créer l'API key
+Se mettre à la racine du dossier (ou il y a le .git).
+```bash
+export DJANGO_SETTINGS_MODULE=Backend.settings
+```
+Ouvrir le shell de Django
+```bash
+python manage.py shell
+```
+Créer l'api Key
+```python
+from rest_framework_api_key.models import APIKey
+api_key, key = APIKey.objects.create_key(
+    name="Api_key"
+)
+print("Clé générée :", key)
+```
+
 
 ## Lancer le serveur de développement
 
