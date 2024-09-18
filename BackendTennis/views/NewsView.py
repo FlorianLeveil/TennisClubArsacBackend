@@ -40,7 +40,7 @@ class NewsListCreateView(ListCreateAPIView):
     )
     def post(self, request, *args, **kwargs):
         serializer = NewsSerializer(data=request.data)
-        return check_if_is_valid_save_and_return(serializer, NewsDetailSerializer)
+        return check_if_is_valid_save_and_return(serializer, NewsDetailSerializer, is_creation=True)
 
 
 class NewsRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):

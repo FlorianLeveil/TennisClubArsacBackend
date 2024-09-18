@@ -1,4 +1,6 @@
 import uuid
+
+from django.core.validators import MinValueValidator
 from django.db import models
 from BackendTennis.validators import validate_pricing_type
 
@@ -13,12 +15,12 @@ class Pricing(models.Model):
         null=True
     )
     description = models.CharField(max_length=1000)
-    price = models.FloatField(null=False)
+    price = models.FloatField(null=False, validators=[MinValueValidator(1)])
     type = models.CharField(max_length=1000, validators=[validate_pricing_type])
     createAt = models.DateTimeField(auto_now_add=True)
     updateAt = models.DateTimeField(auto_now=True)
-    
-    
+
+
     def __str__(self):
         to_return = {
             "id"         : self.id,
@@ -31,6 +33,6 @@ class Pricing(models.Model):
             "updateAt"   : self.updateAt
         }
         return "%s" % to_return
-    
+
     class Meta:
         app_label = "BackendTennis"

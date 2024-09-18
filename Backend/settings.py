@@ -70,6 +70,7 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'API documentation for Tennis Backend',
     'VERSION': '1.0',
     'SERVE_INCLUDE_SCHEMA': True,
+    'COMPONENT_SPLIT_REQUEST': True
 }
 
 REST_FRAMEWORK = {

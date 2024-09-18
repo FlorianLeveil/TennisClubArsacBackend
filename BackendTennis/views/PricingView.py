@@ -64,7 +64,7 @@ class PricingListCreateView(ListCreateAPIView):
     )
     def post(self, request, *args, **kwargs):
         serializer = PricingSerializer(data=request.data)
-        return check_if_is_valid_save_and_return(serializer, PricingDetailSerializer)
+        return check_if_is_valid_save_and_return(serializer, PricingDetailSerializer, is_creation=True)
 
 
 class PricingRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):

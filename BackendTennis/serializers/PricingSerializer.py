@@ -19,6 +19,11 @@ class PricingSerializer(serializers.ModelSerializer):
         model = Pricing
         fields = "__all__"
 
+    def validate_price(self, value):
+        if value <= 0:
+            raise serializers.ValidationError("Price must be greater than 0.")
+        return value
+
     def create(self, validated_data):
         return Pricing.objects.create(**validated_data)
 

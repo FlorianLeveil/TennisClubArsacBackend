@@ -14,13 +14,18 @@ from BackendTennis.utils import check_if_is_valid_save_and_return
 
 class SponsorListCreateView(ListCreateAPIView):
     queryset = Sponsor.objects.all()
-    serializer_class_request = SponsorSerializer
+    serializer_class = SponsorSerializer
     pagination_class = SponsorPagination
     authentication_classes = [CustomAPIKeyAuthentication, JWTAuthentication]
     permission_classes = [SponsorPermissions]
 
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return SponsorDetailSerializer
+        return SponsorSerializer
+
     @extend_schema(
-        summary="Get sponsor with Id",
+        summary="Get list of sponsor",
         parameters=[
             OpenApiParameter(name='page_size', description='Number of results to return per page', required=False,
                              type=int),
@@ -36,27 +41,32 @@ class SponsorListCreateView(ListCreateAPIView):
 
     @extend_schema(
         summary="Create a new sponsor",
-        request=serializer_class_request,
+        request=serializer_class,
         responses={201: SponsorDetailSerializer()},
         tags=['Sponsors']
     )
     def post(self, request, *args, **kwargs):
         serializer = SponsorSerializer(data=request.data)
-        return check_if_is_valid_save_and_return(serializer, SponsorDetailSerializer)
+        return check_if_is_valid_save_and_return(serializer, SponsorDetailSerializer, is_creation=True)
 
 
 class SponsorRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     queryset = Sponsor.objects.all()
-    serializer_class_request = SponsorSerializer
+    serializer_class = SponsorSerializer
     serializer_class_response = SponsorDetailSerializer
     lookup_field = 'id'
     authentication_classes = [CustomAPIKeyAuthentication, JWTAuthentication]
     permission_classes = [SponsorPermissions]
 
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return SponsorDetailSerializer
+        return SponsorSerializer
+
     @extend_schema(
         summary="Get sponsor with Id",
-        responses={200: serializer_class_response},
-        request=serializer_class_request,
+        responses={200: SponsorDetailSerializer},
+        request=serializer_class,
         tags=['Sponsors']
     )
     def get(self, request, *args, **kwargs):
@@ -65,7 +75,7 @@ class SponsorRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     @extend_schema(
         summary="Update a sponsor",
         responses={200: serializer_class_response},
-        request=serializer_class_request,
+        request=serializer_class,
         tags=['Sponsors']
     )
     def patch(self, request, *args, **kwargs):
@@ -74,7 +84,7 @@ class SponsorRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     @extend_schema(
         summary="Update a sponsor",
         responses={200: serializer_class_response},
-        request=serializer_class_request,
+        request=serializer_class,
         tags=['Sponsors']
     )
     def put(self, request, *args, **kwargs):
