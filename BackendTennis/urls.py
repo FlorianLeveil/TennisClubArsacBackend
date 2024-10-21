@@ -14,8 +14,8 @@ urlpatterns = [
     path('booking/', BookingListCreateView.as_view(), name='booking_list_create'),
     path('booking/<uuid:id>/', BookingRetrieveUpdateDestroyView.as_view(), name='booking_retrieve_update_destroy'),
 
-    path('images/', ImageListCreateView.as_view(), name='image-list-create'),
-    path('images/<uuid:id>/', ImageRetrieveUpdateDestroyView.as_view(), name='image-retrieve-update-destroy'),
+    path('image/', ImageListCreateView.as_view(), name='image-list-create'),
+    path('image/<uuid:id>/', ImageRetrieveUpdateDestroyView.as_view(), name='image-retrieve-update-destroy'),
 
     path('pricing/', PricingListCreateView.as_view(), name='pricing-list-create'),
     path('pricing/<uuid:id>/', PricingRetrieveUpdateDestroyView.as_view(), name='pricing-retrieve-update-destroy'),

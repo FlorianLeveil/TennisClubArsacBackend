@@ -11,13 +11,19 @@ class ImageSerializer(serializers.ModelSerializer):
     title = serializers.CharField(max_length=100, required=True)
     tags = serializers.PrimaryKeyRelatedField(queryset=Tag.objects.all(), many=True, required=False)
     type = serializers.CharField(max_length=100, validators=[validate_image_type], required=True)
-    imageUrl = serializers.ImageField(required=False)
+    imageUrl = serializers.ImageField(required=True)
+    imageUrlLink = serializers.SerializerMethodField(read_only=True)
     createAt = serializers.DateTimeField(read_only=True)
     updateAt = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = Image
         fields = "__all__"
+
+    def get_imageUrlLink(self, obj):
+        if obj.imageUrl:
+            return obj.imageUrl.url
+        return None
 
     def create(self, validated_data):
         tags_data = validated_data.pop('tags', [])

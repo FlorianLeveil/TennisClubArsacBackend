@@ -6,7 +6,7 @@ class Constant(types.SimpleNamespace):
     IMAGE_TYPE: types.SimpleNamespace = types.SimpleNamespace(
         PRICING="pricing",
         NEWS="news",
-        EVENTS="event",
+        EVENT="event",
         SPONSOR="sponsor",
         PICTURE="picture",
         ADMIN="admin"

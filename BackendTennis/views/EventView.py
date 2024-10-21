@@ -76,7 +76,7 @@ class EventListCreateView(EventModeMixin, ListCreateAPIView):
     )
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        return check_if_is_valid_save_and_return(serializer, EventDetailSerializer)
+        return check_if_is_valid_save_and_return(serializer, EventDetailSerializer, is_creation=True)
 
 
 class EventRetrieveUpdateDestroyView(EventModeMixin, RetrieveUpdateDestroyAPIView):
@@ -121,6 +121,5 @@ class EventRetrieveUpdateDestroyView(EventModeMixin, RetrieveUpdateDestroyAPIVie
         tags=['Events']
     )
     def delete(self, request, *args, **kwargs):
-        instance = self.get_object()
-        instance.delete()
-        return Response({"status": "success", "data": "Event Deleted"})
+        return self.destroy(request, *args, **kwargs)
+

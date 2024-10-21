@@ -21,6 +21,14 @@ class BookingSerializer(serializers.ModelSerializer):
         model = Booking
         fields = "__all__"
 
+    def validate(self, data):
+        """Ensure the start date is not after the end date."""
+        start = data.get('start')
+        end = data.get('end')
+        if start and end and start > end:
+            raise serializers.ValidationError("Start date must be before or equal to the end date.")
+        return data
+
     def create(self, validated_data):
         return Booking.objects.create(**validated_data)
 

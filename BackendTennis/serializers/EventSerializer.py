@@ -20,8 +20,12 @@ class EventSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def validate(self, attrs):
-        if attrs['start'] >= attrs['end']:
+        start = attrs.get('start', None)
+        end = attrs.get('end', None)
+
+        if start and end and start >= end:
             raise serializers.ValidationError("Start date must be before end date.")
+
         return attrs
 
     def create(self, validated_data):

@@ -126,7 +126,7 @@ class NewsSerializerTestCase(APITestCase):
 
     def test_news_serializer_with_too_long_content(self):
         invalid_data = self.valid_data.copy()
-        invalid_data['content'] = 'A' * 2001  # Contenu supérieur à 2000 caractères
+        invalid_data['content'] = 'A' * 2001
         serializer = NewsSerializer(data=invalid_data)
         self.assertFalse(serializer.is_valid())
         self.assertIn('content', serializer.errors)
