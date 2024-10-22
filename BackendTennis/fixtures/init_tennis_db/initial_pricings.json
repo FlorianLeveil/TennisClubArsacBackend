@@ -1,0 +1,313 @@
+[
+  {
+    "model": "BackendTennis.Pricing",
+    "pk": "dee5f936-eb69-4c85-8fd3-938ac6eb27d0",
+    "fields": {
+      "id": "dee5f936-eb69-4c85-8fd3-938ac6eb27d0",
+      "title": "Cotisation de base Adulte",
+      "image": "8ab63162-292d-4354-aa3a-c48998c720a1",
+      "license": true,
+      "site_access": true,
+      "extra_data": [],
+      "information": "",
+      "price": "170",
+      "type": "ADULT",
+      "createAt": "2024-10-21T11:01:26.151680+02:00",
+      "updateAt": "2024-10-21T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Pricing",
+    "pk": "dee5f936-eb69-4c85-8fd3-938ac6eb27d1",
+    "fields": {
+      "id": "dee5f936-eb69-4c85-8fd3-938ac6eb27d1",
+      "title": "Adulte Entraînement (Loisir et Compétition joueur équipe)",
+      "image": "8ab63162-292d-4354-aa3a-c48998c720a2",
+      "license": true,
+      "site_access": true,
+      "extra_data": [
+        {
+          "label": "Séances par an",
+          "value": "26",
+          "type": "string"
+        },
+        {
+          "label": "Séances par semaine",
+          "value": "1",
+          "type": "string"
+        },
+        {
+          "label": "Durée par seances",
+          "value": "90",
+          "type": "string"
+        }
+      ],
+      "information": "",
+      "price": "310",
+      "type": "ADULT",
+      "createAt": "2024-10-21T11:01:26.151680+02:00",
+      "updateAt": "2024-10-21T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Pricing",
+    "pk": "dee5f936-eb69-4c85-8fd3-938ac6eb27d2",
+    "fields": {
+      "id": "dee5f936-eb69-4c85-8fd3-938ac6eb27d2",
+      "title": "Centre d’Entraînement Adulte",
+      "image": "8ab63162-292d-4354-aa3a-c48998c720a3",
+      "license": true,
+      "site_access": true,
+      "extra_data": [
+        {
+          "label": "Séances par an",
+          "value": "26",
+          "type": "string"
+        },
+        {
+          "label": "Séances par semaine",
+          "value": "2",
+          "type": "string"
+        },
+        {
+          "label": "Durée par seances",
+          "value": "90",
+          "type": "string"
+        }
+      ],
+      "information": "",
+      "price": "390",
+      "type": "ADULT",
+      "createAt": "2024-10-21T11:01:26.151680+02:00",
+      "updateAt": "2024-10-21T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Pricing",
+    "pk": "dee5f936-eb69-4c85-8fd3-938ac6eb27d3",
+    "fields": {
+      "id": "dee5f936-eb69-4c85-8fd3-938ac6eb27d3",
+      "title": "Cotisation de base – 18 ans",
+      "image": "8ab63162-292d-4354-aa3a-c48998c720a1",
+      "license": true,
+      "site_access": true,
+      "extra_data": [],
+      "information": "",
+      "price": "155",
+      "type": "CHILDREN",
+      "createAt": "2024-10-21T11:01:26.151680+02:00",
+      "updateAt": "2024-10-21T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Pricing",
+    "pk": "dee5f936-eb69-4c85-8fd3-938ac6eb27d4",
+    "fields": {
+      "id": "dee5f936-eb69-4c85-8fd3-938ac6eb27d4",
+      "title": "Ecole mini-tennis",
+      "image": "8ab63162-292d-4354-aa3a-c48998c720a8",
+      "license": true,
+      "site_access": true,
+      "extra_data": [
+        {
+          "label": "Séances par an",
+          "value": "26",
+          "type": "string"
+        },
+        {
+          "label": "Séances par semaine",
+          "value": "1",
+          "type": "string"
+        },
+        {
+          "label": "Durée par seances",
+          "value": "60",
+          "type": "string"
+        }
+      ],
+      "information": "enfants nés en 2019, 2020",
+      "price": "140",
+      "type": "CHILDREN",
+      "createAt": "2024-10-21T11:01:26.151680+02:00",
+      "updateAt": "2024-10-21T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Pricing",
+    "pk": "dee5f936-eb69-4c85-8fd3-938ac6eb27d5",
+    "fields": {
+      "id": "dee5f936-eb69-4c85-8fd3-938ac6eb27d5",
+      "title": "Club Junior « Classique » 10 ans et +",
+      "image": "8ab63162-292d-4354-aa3a-c48998c720a4",
+      "license": true,
+      "site_access": true,
+      "extra_data": [
+        {
+          "label": "Séances par an",
+          "value": "26",
+          "type": "string"
+        },
+        {
+          "label": "Séances par semaine",
+          "value": "1",
+          "type": "string"
+        },
+        {
+          "label": "Durée par seances",
+          "value": "90",
+          "type": "string"
+        }
+      ],
+      "information": "",
+      "price": "240",
+      "type": "CHILDREN",
+      "createAt": "2024-10-21T11:01:26.151680+02:00",
+      "updateAt": "2024-10-21T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Pricing",
+    "pk": "dee5f936-eb69-4c85-8fd3-938ac6eb27d6",
+    "fields": {
+      "id": "dee5f936-eb69-4c85-8fd3-938ac6eb27d6",
+      "title": "Club Junior « Classique » - de 10 ans",
+      "image": "8ab63162-292d-4354-aa3a-c48998c720a5",
+      "license": true,
+      "site_access": true,
+      "extra_data": [
+        {
+          "label": "Séances par an",
+          "value": "26",
+          "type": "string"
+        },
+        {
+          "label": "Séances par semaine",
+          "value": "1",
+          "type": "string"
+        },
+        {
+          "label": "Durée par seances",
+          "value": "90",
+          "type": "string"
+        }
+      ],
+      "information": "",
+      "price": "190",
+      "type": "CHILDREN",
+      "createAt": "2024-10-21T11:01:26.151680+02:00",
+      "updateAt": "2024-10-21T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Pricing",
+    "pk": "dee5f936-eb69-4c85-8fd3-938ac6eb27d7",
+    "fields": {
+      "id": "dee5f936-eb69-4c85-8fd3-938ac6eb27d7",
+      "title": "Club Junior « Performance »",
+      "image": "8ab63162-292d-4354-aa3a-c48998c720a7",
+      "license": true,
+      "site_access": true,
+      "extra_data": [
+        {
+          "label": "Séances par an",
+          "value": "26",
+          "type": "string"
+        },
+        {
+          "label": "Séances par semaine",
+          "value": "2",
+          "type": "string"
+        },
+        {
+          "label": "Durée par seances",
+          "value": "90",
+          "type": "string"
+        }
+      ],
+      "information": "",
+      "price": "340",
+      "type": "CHILDREN",
+      "createAt": "2024-10-21T11:01:26.151680+02:00",
+      "updateAt": "2024-10-21T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Pricing",
+    "pk": "dee5f936-eb69-4c85-8fd3-938ac6eb27d8",
+    "fields": {
+      "id": "dee5f936-eb69-4c85-8fd3-938ac6eb27d8",
+      "title": "Club Junior « Intensif »",
+      "image": "8ab63162-292d-4354-aa3a-c48998c720a6",
+      "license": true,
+      "site_access": true,
+      "extra_data": [
+        {
+          "label": "Séances par an",
+          "value": "26",
+          "type": "string"
+        },
+        {
+          "label": "Séances par semaine",
+          "value": "3",
+          "type": "string"
+        },
+        {
+          "label": "Durée par seances",
+          "value": "90",
+          "type": "string"
+        }
+      ],
+      "information": "condition d’accès à la formule à vérifier auprès du directeur sportif, Sébastien Fagot",
+      "price": "500",
+      "type": "CHILDREN",
+      "createAt": "2024-10-21T11:01:26.151680+02:00",
+      "updateAt": "2024-10-21T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Pricing",
+    "pk": "dee5f936-eb69-4c85-8fd3-938ac6eb27d9",
+    "fields": {
+      "id": "dee5f936-eb69-4c85-8fd3-938ac6eb27d9",
+      "title": "Carte Éte",
+      "image": "8ab63162-292d-4354-aa3a-c48998c720a9",
+      "license": false,
+      "site_access": true,
+      "extra_data": [
+        {
+          "label": "Valable de mi-mai à fin-septembre",
+          "value": "",
+          "type": "string"
+        }
+      ],
+      "information": "accès aux terrains libre, prix de la licence à ajouter",
+      "price": "75",
+      "type": "OTHER",
+      "createAt": "2024-10-21T11:01:26.151680+02:00",
+      "updateAt": "2024-10-21T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Pricing",
+    "pk": "dee5f936-eb69-4c85-8fd3-938ac6eb27e1",
+    "fields": {
+      "id": "dee5f936-eb69-4c85-8fd3-938ac6eb27e1",
+      "title": "Location terrains à l’heure hors cotisations",
+      "image": "8ab63162-292d-4354-aa3a-c48998c720a0",
+      "license": false,
+      "site_access": false,
+      "extra_data": [
+        {
+          "label": "Réservation et paiement via l’application Anybuddy",
+          "value": "",
+          "type": "string"
+        }
+      ],
+      "information": "Prix reservation pour une heure",
+      "price": "15",
+      "type": "OTHER",
+      "createAt": "2024-10-21T11:01:26.151680+02:00",
+      "updateAt": "2024-10-21T11:01:26.151680+02:00"
+    }
+  }
+]

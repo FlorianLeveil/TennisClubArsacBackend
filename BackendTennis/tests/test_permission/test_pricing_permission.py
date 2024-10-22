@@ -1,12 +1,12 @@
 from datetime import date
 
 from django.contrib.auth.models import Permission
-from rest_framework.test import APITestCase
 from rest_framework import status
+from rest_framework.test import APITestCase
 from rest_framework_api_key.models import APIKey
 from rest_framework_simplejwt.tokens import AccessToken
+
 from BackendTennis.models import Pricing, User, Image
-from BackendTennis.serializers import PricingSerializer
 
 
 class PricingPermissionsTestCase(APITestCase):
@@ -38,7 +38,10 @@ class PricingPermissionsTestCase(APITestCase):
         self.image = Image.objects.create(type='sponsor', imageUrl='test_image_url.jpg')
         self.pricing = Pricing.objects.create(
             title="Test Pricing",
-            description="Test description",
+            license="Test description",
+            site_access="Test description",
+            extra_data=[{"label": "Test extra data", "value": "Test value", "type": "string"}],
+            information="Test information",
             price=100.0,
             type="adult",
             image=self.image

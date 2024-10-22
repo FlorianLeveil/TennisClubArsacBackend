@@ -1,8 +1,9 @@
 [
   {
     "model": "BackendTennis.Image",
+    "pk": "8ab63162-292d-4354-aa3a-c48998c720a1",
     "fields": {
-      "id": "11111101-5254-4f16-a4b3-44aac292c781",
+      "id": "8ab63162-292d-4354-aa3a-c48998c720a1",
       "title": "adulte__cotisation_de_base",
       "tags": [],
       "type": "pricing",
@@ -13,8 +14,9 @@
   },
   {
     "model": "BackendTennis.Image",
+    "pk": "8ab63162-292d-4354-aa3a-c48998c720a2",
     "fields": {
-      "id": "11111101-5254-4f16-a4b3-44aac292c782",
+      "id": "8ab63162-292d-4354-aa3a-c48998c720a2",
       "title": "adulte__loisir_entrainement",
       "tags": [],
       "type": "pricing",
@@ -25,8 +27,9 @@
   },
   {
     "model": "BackendTennis.Image",
+    "pk": "8ab63162-292d-4354-aa3a-c48998c720a3",
     "fields": {
-      "id": "11111101-5254-4f16-a4b3-44aac292c783",
+      "id": "8ab63162-292d-4354-aa3a-c48998c720a3",
       "title": "adulte__centre_entrainement",
       "tags": [],
       "type": "pricing",
@@ -37,8 +40,9 @@
   },
   {
     "model": "BackendTennis.Image",
+    "pk": "8ab63162-292d-4354-aa3a-c48998c720a4",
     "fields": {
-      "id": "11111101-5254-4f16-a4b3-44aac292c784",
+      "id": "8ab63162-292d-4354-aa3a-c48998c720a4",
       "title": "jeune__classique_10_plus",
       "tags": [],
       "type": "pricing",
@@ -49,8 +53,9 @@
   },
   {
     "model": "BackendTennis.Image",
+    "pk": "8ab63162-292d-4354-aa3a-c48998c720a5",
     "fields": {
-      "id": "11111101-5254-4f16-a4b3-44aac292c785",
+      "id": "8ab63162-292d-4354-aa3a-c48998c720a5",
       "title": "jeune__classique_10_moins",
       "tags": [],
       "type": "pricing",
@@ -61,8 +66,9 @@
   },
   {
     "model": "BackendTennis.Image",
+    "pk": "8ab63162-292d-4354-aa3a-c48998c720a6",
     "fields": {
-      "id": "11111101-5254-4f16-a4b3-44aac292c786",
+      "id": "8ab63162-292d-4354-aa3a-c48998c720a6",
       "title": "jeune__club_junior_intensif",
       "tags": [],
       "type": "pricing",
@@ -73,8 +79,9 @@
   },
   {
     "model": "BackendTennis.Image",
+    "pk": "8ab63162-292d-4354-aa3a-c48998c720a7",
     "fields": {
-      "id": "11111101-5254-4f16-a4b3-44aac292c787",
+      "id": "8ab63162-292d-4354-aa3a-c48998c720a7",
       "title": "jeune__club_junior_performance",
       "tags": [],
       "type": "pricing",
@@ -85,8 +92,9 @@
   },
   {
     "model": "BackendTennis.Image",
+    "pk": "8ab63162-292d-4354-aa3a-c48998c720a8",
     "fields": {
-      "id": "11111101-5254-4f16-a4b3-44aac292c788",
+      "id": "8ab63162-292d-4354-aa3a-c48998c720a8",
       "title": "jeune__mini_tennis",
       "tags": [],
       "type": "pricing",
@@ -97,8 +105,9 @@
   },
   {
     "model": "BackendTennis.Image",
+    "pk": "8ab63162-292d-4354-aa3a-c48998c720a9",
     "fields": {
-      "id": "11111101-5254-4f16-a4b3-44aac292c789",
+      "id": "8ab63162-292d-4354-aa3a-c48998c720a9",
       "title": "autre__carte_ete",
       "tags": [],
       "type": "pricing",
@@ -109,8 +118,9 @@
   },
   {
     "model": "BackendTennis.Image",
+    "pk": "8ab63162-292d-4354-aa3a-c48998c720a0",
     "fields": {
-      "id": "11111101-5254-4f16-a4b3-44aac292c790",
+      "id": "8ab63162-292d-4354-aa3a-c48998c720a0",
       "title": "autre__location_terrain",
       "tags": [],
       "type": "pricing",

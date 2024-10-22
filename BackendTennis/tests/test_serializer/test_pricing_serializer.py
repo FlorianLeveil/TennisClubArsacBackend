@@ -1,5 +1,5 @@
-from rest_framework.exceptions import ValidationError
 from rest_framework.test import APITestCase
+
 from BackendTennis.models import Pricing, Image
 from BackendTennis.serializers import PricingSerializer
 
@@ -59,7 +59,10 @@ class PricingSerializerTestCase(APITestCase):
     def test_update_pricing(self):
         pricing = Pricing.objects.create(
             title=self.valid_data['title'],
-            description=self.valid_data['description'],
+            license=self.valid_data['license'],
+            site_access=self.valid_data['site_access'],
+            extra_data=self.valid_data['extra_data'],
+            information=self.valid_data['information'],
             price=self.valid_data['price'],
             type=self.valid_data['type'],
             image=self.image

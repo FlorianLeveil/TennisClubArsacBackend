@@ -1,12 +1,13 @@
 from datetime import date
+
 from django.contrib.auth.models import Permission
-from rest_framework.test import APITestCase
 from rest_framework import status
+from rest_framework.test import APITestCase
 from rest_framework_api_key.models import APIKey
 from rest_framework_simplejwt.tokens import AccessToken
+
 from BackendTennis.models import User, Pricing, Image
 from BackendTennis.serializers import PricingSerializer
-from BackendTennis.constant import constant_pricing_type_list
 
 
 class PricingViewTests(APITestCase):
@@ -30,7 +31,6 @@ class PricingViewTests(APITestCase):
 
         self.image = Image.objects.create(title="test", type="sponsor")
 
-
         # Créer un token JWT pour cet utilisateur et le superutilisateur
         self.token = str(AccessToken.for_user(self.user))
         self.superuser_token = str(AccessToken.for_user(self.superuser))
@@ -41,7 +41,10 @@ class PricingViewTests(APITestCase):
         # Créer un prix existant pour les tests
         self.pricing = Pricing.objects.create(
             title='Basic Pricing',
-            description='Basic description',
+            license="Test description",
+            site_access="Test description",
+            extra_data=[{"label": "Test extra data", "value": "Test value", "type": "string"}],
+            information="Test information",
             price=100.0,
             type='regular'
         )
