@@ -10,3 +10,5 @@ venv/
 
 #Pycharm
 /.idea/
+.idea/
+/django_debug.log
