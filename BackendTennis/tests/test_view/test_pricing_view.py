@@ -1,3 +1,4 @@
+import json
 from datetime import date
 
 from django.contrib.auth.models import Permission
@@ -41,9 +42,9 @@ class PricingViewTests(APITestCase):
         # Créer un prix existant pour les tests
         self.pricing = Pricing.objects.create(
             title='Basic Pricing',
-            license="Test description",
-            site_access="Test description",
-            extra_data=[{"label": "Test extra data", "value": "Test value", "type": "string"}],
+            license=True,
+            siteAccess=True,
+            extraData=[{"label": "Test extra data", "value": "Test value", "type": "string"}],
             information="Test information",
             price=100.0,
             type='regular'
@@ -72,7 +73,10 @@ class PricingViewTests(APITestCase):
         """ Teste la création d'un pricing avec JWT et API Key """
         data = {
             'title': 'Premium Pricing',
-            'description': 'Premium description',
+            'license': True,
+            'siteAccess': True,
+            'extraData': json.dumps([{"label": "Test extra data", "value": "Test value", "type": "string"}]),
+            'information': "Test information",
             'price': 200.0,
             'type': 'other',
             'image': self.image.id
@@ -91,7 +95,10 @@ class PricingViewTests(APITestCase):
         """ Teste la création d'un pricing sans JWT (doit échouer) """
         data = {
             'title': 'Premium Pricing',
-            'description': 'Premium description',
+            'license': True,
+            'siteAccess': True,
+            'extraData': [{"label": "Test extra data", "value": "Test value", "type": "string"}],
+            'information': "Test information",
             'price': 200.0,
             'type': 'premium'
         }
@@ -101,7 +108,10 @@ class PricingViewTests(APITestCase):
     def test_create_pricing_with_invalid_type(self):
         data = {
             'title': 'Invalid Pricing',
-            'description': 'Invalid description',
+            'license': True,
+            'siteAccess': True,
+            'extraData': [{"label": "Test extra data", "value": "Test value", "type": "string"}],
+            'information': "Test information",
             'price': 150.0,
             'type': 'invalid_type',
             'image': self.image.id
@@ -121,7 +131,10 @@ class PricingViewTests(APITestCase):
         """ Teste que le superutilisateur peut créer un pricing sans permissions explicites """
         data = {
             'title': 'Super Pricing',
-            'description': 'Super description',
+            'license': True,
+            'siteAccess': True,
+            'extraData': json.dumps([{"label": "Test extra data", "value": "Test value", "type": "string"}]),
+            'information': "Test information",
             'price': 300.0,
             'type': 'other',
             'image': self.image.id

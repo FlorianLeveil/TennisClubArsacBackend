@@ -52,3 +52,7 @@ class SponsorPagination(CustomPagination):
 
 class TagPagination(CustomPagination):
     page_size = 100
+
+
+class TrainingPagination(CustomPagination):
+    page_size = 100

@@ -1,5 +1,4 @@
-import json
-from datetime import date
+from datetime import date, datetime
 
 from django.contrib.auth.models import Permission
 from rest_framework import status
@@ -7,10 +6,10 @@ from rest_framework.test import APITestCase
 from rest_framework_api_key.models import APIKey
 from rest_framework_simplejwt.tokens import AccessToken
 
-from BackendTennis.models import Pricing, User, Image
+from BackendTennis.models import User, Training
 
 
-class PricingPermissionsTestCase(APITestCase):
+class TrainingPermissionsTestCase(APITestCase):
 
     def setUp(self):
         self.user = User.objects.create_user(
@@ -36,39 +35,34 @@ class PricingPermissionsTestCase(APITestCase):
 
         self.api_key, self.key = APIKey.objects.create_key(name="test-api-key")
 
-        self.image = Image.objects.create(type='sponsor', imageUrl='test_image_url.jpg')
-        self.pricing = Pricing.objects.create(
-            title="Test Pricing",
-            license=True,
-            siteAccess=True,
-            extraData=json.dumps([{"label": "Test extra data", "value": "Test value", "type": "string"}]),
-            information="Test information",
-            price=100.0,
-            type="adult",
-            image=self.image
+        self.training = Training.objects.create(
+            name='Test Training',
+            unregisteredParticipants=[],
+            cancel=False,
+            start=datetime(2024, 10, 12),
+            end=datetime(2024, 10, 13)
         )
+        self.training.participants.set([self.user.id])
 
-        self.url = '/BackendTennis/pricing/'
-        self.detail_url = f'{self.url}{self.pricing.id}/'
+        self.url = '/BackendTennis/training/'
+        self.detail_url = f'{self.url}{self.training.id}/'
 
-    def test_get_pricing_list(self):
+    def test_get_training_list(self):
         response = self.client.get(self.url, HTTP_API_KEY=self.key)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_get_pricing_list_with_invalid_api_key(self):
+    def test_get_training_list_with_invalid_api_key(self):
         response = self.client.get(self.url, HTTP_API_KEY="invalid_key")
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    def test_post_pricing_without_permission(self):
+    def test_post_training_without_permission(self):
         data = {
-            'title': 'New Pricing',
-            'license': True,
-            'siteAccess': True,
-            'extraData': json.dumps([{"label": "Test extra data", "value": "Test value", "type": "string"}]),
-            'information': "Test information",
-            'price': 200.0,
-            'type': 'adult',
-            'image': self.image.id
+            'name': 'Test Training',
+            'participants': [self.user.id],
+            'unregisteredParticipants': [],
+            'cancel': False,
+            'start': datetime(2024, 10, 12),
+            'end': datetime(2024, 10, 13),
         }
         response = self.client.post(
             self.url,
@@ -78,18 +72,16 @@ class PricingPermissionsTestCase(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    def test_post_pricing_with_permission(self):
-        permission = Permission.objects.get(codename='add_pricing')
+    def test_post_training_with_permission(self):
+        permission = Permission.objects.get(codename='add_training')
         self.user.user_permissions.add(permission)
         data = {
-            'title': 'New Pricing',
-            'license': True,
-            'siteAccess': True,
-            'extraData': json.dumps([{"label": "Test extra data", "value": "Test value", "type": "string"}]),
-            'information': "Test information",
-            'price': 200.0,
-            'type': 'adult',
-            'image': self.image.id
+            'name': 'Test Training',
+            'participants': [self.user.id],
+            'unregisteredParticipants': [],
+            'cancel': False,
+            'start': datetime(2024, 10, 12),
+            'end': datetime(2024, 10, 13),
         }
         response = self.client.post(
             self.url,
@@ -99,10 +91,11 @@ class PricingPermissionsTestCase(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-    def test_put_pricing_without_permission(self):
+    def test_put_training_without_permission(self):
         data = {
-            'title': 'Updated Pricing',
-            'price': 150.0
+            'name': 'Updated Training',
+            'start': datetime(2024, 10, 15),
+            'end': datetime(2024, 10, 16),
         }
         response = self.client.patch(
             self.detail_url,
@@ -112,12 +105,13 @@ class PricingPermissionsTestCase(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    def test_put_pricing_with_permission(self):
-        permission = Permission.objects.get(codename='change_pricing')
+    def test_put_training_with_permission(self):
+        permission = Permission.objects.get(codename='change_training')
         self.user.user_permissions.add(permission)
         data = {
-            'title': 'Updated Pricing',
-            'price': 150.0
+            'name': 'Updated Training',
+            'start': datetime(2024, 10, 15),
+            'end': datetime(2024, 10, 16),
         }
         response = self.client.patch(
             self.detail_url,
@@ -127,7 +121,7 @@ class PricingPermissionsTestCase(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_delete_pricing_without_permission(self):
+    def test_delete_training_without_permission(self):
         response = self.client.delete(
             self.detail_url,
             HTTP_AUTHORIZATION=f'Bearer {self.token}',
@@ -135,8 +129,8 @@ class PricingPermissionsTestCase(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    def test_delete_pricing_with_permission(self):
-        permission = Permission.objects.get(codename='delete_pricing')
+    def test_delete_training_with_permission(self):
+        permission = Permission.objects.get(codename='delete_training')
         self.user.user_permissions.add(permission)
         response = self.client.delete(
             self.detail_url,
@@ -145,16 +139,14 @@ class PricingPermissionsTestCase(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-    def test_superuser_can_post_pricing(self):
+    def test_superuser_can_post_training(self):
         data = {
-            'title': 'New Pricing',
-            'license': True,
-            'siteAccess': True,
-            'extraData': json.dumps([{"label": "Test extra data", "value": "Test value", "type": "string"}]),
-            'information': "Test information",
-            'price': 200.0,
-            'type': 'adult',
-            'image': self.image.id
+            'name': 'Test Training',
+            'participants': [self.user.id],
+            'unregisteredParticipants': [],
+            'cancel': False,
+            'start': datetime(2024, 10, 12),
+            'end': datetime(2024, 10, 13),
         }
         response = self.client.post(
             self.url,

@@ -1,14 +1,16 @@
 import io
-from PIL import Image as PilImage
-from django.core.files.uploadedfile import SimpleUploadedFile
 from datetime import datetime, date, timedelta
+
+from PIL import Image as PilImage
 from django.contrib.auth.models import Permission
-from rest_framework.test import APITestCase
+from django.core.files.uploadedfile import SimpleUploadedFile
 from rest_framework import status
+from rest_framework.test import APITestCase
 from rest_framework_api_key.models import APIKey
 from rest_framework_simplejwt.tokens import AccessToken
-from BackendTennis.models import User, Image
+
 from BackendTennis.constant import Constant
+from BackendTennis.models import User, Image
 
 
 class ImageViewTests(APITestCase):
@@ -89,7 +91,6 @@ class ImageViewTests(APITestCase):
         self.user.user_permissions.add(permission)
         response = self.client.post(self.url, data=data, HTTP_AUTHORIZATION=f'Bearer {self.token}',
                                     HTTP_API_KEY=self.key, format='multipart')
-        print(response.__str__())
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertIn('imageUrlLink', response.data)
 

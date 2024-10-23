@@ -17,8 +17,8 @@ class Pricing(models.Model):
     )
     price = models.FloatField(null=False, validators=[MinValueValidator(1)])
     license = models.BooleanField(null=False, default=False)
-    site_access = models.BooleanField(null=False, default=False)
-    extra_data = models.JSONField(null=False, blank=True, default=list)
+    siteAccess = models.BooleanField(null=False, default=False)
+    extraData = models.JSONField(null=False, blank=True, default=list)
     information = models.CharField(max_length=1000, blank=True, null=False)
     type = models.CharField(max_length=1000, validators=[validate_pricing_type])
     createAt = models.DateTimeField(auto_now_add=True)
@@ -30,8 +30,8 @@ class Pricing(models.Model):
             "title": self.title,
             "image": self.image,
             "license": self.license,
-            "site_access": self.site_access,
-            "extra_data": self.extra_data,
+            "siteAccess": self.siteAccess,
+            "extraData": self.extraData,
             "information": self.information,
             "price": self.price,
             "type": self.type,

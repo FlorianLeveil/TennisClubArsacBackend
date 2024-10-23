@@ -7,8 +7,8 @@
       "title": "Cotisation de base Adulte",
       "image": "8ab63162-292d-4354-aa3a-c48998c720a1",
       "license": true,
-      "site_access": true,
-      "extra_data": [],
+      "siteAccess": true,
+      "extraData": [],
       "information": "",
       "price": "170",
       "type": "ADULT",
@@ -24,8 +24,8 @@
       "title": "Adulte Entraînement (Loisir et Compétition joueur équipe)",
       "image": "8ab63162-292d-4354-aa3a-c48998c720a2",
       "license": true,
-      "site_access": true,
-      "extra_data": [
+      "siteAccess": true,
+      "extraData": [
         {
           "label": "Séances par an",
           "value": "26",
@@ -57,8 +57,8 @@
       "title": "Centre d’Entraînement Adulte",
       "image": "8ab63162-292d-4354-aa3a-c48998c720a3",
       "license": true,
-      "site_access": true,
-      "extra_data": [
+      "siteAccess": true,
+      "extraData": [
         {
           "label": "Séances par an",
           "value": "26",
@@ -90,8 +90,8 @@
       "title": "Cotisation de base – 18 ans",
       "image": "8ab63162-292d-4354-aa3a-c48998c720a1",
       "license": true,
-      "site_access": true,
-      "extra_data": [],
+      "siteAccess": true,
+      "extraData": [],
       "information": "",
       "price": "155",
       "type": "CHILDREN",
@@ -107,8 +107,8 @@
       "title": "Ecole mini-tennis",
       "image": "8ab63162-292d-4354-aa3a-c48998c720a8",
       "license": true,
-      "site_access": true,
-      "extra_data": [
+      "siteAccess": true,
+      "extraData": [
         {
           "label": "Séances par an",
           "value": "26",
@@ -140,8 +140,8 @@
       "title": "Club Junior « Classique » 10 ans et +",
       "image": "8ab63162-292d-4354-aa3a-c48998c720a4",
       "license": true,
-      "site_access": true,
-      "extra_data": [
+      "siteAccess": true,
+      "extraData": [
         {
           "label": "Séances par an",
           "value": "26",
@@ -173,8 +173,8 @@
       "title": "Club Junior « Classique » - de 10 ans",
       "image": "8ab63162-292d-4354-aa3a-c48998c720a5",
       "license": true,
-      "site_access": true,
-      "extra_data": [
+      "siteAccess": true,
+      "extraData": [
         {
           "label": "Séances par an",
           "value": "26",
@@ -206,8 +206,8 @@
       "title": "Club Junior « Performance »",
       "image": "8ab63162-292d-4354-aa3a-c48998c720a7",
       "license": true,
-      "site_access": true,
-      "extra_data": [
+      "siteAccess": true,
+      "extraData": [
         {
           "label": "Séances par an",
           "value": "26",
@@ -239,8 +239,8 @@
       "title": "Club Junior « Intensif »",
       "image": "8ab63162-292d-4354-aa3a-c48998c720a6",
       "license": true,
-      "site_access": true,
-      "extra_data": [
+      "siteAccess": true,
+      "extraData": [
         {
           "label": "Séances par an",
           "value": "26",
@@ -272,8 +272,8 @@
       "title": "Carte Éte",
       "image": "8ab63162-292d-4354-aa3a-c48998c720a9",
       "license": false,
-      "site_access": true,
-      "extra_data": [
+      "siteAccess": true,
+      "extraData": [
         {
           "label": "Valable de mi-mai à fin-septembre",
           "value": "",
@@ -295,8 +295,8 @@
       "title": "Location terrains à l’heure hors cotisations",
       "image": "8ab63162-292d-4354-aa3a-c48998c720a0",
       "license": false,
-      "site_access": false,
-      "extra_data": [
+      "siteAccess": false,
+      "extraData": [
         {
           "label": "Réservation et paiement via l’application Anybuddy",
           "value": "",

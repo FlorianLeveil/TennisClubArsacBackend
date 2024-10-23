@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+import sys
 from datetime import timedelta
 from pathlib import Path
 
@@ -95,18 +96,25 @@ SIMPLE_JWT = {
 }
 WSGI_APPLICATION = 'Backend.wsgi.application'
 
+if 'test' in sys.argv:
+    NAME = 'test_tennisarsacbackenddev'
+    USER = 'testuser'
+    PASSWORD = 'testpassword'
+else:
+    NAME = 'tennisarsacbackenddev'
+    USER = 'tennisarsacuser'
+    PASSWORD = 'tennis_sarsac109ZDFDSLFK!!:QSD'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'tennisarsacbackenddev',
-        'USER': 'tennisarsacuser',
-        'PASSWORD': 'tennis_sarsac109ZDFDSLFK!!:QSD',
+        'NAME': NAME,
+        'USER': USER,
+        'PASSWORD': PASSWORD,
         'HOST': '127.0.0.1',
         'PORT': '5432',
         'TEST': {
             'NAME': 'test_tennisarsacbackenddev',
-            'USER': 'testuser',
-            'PASSWORD': 'testpassword',
         },
     }
 }

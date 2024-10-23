@@ -1,10 +1,11 @@
 from .Booking import Booking
-from .Image import Image
-from .Sponsor import Sponsor
-from .Pricing import Pricing
 from .Category import Category
 from .Event import Event
+from .Image import Image
 from .News import News
+from .Pricing import Pricing
+from .Sponsor import Sponsor
 from .Tag import Tag
+from .Training import Training
 from .User import User
 # from .UserManager import UserManager

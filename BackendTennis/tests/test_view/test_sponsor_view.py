@@ -33,8 +33,6 @@ class SponsorViewTests(APITestCase):
 
         sponsors = Sponsor.objects.all()
         serializer = SponsorDetailSerializer(sponsors, many=True)
-        print(response.data['data'])
-        print(serializer.data)
         self.assertEqual(response.data['data'], serializer.data)
         self.assertEqual(response.data['status'], 'success')
         self.assertEqual(response.data['count'], len(serializer.data))

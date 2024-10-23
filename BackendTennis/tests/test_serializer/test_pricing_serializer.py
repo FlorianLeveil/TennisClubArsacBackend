@@ -10,7 +10,10 @@ class PricingSerializerTestCase(APITestCase):
         self.image = Image.objects.create(type='sponsor', imageUrl='test_image_url.jpg')
         self.valid_data = {
             'title': 'Test Pricing',
-            'description': 'This is a test pricing description',
+            'license': True,
+            'siteAccess': True,
+            'extraData': [{'label': 'Test extra data', 'value': 'Test value', 'type': 'string'}],
+            'information': 'Test information',
             'price': 100.0,
             'type': 'adult',
             'image': self.image.id
@@ -60,8 +63,8 @@ class PricingSerializerTestCase(APITestCase):
         pricing = Pricing.objects.create(
             title=self.valid_data['title'],
             license=self.valid_data['license'],
-            site_access=self.valid_data['site_access'],
-            extra_data=self.valid_data['extra_data'],
+            siteAccess=self.valid_data['siteAccess'],
+            extraData=self.valid_data['extraData'],
             information=self.valid_data['information'],
             price=self.valid_data['price'],
             type=self.valid_data['type'],
