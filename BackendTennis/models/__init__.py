@@ -6,6 +6,7 @@ from .News import News
 from .Pricing import Pricing
 from .Sponsor import Sponsor
 from .Tag import Tag
+from .Tournament import Tournament
 from .Training import Training
 from .User import User
 # from .UserManager import UserManager

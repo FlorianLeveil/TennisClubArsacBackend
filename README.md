@@ -56,6 +56,8 @@ pip install -r requirement.txt
 
 ```bash
 sudo -u postgres psql
+```
+```postgresql
 CREATE DATABASE tennisarsacbackenddev;
 CREATE USER tennisarsacuser WITH PASSWORD 'tennis_sarsac109ZDFDSLFK!!:QSD';
 GRANT ALL PRIVILEGES ON DATABASE tennisarsacbackenddev TO tennisarsacuser;
@@ -117,3 +119,11 @@ python manage.py runserver
 ## Accéder à l'application
 
 Ouvrez votre navigateur et accédez à [http://127.0.0.1:8000](http://127.0.0.1:8000)
+
+## SETUP des TU
+```postgresql
+CREATE DATABASE test_tennisarsacbackenddev;
+CREATE USER testuser WITH PASSWORD 'testpassword';
+GRANT ALL PRIVILEGES ON DATABASE test_tennisarsacbackenddev TO testuser;
+ALTER DATABASE test_tennisarsacbackenddev OWNER TO testuser;
+```

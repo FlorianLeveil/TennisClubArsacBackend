@@ -4,30 +4,30 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from BackendTennis.authentication import CustomAPIKeyAuthentication
-from BackendTennis.models import Training
-from BackendTennis.pagination import TrainingPagination
-from BackendTennis.permissions.training_permissions import TrainingPermissions
-from BackendTennis.serializers import TrainingSerializer, TrainingDetailSerializer
+from BackendTennis.models import Tournament
+from BackendTennis.pagination import TournamentPagination
+from BackendTennis.permissions.tournament_permissions import TournamentPermissions
+from BackendTennis.serializers import TournamentSerializer, TournamentDetailSerializer
 from BackendTennis.utils import check_if_is_valid_save_and_return
 
 
-class TrainingListCreateView(ListCreateAPIView):
-    queryset = Training.objects.all()
-    serializer_class = TrainingSerializer
-    pagination_class = TrainingPagination
+class TournamentListCreateView(ListCreateAPIView):
+    queryset = Tournament.objects.all()
+    serializer_class = TournamentSerializer
+    pagination_class = TournamentPagination
     authentication_classes = [CustomAPIKeyAuthentication, JWTAuthentication]
-    permission_classes = [TrainingPermissions]
+    permission_classes = [TournamentPermissions]
 
     @extend_schema(
-        summary="Get a list of trainings",
+        summary="Get a list of tournaments",
         parameters=[
-            OpenApiParameter(name='start_date', description='Start date to return trainings', required=False,
+            OpenApiParameter(name='start_date', description='Start date to return tournaments', required=False,
                              type=int),
-            OpenApiParameter(name='end_date', description='End date to return trainings', required=False,
+            OpenApiParameter(name='end_date', description='End date to return tournaments', required=False,
                              type=int),
         ],
-        responses={200: TrainingDetailSerializer(many=True)},
-        tags=['Trainings']
+        responses={200: TournamentDetailSerializer(many=True)},
+        tags=['Tournaments']
     )
     def get(self, request, *args, **kwargs):
         self.get_queryset()
@@ -53,55 +53,55 @@ class TrainingListCreateView(ListCreateAPIView):
         return queryset
 
     @extend_schema(
-        summary="Create a new training",
-        request=TrainingSerializer,
-        responses={201: TrainingDetailSerializer},
-        tags=['Trainings']
+        summary="Create a new tournament",
+        request=TournamentSerializer,
+        responses={201: TournamentDetailSerializer},
+        tags=['Tournaments']
     )
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
 
-class TrainingRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
-    queryset = Training.objects.all()
-    serializer_class = TrainingSerializer
+class TournamentRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+    queryset = Tournament.objects.all()
+    serializer_class = TournamentSerializer
     lookup_field = 'id'
     authentication_classes = [CustomAPIKeyAuthentication, JWTAuthentication]
-    permission_classes = [TrainingPermissions]
+    permission_classes = [TournamentPermissions]
 
     @extend_schema(
-        summary="Get Training by Id",
-        responses={200: TrainingDetailSerializer()},
+        summary="Get Tournament by Id",
+        responses={200: TournamentDetailSerializer()},
         request=serializer_class,
-        tags=['Trainings']
+        tags=['Tournaments']
     )
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
 
     @extend_schema(
-        summary="Update a Training",
-        responses={200: TrainingDetailSerializer()},
+        summary="Update a Tournament",
+        responses={200: TournamentDetailSerializer()},
         request=serializer_class,
-        tags=['Trainings']
+        tags=['Tournaments']
     )
     def put(self, request, *args, **kwargs):
         return super().put(request, *args, **kwargs)
 
     @extend_schema(
-        summary="Update a Training",
-        responses={200: TrainingDetailSerializer()},
+        summary="Update a Tournament",
+        responses={200: TournamentDetailSerializer()},
         request=serializer_class,
-        tags=['Trainings']
+        tags=['Tournaments']
     )
     def patch(self, request, *args, **kwargs):
         instance = self.get_object()
-        serializer = TrainingSerializer(instance, data=request.data, partial=True)
-        return check_if_is_valid_save_and_return(serializer, TrainingDetailSerializer)
+        serializer = TournamentSerializer(instance, data=request.data, partial=True)
+        return check_if_is_valid_save_and_return(serializer, TournamentDetailSerializer)
 
     @extend_schema(
-        summary="Delete a Training",
+        summary="Delete a Tournament",
         responses={204: None},
-        tags=['Trainings']
+        tags=['Tournaments']
     )
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)

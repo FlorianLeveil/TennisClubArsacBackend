@@ -3,10 +3,10 @@ from django.db import models
 from BackendTennis.models.BaseActivity import BaseActivity
 
 
-class Training(BaseActivity):
+class Tournament(BaseActivity):
     participants = models.ManyToManyField(
         "BackendTennis.User",
-        related_name="trainings"
+        related_name="tournaments"
     )
 
     def __str__(self):

@@ -1,4 +1,4 @@
-# Pas touche aux imports
+# TODO : fix circular import when SHIFT + O
 from .BookingSerializer import BookingSerializer
 from .CategorySerializer import CategorySerializer
 from .TagSerializer import TagSerializer
@@ -7,4 +7,5 @@ from .SponsorSerializer import SponsorSerializer, SponsorDetailSerializer
 from .PricingSerializer import PricingSerializer
 from .EventSerializer import EventSerializer, EventDetailSerializer
 from .NewsSerializer import NewsSerializer, NewsDetailSerializer
-from .TrainingSerializer import TrainingSerializer
+from .TournamentSerializer import TournamentSerializer, TournamentDetailSerializer
+from .TrainingSerializer import TrainingSerializer, TrainingDetailSerializer
