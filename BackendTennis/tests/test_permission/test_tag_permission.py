@@ -1,18 +1,19 @@
 from datetime import date
 
 from django.contrib.auth.models import Permission
-from rest_framework.test import APITestCase
 from rest_framework import status
+from rest_framework.test import APITestCase
 from rest_framework_api_key.models import APIKey
 from rest_framework_simplejwt.tokens import AccessToken
+
 from BackendTennis.models import Tag, User
-from BackendTennis.serializers import TagSerializer
 
 
 class TagViewTests(APITestCase):
 
-    def setUp(self):
-        self.user = User.objects.create_user(
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(
             email='testuser@example.com',
             password='testpassword',
             first_name='Test',
@@ -20,7 +21,7 @@ class TagViewTests(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        self.superuser = User.objects.create_superuser(
+        cls.superuser = User.objects.create_superuser(
             email='superuser@example.com',
             password='testpassword',
             first_name='Super',
@@ -28,11 +29,11 @@ class TagViewTests(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        self.token = str(AccessToken.for_user(self.user))
-        self.superuser_token = str(AccessToken.for_user(self.superuser))
+        cls.token = str(AccessToken.for_user(cls.user))
+        cls.superuser_token = str(AccessToken.for_user(cls.superuser))
 
-        self.api_key, self.key = APIKey.objects.create_key(name="test-api-key")
-        self.url = '/BackendTennis/tag/'
+        cls.api_key, cls.key = APIKey.objects.create_key(name="test-api-key")
+        cls.url = '/BackendTennis/tag/'
 
     def test_unauthorized_access_without_api_key(self):
         response = self.client.get(self.url)

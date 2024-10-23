@@ -1,15 +1,17 @@
-from rest_framework.test import APITestCase
 from rest_framework import status
+from rest_framework.test import APITestCase
 from rest_framework_api_key.models import APIKey
 from rest_framework_simplejwt.tokens import AccessToken
+
 from BackendTennis.models import News, Category, User, Image
 from BackendTennis.serializers import NewsSerializer
 
 
 class NewsViewTests(APITestCase):
 
-    def setUp(self):
-        self.user = User.objects.create_user(
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(
             email='testuser@example.com',
             password='testpassword',
             first_name='Test',
@@ -18,24 +20,24 @@ class NewsViewTests(APITestCase):
             is_superuser=True
         )
 
-        self.token = str(AccessToken.for_user(self.user))
+        cls.token = str(AccessToken.for_user(cls.user))
 
-        self.api_key, self.key = APIKey.objects.create_key(name="test-api-key")
+        cls.api_key, cls.key = APIKey.objects.create_key(name="test-api-key")
 
-        self.category = Category.objects.create(name="Sport")
+        cls.category = Category.objects.create(name="Sport")
 
-        self.image = Image.objects.create(type='news', imageUrl='test_image.jpg')
+        cls.image = Image.objects.create(type='news', imageUrl='test_image.jpg')
 
-        self.news = News.objects.create(
+        cls.news = News.objects.create(
             title='Test News',
             content='This is a test news content.',
             subtitle='Test Subtitle',
-            category=self.category
+            category=cls.category
         )
-        self.news.images.add(self.image)
+        cls.news.images.add(cls.image)
 
-        self.url = '/BackendTennis/news/'
-        self.detail_url = f'{self.url}{self.news.id}/'
+        cls.url = '/BackendTennis/news/'
+        cls.detail_url = f'{cls.url}{cls.news.id}/'
 
     def test_get_news_list(self):
         response = self.client.get(self.url, HTTP_API_KEY=self.key)

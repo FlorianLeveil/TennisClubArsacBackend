@@ -1,17 +1,19 @@
 from datetime import date
+
 from django.contrib.auth.models import Permission
-from rest_framework.test import APITestCase
 from rest_framework import status
+from rest_framework.test import APITestCase
 from rest_framework_api_key.models import APIKey
 from rest_framework_simplejwt.tokens import AccessToken
+
 from BackendTennis.models import User, News, Image, Category
-from BackendTennis.serializers import NewsSerializer
 
 
 class NewsPermissionsTests(APITestCase):
 
-    def setUp(self):
-        self.user = User.objects.create_user(
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(
             email='testuser@example.com',
             password='testpassword',
             first_name='Test',
@@ -19,7 +21,7 @@ class NewsPermissionsTests(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        self.superuser = User.objects.create_superuser(
+        cls.superuser = User.objects.create_superuser(
             email='superuser@example.com',
             password='superpassword',
             first_name='Super',
@@ -27,24 +29,24 @@ class NewsPermissionsTests(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        self.image = Image.objects.create(type='news', imageUrl='test_image_url.jpg')
-        self.category = Category.objects.create(name="Test Category")
+        cls.image = Image.objects.create(type='news', imageUrl='test_image_url.jpg')
+        cls.category = Category.objects.create(name="Test Category")
 
-        self.token = str(AccessToken.for_user(self.user))
-        self.superuser_token = str(AccessToken.for_user(self.superuser))
+        cls.token = str(AccessToken.for_user(cls.user))
+        cls.superuser_token = str(AccessToken.for_user(cls.superuser))
 
-        self.api_key, self.key = APIKey.objects.create_key(name="test-api-key")
+        cls.api_key, cls.key = APIKey.objects.create_key(name="test-api-key")
 
-        self.news = News.objects.create(
+        cls.news = News.objects.create(
             title="Existing News",
             content="This is a test content",
             subtitle="Test subtitle",
-            category=self.category
+            category=cls.category
         )
-        self.news.images.add(self.image)
+        cls.news.images.add(cls.image)
 
-        self.url = '/BackendTennis/news/'
-        self.detail_url = f'{self.url}{self.news.id}/'
+        cls.url = '/BackendTennis/news/'
+        cls.detail_url = f'{cls.url}{cls.news.id}/'
 
     def test_get_news_list_no_authentication(self):
         """Test if unauthenticated users can access news list (safe methods)"""
@@ -172,4 +174,3 @@ class NewsPermissionsTests(APITestCase):
             HTTP_API_KEY=self.key
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-

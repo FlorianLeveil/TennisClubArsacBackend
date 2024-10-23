@@ -15,8 +15,9 @@ from BackendTennis.models import User, Image
 
 class ImageViewTests(APITestCase):
 
-    def setUp(self):
-        self.user = User.objects.create_user(
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(
             email='testuser@example.com',
             password='testpassword',
             first_name='Test',
@@ -24,7 +25,7 @@ class ImageViewTests(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        self.superuser = User.objects.create_superuser(
+        cls.superuser = User.objects.create_superuser(
             email='superuser@example.com',
             password='superpassword',
             first_name='Super',
@@ -32,13 +33,13 @@ class ImageViewTests(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        self.api_key, self.key = APIKey.objects.create_key(name="test-api-key")
-        self.token = str(AccessToken.for_user(self.user))
-        self.superuser_token = str(AccessToken.for_user(self.superuser))
+        cls.api_key, cls.key = APIKey.objects.create_key(name="test-api-key")
+        cls.token = str(AccessToken.for_user(cls.user))
+        cls.superuser_token = str(AccessToken.for_user(cls.superuser))
 
-        self.image = Image.objects.create(type=Constant.IMAGE_TYPE.SPONSOR, imageUrl="test_image_url.jpg")
-        self.url = '/BackendTennis/image/'
-        self.detail_url = f'{self.url}{self.image.id}/'
+        cls.image = Image.objects.create(type=Constant.IMAGE_TYPE.SPONSOR, imageUrl="test_image_url.jpg")
+        cls.url = '/BackendTennis/image/'
+        cls.detail_url = f'{cls.url}{cls.image.id}/'
 
     def create_test_image_file(self):
         image = PilImage.new('RGB', (100, 100), color='red')

@@ -11,8 +11,9 @@ from BackendTennis.models import User, Training
 
 class TrainingSerializerTestCase(APITestCase):
 
-    def setUp(self):
-        self.user = User.objects.create_user(
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(
             email='testuser@example.com',
             password='testpassword',
             first_name='Test',
@@ -20,7 +21,7 @@ class TrainingSerializerTestCase(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        self.superuser = User.objects.create_superuser(
+        cls.superuser = User.objects.create_superuser(
             email='superuser@example.com',
             password='superpassword',
             first_name='Super',
@@ -28,21 +29,21 @@ class TrainingSerializerTestCase(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        self.api_key, self.key = APIKey.objects.create_key(name="test-api-key")
-        self.token = str(AccessToken.for_user(self.user))
-        self.superuser_token = str(AccessToken.for_user(self.superuser))
+        cls.api_key, cls.key = APIKey.objects.create_key(name="test-api-key")
+        cls.token = str(AccessToken.for_user(cls.user))
+        cls.superuser_token = str(AccessToken.for_user(cls.superuser))
 
-        self.training = Training.objects.create(
+        cls.training = Training.objects.create(
             name='Test Training',
             unregisteredParticipants=[],
             cancel=False,
             start=datetime(2024, 10, 12),
             end=datetime(2024, 10, 13)
         )
-        self.training.participants.set([self.user.id])
+        cls.training.participants.set([cls.user.id])
 
-        self.url = '/BackendTennis/training/'
-        self.detail_url = f'{self.url}{self.training.id}/'
+        cls.url = '/BackendTennis/training/'
+        cls.detail_url = f'{cls.url}{cls.training.id}/'
 
     def test_get_training_list_no_authentication(self):
         """ Test if unauthenticated users cannot access the training list """

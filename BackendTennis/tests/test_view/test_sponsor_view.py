@@ -1,31 +1,34 @@
 from datetime import date
+
 from django.contrib.auth.models import Permission
-from rest_framework.test import APITestCase
 from rest_framework import status
+from rest_framework.test import APITestCase
 from rest_framework_api_key.models import APIKey
 from rest_framework_simplejwt.tokens import AccessToken
+
 from BackendTennis.models import Sponsor, Image, User
-from BackendTennis.serializers import SponsorSerializer, SponsorDetailSerializer
+from BackendTennis.serializers import SponsorDetailSerializer
 
 
 class SponsorViewTests(APITestCase):
 
-    def setUp(self):
-        self.user = User.objects.create_user(
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(
             email='testuser@example.com',
             password='testpassword',
             first_name='Test',
             last_name='User',
             birthdate=date(1990, 1, 1)
         )
-        self.token = str(AccessToken.for_user(self.user))
-        self.api_key, self.key = APIKey.objects.create_key(name="test-api-key")
+        cls.token = str(AccessToken.for_user(cls.user))
+        cls.api_key, cls.key = APIKey.objects.create_key(name="test-api-key")
 
-        self.image = Image.objects.create(title='Sponsor Image', type='sponsor')
+        cls.image = Image.objects.create(title='Sponsor Image', type='sponsor')
 
-        self.sponsor = Sponsor.objects.create(brandName='Test Sponsor', image=self.image)
-        self.url = '/BackendTennis/sponsor/'
-        self.detail_url = f'{self.url}{self.sponsor.id}/'
+        cls.sponsor = Sponsor.objects.create(brandName='Test Sponsor', image=cls.image)
+        cls.url = '/BackendTennis/sponsor/'
+        cls.detail_url = f'{cls.url}{cls.sponsor.id}/'
 
     def test_get_sponsor_list(self):
         response = self.client.get(self.url, HTTP_API_KEY=self.key)

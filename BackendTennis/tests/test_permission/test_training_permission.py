@@ -11,8 +11,9 @@ from BackendTennis.models import User, Training
 
 class TrainingPermissionsTestCase(APITestCase):
 
-    def setUp(self):
-        self.user = User.objects.create_user(
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(
             email='testuser@example.com',
             password='testpassword',
             first_name='Test',
@@ -21,7 +22,7 @@ class TrainingPermissionsTestCase(APITestCase):
 
         )
 
-        self.superuser = User.objects.create_superuser(
+        cls.superuser = User.objects.create_superuser(
             email='admin@example.com',
             password='adminpassword',
             first_name='Admin',
@@ -29,23 +30,23 @@ class TrainingPermissionsTestCase(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        self.token = str(AccessToken.for_user(self.user))
+        cls.token = str(AccessToken.for_user(cls.user))
 
-        self.admin_token = str(AccessToken.for_user(self.superuser))
+        cls.admin_token = str(AccessToken.for_user(cls.superuser))
 
-        self.api_key, self.key = APIKey.objects.create_key(name="test-api-key")
+        cls.api_key, cls.key = APIKey.objects.create_key(name="test-api-key")
 
-        self.training = Training.objects.create(
+        cls.training = Training.objects.create(
             name='Test Training',
             unregisteredParticipants=[],
             cancel=False,
             start=datetime(2024, 10, 12),
             end=datetime(2024, 10, 13)
         )
-        self.training.participants.set([self.user.id])
+        cls.training.participants.set([cls.user.id])
 
-        self.url = '/BackendTennis/training/'
-        self.detail_url = f'{self.url}{self.training.id}/'
+        cls.url = '/BackendTennis/training/'
+        cls.detail_url = f'{cls.url}{cls.training.id}/'
 
     def test_get_training_list(self):
         response = self.client.get(self.url, HTTP_API_KEY=self.key)

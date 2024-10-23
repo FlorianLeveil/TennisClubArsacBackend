@@ -1,15 +1,18 @@
 from datetime import date
-from rest_framework.test import APITestCase
+
 from rest_framework import status
+from rest_framework.test import APITestCase
 from rest_framework_api_key.models import APIKey
 from rest_framework_simplejwt.tokens import AccessToken
+
 from BackendTennis.models import User, Booking
 
 
 class BookingViewTests(APITestCase):
 
-    def setUp(self):
-        self.user = User.objects.create_user(
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(
             email='testuser@example.com',
             password='testpassword',
             first_name='Test',
@@ -17,7 +20,7 @@ class BookingViewTests(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        self.superuser = User.objects.create_superuser(
+        cls.superuser = User.objects.create_superuser(
             email='superuser@example.com',
             password='superpassword',
             first_name='Super',
@@ -25,11 +28,11 @@ class BookingViewTests(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        self.token = str(AccessToken.for_user(self.user))
-        self.superuser_token = str(AccessToken.for_user(self.superuser))
-        self.api_key, self.key = APIKey.objects.create_key(name="test-api-key")
+        cls.token = str(AccessToken.for_user(cls.user))
+        cls.superuser_token = str(AccessToken.for_user(cls.superuser))
+        cls.api_key, cls.key = APIKey.objects.create_key(name="test-api-key")
 
-        self.booking = Booking.objects.create(
+        cls.booking = Booking.objects.create(
             clientFirstName='John',
             clientLastName='Doe',
             clientEmail='john.doe@example.com',
@@ -42,8 +45,8 @@ class BookingViewTests(APITestCase):
             end=date(2024, 1, 2)
         )
 
-        self.url = '/BackendTennis/booking/'
-        self.detail_url = f'{self.url}{self.booking.id}/'
+        cls.url = '/BackendTennis/booking/'
+        cls.detail_url = f'{cls.url}{cls.booking.id}/'
 
     def test_get_booking_list_no_authentication(self):
         response = self.client.get(self.url)

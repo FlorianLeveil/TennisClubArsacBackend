@@ -12,8 +12,9 @@ from BackendTennis.models import Pricing, User, Image
 
 class PricingPermissionsTestCase(APITestCase):
 
-    def setUp(self):
-        self.user = User.objects.create_user(
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(
             email='testuser@example.com',
             password='testpassword',
             first_name='Test',
@@ -22,7 +23,7 @@ class PricingPermissionsTestCase(APITestCase):
 
         )
 
-        self.superuser = User.objects.create_superuser(
+        cls.superuser = User.objects.create_superuser(
             email='admin@example.com',
             password='adminpassword',
             first_name='Admin',
@@ -30,14 +31,14 @@ class PricingPermissionsTestCase(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        self.token = str(AccessToken.for_user(self.user))
+        cls.token = str(AccessToken.for_user(cls.user))
 
-        self.admin_token = str(AccessToken.for_user(self.superuser))
+        cls.admin_token = str(AccessToken.for_user(cls.superuser))
 
-        self.api_key, self.key = APIKey.objects.create_key(name="test-api-key")
+        cls.api_key, cls.key = APIKey.objects.create_key(name="test-api-key")
 
-        self.image = Image.objects.create(type='sponsor', imageUrl='test_image_url.jpg')
-        self.pricing = Pricing.objects.create(
+        cls.image = Image.objects.create(type='sponsor', imageUrl='test_image_url.jpg')
+        cls.pricing = Pricing.objects.create(
             title="Test Pricing",
             license=True,
             siteAccess=True,
@@ -45,11 +46,11 @@ class PricingPermissionsTestCase(APITestCase):
             information="Test information",
             price=100.0,
             type="adult",
-            image=self.image
+            image=cls.image
         )
 
-        self.url = '/BackendTennis/pricing/'
-        self.detail_url = f'{self.url}{self.pricing.id}/'
+        cls.url = '/BackendTennis/pricing/'
+        cls.detail_url = f'{cls.url}{cls.pricing.id}/'
 
     def test_get_pricing_list(self):
         response = self.client.get(self.url, HTTP_API_KEY=self.key)

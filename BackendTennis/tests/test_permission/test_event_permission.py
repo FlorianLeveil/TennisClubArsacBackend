@@ -1,18 +1,20 @@
 from datetime import date
+
 from django.contrib.auth.models import Permission
 from rest_framework import status
 from rest_framework.test import APITestCase
 from rest_framework_api_key.models import APIKey
 from rest_framework_simplejwt.tokens import AccessToken
-from BackendTennis.models import User, Event, Image, Category
-from BackendTennis.serializers import EventSerializer
+
 from BackendTennis.constant import Constant
+from BackendTennis.models import User, Event, Image, Category
 
 
 class EventPermissionsTests(APITestCase):
 
-    def setUp(self):
-        self.user = User.objects.create_user(
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(
             email='testuser@example.com',
             password='testpassword',
             first_name='Test',
@@ -20,7 +22,7 @@ class EventPermissionsTests(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        self.superuser = User.objects.create_superuser(
+        cls.superuser = User.objects.create_superuser(
             email='superuser@example.com',
             password='superpassword',
             first_name='Super',
@@ -28,26 +30,26 @@ class EventPermissionsTests(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        self.image = Image.objects.create(title="Test Image", type=Constant.IMAGE_TYPE.EVENT)
-        self.category = Category.objects.create(name="Test Category")
+        cls.image = Image.objects.create(title="Test Image", type=Constant.IMAGE_TYPE.EVENT)
+        cls.category = Category.objects.create(name="Test Category")
 
-        self.token = str(AccessToken.for_user(self.user))
-        self.superuser_token = str(AccessToken.for_user(self.superuser))
+        cls.token = str(AccessToken.for_user(cls.user))
+        cls.superuser_token = str(AccessToken.for_user(cls.superuser))
 
-        self.api_key, self.key = APIKey.objects.create_key(name="test-api-key")
+        cls.api_key, cls.key = APIKey.objects.create_key(name="test-api-key")
 
-        self.event = Event.objects.create(
+        cls.event = Event.objects.create(
             title='Existing Event',
             description='This is a test event',
             dateType='single',
             start='2024-09-01T10:00:00Z',
             end='2024-09-01T12:00:00Z',
-            image=self.image,
-            category=self.category
+            image=cls.image,
+            category=cls.category
         )
 
-        self.url = '/BackendTennis/event/'
-        self.detail_url = f'{self.url}{self.event.id}/'
+        cls.url = '/BackendTennis/event/'
+        cls.detail_url = f'{cls.url}{cls.event.id}/'
 
     def test_get_event_list_no_authentication(self):
         """ Test fetching event list without authentication (should be forbidden) """

@@ -11,8 +11,9 @@ from BackendTennis.models import User, Tournament
 
 class TournamentSerializerTestCase(APITestCase):
 
-    def setUp(self):
-        self.user = User.objects.create_user(
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(
             email='testuser@example.com',
             password='testpassword',
             first_name='Test',
@@ -20,7 +21,7 @@ class TournamentSerializerTestCase(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        self.superuser = User.objects.create_superuser(
+        cls.superuser = User.objects.create_superuser(
             email='superuser@example.com',
             password='superpassword',
             first_name='Super',
@@ -28,21 +29,21 @@ class TournamentSerializerTestCase(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        self.api_key, self.key = APIKey.objects.create_key(name="test-api-key")
-        self.token = str(AccessToken.for_user(self.user))
-        self.superuser_token = str(AccessToken.for_user(self.superuser))
+        cls.api_key, cls.key = APIKey.objects.create_key(name="test-api-key")
+        cls.token = str(AccessToken.for_user(cls.user))
+        cls.superuser_token = str(AccessToken.for_user(cls.superuser))
 
-        self.tournament = Tournament.objects.create(
+        cls.tournament = Tournament.objects.create(
             name='Test Tournament',
             unregisteredParticipants=[],
             cancel=False,
             start=datetime(2024, 10, 12),
             end=datetime(2024, 10, 13)
         )
-        self.tournament.participants.set([self.user.id])
+        cls.tournament.participants.set([cls.user.id])
 
-        self.url = '/BackendTennis/tournament/'
-        self.detail_url = f'{self.url}{self.tournament.id}/'
+        cls.url = '/BackendTennis/tournament/'
+        cls.detail_url = f'{cls.url}{cls.tournament.id}/'
 
     def test_get_tournament_list_no_authentication(self):
         """ Test if unauthenticated users cannot access the tournament list """

@@ -1,18 +1,20 @@
 from datetime import date
 
 from django.contrib.auth.models import Permission
-from rest_framework.test import APITestCase
 from rest_framework import status
+from rest_framework.test import APITestCase
 from rest_framework_api_key.models import APIKey
 from rest_framework_simplejwt.tokens import AccessToken
+
 from BackendTennis.models import Tag, User
 from BackendTennis.serializers import TagSerializer
 
 
 class TagViewTests(APITestCase):
 
-    def setUp(self):
-        self.user = User.objects.create_user(
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(
             email='testuser@example.com',
             password='testpassword',
             first_name='Test',
@@ -20,12 +22,12 @@ class TagViewTests(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        self.token = str(AccessToken.for_user(self.user))
+        cls.token = str(AccessToken.for_user(cls.user))
 
-        self.api_key, self.key = APIKey.objects.create_key(name="test-api-key")
-        self.tag = Tag.objects.create(name='Test Tag')
-        self.url = '/BackendTennis/tag/'
-        self.detail_url = f'{self.url}{self.tag.id}/'
+        cls.api_key, cls.key = APIKey.objects.create_key(name="test-api-key")
+        cls.tag = Tag.objects.create(name='Test Tag')
+        cls.url = '/BackendTennis/tag/'
+        cls.detail_url = f'{cls.url}{cls.tag.id}/'
 
     def test_get_tag_list(self):
         response = self.client.get(self.url, HTTP_API_KEY=self.key)

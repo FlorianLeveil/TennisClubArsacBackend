@@ -1,18 +1,20 @@
 from datetime import date
+
 from django.contrib.auth.models import Permission
-from rest_framework.test import APITestCase
 from rest_framework import status
+from rest_framework.test import APITestCase
 from rest_framework_api_key.models import APIKey
 from rest_framework_simplejwt.tokens import AccessToken
-from BackendTennis.models import User, Sponsor, Image
-from BackendTennis.serializers import SponsorSerializer
+
 from BackendTennis.constant import Constant
+from BackendTennis.models import User, Sponsor, Image
 
 
 class SponsorPermissionsTests(APITestCase):
 
-    def setUp(self):
-        self.user = User.objects.create_user(
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(
             email='testuser@example.com',
             password='testpassword',
             first_name='Test',
@@ -20,7 +22,7 @@ class SponsorPermissionsTests(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        self.superuser = User.objects.create_superuser(
+        cls.superuser = User.objects.create_superuser(
             email='superuser@example.com',
             password='superpassword',
             first_name='Super',
@@ -28,18 +30,18 @@ class SponsorPermissionsTests(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        self.image = Image.objects.create(title="Test Image", type=Constant.IMAGE_TYPE.SPONSOR)
+        cls.image = Image.objects.create(title="Test Image", type=Constant.IMAGE_TYPE.SPONSOR)
 
-        self.token = str(AccessToken.for_user(self.user))
+        cls.token = str(AccessToken.for_user(cls.user))
 
-        self.superuser_token = str(AccessToken.for_user(self.superuser))
+        cls.superuser_token = str(AccessToken.for_user(cls.superuser))
 
-        self.api_key, self.key = APIKey.objects.create_key(name="test-api-key")
+        cls.api_key, cls.key = APIKey.objects.create_key(name="test-api-key")
 
-        self.sponsor = Sponsor.objects.create(brandName='Existing Sponsor', image=self.image)
+        cls.sponsor = Sponsor.objects.create(brandName='Existing Sponsor', image=cls.image)
 
-        self.url = '/BackendTennis/sponsor/'
-        self.detail_url = f'{self.url}{self.sponsor.id}/'
+        cls.url = '/BackendTennis/sponsor/'
+        cls.detail_url = f'{cls.url}{cls.sponsor.id}/'
 
     def test_get_sponsor_list_no_authentication(self):
         response = self.client.get(self.url)

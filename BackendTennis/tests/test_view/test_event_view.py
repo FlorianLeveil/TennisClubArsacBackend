@@ -1,18 +1,21 @@
 from datetime import datetime, timedelta, date
+
 from django.contrib.auth.models import Permission
-from rest_framework.test import APITestCase
 from rest_framework import status
+from rest_framework.test import APITestCase
 from rest_framework_api_key.models import APIKey
 from rest_framework_simplejwt.tokens import AccessToken
-from BackendTennis.models import User, Event, Category, Image
+
 from BackendTennis.constant import Constant
+from BackendTennis.models import User, Event, Category, Image
 
 
 class EventViewTests(APITestCase):
 
-    def setUp(self):
+    @classmethod
+    def setUpTestData(cls):
         # Setup user and tokens
-        self.user = User.objects.create_user(
+        cls.user = User.objects.create_user(
             email='testuser@example.com',
             password='testpassword',
             first_name='Test',
@@ -21,7 +24,7 @@ class EventViewTests(APITestCase):
 
         )
 
-        self.superuser = User.objects.create_superuser(
+        cls.superuser = User.objects.create_superuser(
             email='superuser@example.com',
             password='superpassword',
             first_name='Super',
@@ -30,25 +33,25 @@ class EventViewTests(APITestCase):
 
         )
 
-        self.api_key, self.key = APIKey.objects.create_key(name="test-api-key")
-        self.token = str(AccessToken.for_user(self.user))
-        self.superuser_token = str(AccessToken.for_user(self.superuser))
+        cls.api_key, cls.key = APIKey.objects.create_key(name="test-api-key")
+        cls.token = str(AccessToken.for_user(cls.user))
+        cls.superuser_token = str(AccessToken.for_user(cls.superuser))
 
-        self.category = Category.objects.create(name="Test Category")
-        self.image = Image.objects.create(type=Constant.IMAGE_TYPE.EVENT, imageUrl="test_image_url.jpg")
+        cls.category = Category.objects.create(name="Test Category")
+        cls.image = Image.objects.create(type=Constant.IMAGE_TYPE.EVENT, imageUrl="test_image_url.jpg")
 
-        self.event = Event.objects.create(
+        cls.event = Event.objects.create(
             title="Test Event",
             description="Test Description",
             dateType="single-day",
             start=datetime.now() + timedelta(days=1),
             end=datetime.now() + timedelta(days=2),
-            image=self.image,
-            category=self.category
+            image=cls.image,
+            category=cls.category
         )
 
-        self.url = '/BackendTennis/event/'
-        self.detail_url = f'{self.url}{self.event.id}/'
+        cls.url = '/BackendTennis/event/'
+        cls.detail_url = f'{cls.url}{cls.event.id}/'
 
     def test_get_event_list_no_authentication(self):
         """ Test if unauthenticated users cannot access the event list """
@@ -110,7 +113,8 @@ class EventViewTests(APITestCase):
         }
         permission = Permission.objects.get(codename='add_event')
         self.user.user_permissions.add(permission)
-        response = self.client.post(self.url, data=data, HTTP_API_KEY=self.key, HTTP_AUTHORIZATION=f'Bearer {self.token}')
+        response = self.client.post(self.url, data=data, HTTP_API_KEY=self.key,
+                                    HTTP_AUTHORIZATION=f'Bearer {self.token}')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_get_event_detail_with_api_key(self):
@@ -122,7 +126,8 @@ class EventViewTests(APITestCase):
     def test_update_event_no_permission(self):
         """ Test updating an event without permission """
         data = {'title': 'Updated Event'}
-        response = self.client.patch(self.detail_url, data=data, HTTP_API_KEY=self.key, HTTP_AUTHORIZATION=f'Bearer {self.token}')
+        response = self.client.patch(self.detail_url, data=data, HTTP_API_KEY=self.key,
+                                     HTTP_AUTHORIZATION=f'Bearer {self.token}')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_update_event_with_permission(self):
@@ -130,7 +135,8 @@ class EventViewTests(APITestCase):
         data = {'title': 'Updated Event'}
         permission = Permission.objects.get(codename='change_event')
         self.user.user_permissions.add(permission)
-        response = self.client.patch(self.detail_url, data=data, HTTP_API_KEY=self.key, HTTP_AUTHORIZATION=f'Bearer {self.token}')
+        response = self.client.patch(self.detail_url, data=data, HTTP_API_KEY=self.key,
+                                     HTTP_AUTHORIZATION=f'Bearer {self.token}')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.event.refresh_from_db()
         self.assertEqual(self.event.title, 'Updated Event')
@@ -159,19 +165,22 @@ class EventViewTests(APITestCase):
             'image': self.image.id,
             'category': self.category.id
         }
-        response = self.client.post(self.url, data=data, HTTP_API_KEY=self.key, HTTP_AUTHORIZATION=f'Bearer {self.superuser_token}')
+        response = self.client.post(self.url, data=data, HTTP_API_KEY=self.key,
+                                    HTTP_AUTHORIZATION=f'Bearer {self.superuser_token}')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_superuser_can_update_event(self):
         """ Test if a superuser can update an event """
         data = {'title': 'Superuser Updated Event'}
-        response = self.client.patch(self.detail_url, data=data, HTTP_API_KEY=self.key, HTTP_AUTHORIZATION=f'Bearer {self.superuser_token}')
+        response = self.client.patch(self.detail_url, data=data, HTTP_API_KEY=self.key,
+                                     HTTP_AUTHORIZATION=f'Bearer {self.superuser_token}')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.event.refresh_from_db()
         self.assertEqual(self.event.title, 'Superuser Updated Event')
 
     def test_superuser_can_delete_event(self):
         """ Test if a superuser can delete an event """
-        response = self.client.delete(self.detail_url, HTTP_API_KEY=self.key, HTTP_AUTHORIZATION=f'Bearer {self.superuser_token}')
+        response = self.client.delete(self.detail_url, HTTP_API_KEY=self.key,
+                                      HTTP_AUTHORIZATION=f'Bearer {self.superuser_token}')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Event.objects.count(), 0)

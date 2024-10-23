@@ -13,16 +13,17 @@ from BackendTennis.serializers import PricingSerializer
 
 class PricingViewTests(APITestCase):
 
-    def setUp(self):
+    @classmethod
+    def setUpTestData(cls):
         # Créer un utilisateur et un superutilisateur pour les tests
-        self.user = User.objects.create_user(
+        cls.user = User.objects.create_user(
             email='testuser@example.com',
             password='testpassword',
             first_name='Test',
             last_name='User',
             birthdate=date(1990, 1, 1)
         )
-        self.superuser = User.objects.create_superuser(
+        cls.superuser = User.objects.create_superuser(
             email='superuser@example.com',
             password='superpassword',
             first_name='Super',
@@ -30,17 +31,17 @@ class PricingViewTests(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        self.image = Image.objects.create(title="test", type="sponsor")
+        cls.image = Image.objects.create(title="test", type="sponsor")
 
         # Créer un token JWT pour cet utilisateur et le superutilisateur
-        self.token = str(AccessToken.for_user(self.user))
-        self.superuser_token = str(AccessToken.for_user(self.superuser))
+        cls.token = str(AccessToken.for_user(cls.user))
+        cls.superuser_token = str(AccessToken.for_user(cls.superuser))
 
         # Créer une API key pour les tests
-        self.api_key, self.key = APIKey.objects.create_key(name="test-api-key")
+        cls.api_key, cls.key = APIKey.objects.create_key(name="test-api-key")
 
         # Créer un prix existant pour les tests
-        self.pricing = Pricing.objects.create(
+        cls.pricing = Pricing.objects.create(
             title='Basic Pricing',
             license=True,
             siteAccess=True,
@@ -51,8 +52,8 @@ class PricingViewTests(APITestCase):
         )
 
         # URL pour accéder aux vues des pricing
-        self.url = '/BackendTennis/pricing/'
-        self.detail_url = f'{self.url}{self.pricing.id}/'
+        cls.url = '/BackendTennis/pricing/'
+        cls.detail_url = f'{cls.url}{cls.pricing.id}/'
 
     def test_get_pricing_list_with_api_key(self):
         """ Teste la récupération de la liste des pricing avec une API Key """

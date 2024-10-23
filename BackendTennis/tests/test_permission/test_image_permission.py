@@ -1,17 +1,20 @@
 from datetime import date
+
 from django.contrib.auth.models import Permission
 from rest_framework.test import APITestCase, APIRequestFactory
-from rest_framework_simplejwt.tokens import AccessToken
 from rest_framework_api_key.models import APIKey
-from BackendTennis.models import User, Image
+from rest_framework_simplejwt.tokens import AccessToken
+
+from BackendTennis.models import User
 from BackendTennis.permissions.image_permissions import ImagePermissions
 from BackendTennis.views.ImageView import ImageListCreateView, ImageRetrieveUpdateDestroyView
 
 
 class ImagePermissionsTests(APITestCase):
 
-    def setUp(self):
-        self.user = User.objects.create_user(
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(
             email='testuser@example.com',
             password='testpassword',
             first_name='Test',
@@ -19,7 +22,7 @@ class ImagePermissionsTests(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        self.superuser = User.objects.create_superuser(
+        cls.superuser = User.objects.create_superuser(
             email='superuser@example.com',
             password='superpassword',
             first_name='Super',
@@ -27,26 +30,24 @@ class ImagePermissionsTests(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        self.api_key, self.key = APIKey.objects.create_key(name="test-api-key")
+        cls.api_key, cls.key = APIKey.objects.create_key(name="test-api-key")
 
-        self.token = str(AccessToken.for_user(self.user))
-        self.superuser_token = str(AccessToken.for_user(self.superuser))
+        cls.token = str(AccessToken.for_user(cls.user))
+        cls.superuser_token = str(AccessToken.for_user(cls.superuser))
 
-        self.factory = APIRequestFactory()
-        self.permission = ImagePermissions()
+        cls.factory = APIRequestFactory()
+        cls.permission = ImagePermissions()
 
     def test_safe_method_permissions(self):
         request = self.factory.get('/images/')
         request.META['HTTP_AUTHORIZATION'] = f'Bearer {self.token}'
         view = ImageListCreateView()
-
         self.assertTrue(self.permission.has_permission(request, view))
 
     def test_post_method_no_authentication(self):
         request = self.factory.post('/images/')
         request.user = None  # No user
         view = ImageListCreateView()
-
         self.assertFalse(self.permission.has_permission(request, view))
 
     def test_post_method_authenticated_no_permission(self):
