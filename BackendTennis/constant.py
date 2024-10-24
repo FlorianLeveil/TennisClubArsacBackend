@@ -4,12 +4,16 @@ from typing import List
 
 class Constant(types.SimpleNamespace):
     IMAGE_TYPE: types.SimpleNamespace = types.SimpleNamespace(
-        PRICING="pricing",
-        NEWS="news",
+        ABOUT_PAGE='about_page',
+        ADMIN="admin",
         EVENT="event",
-        SPONSOR="sponsor",
+        NEWS="news",
         PICTURE="picture",
-        ADMIN="admin"
+        PRICING="pricing",
+        PROFESSOR='professor',
+        SPONSOR="sponsor",
+        TEAM_MEMBER='team_member',
+        TEAM_PAGE='team_page',
     )
 
     PRICING_TYPE: types.SimpleNamespace = types.SimpleNamespace(

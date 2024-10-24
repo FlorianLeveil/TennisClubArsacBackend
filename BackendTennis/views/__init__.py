@@ -14,6 +14,7 @@ from .SponsorView import SponsorListCreateView
 from .SponsorView import SponsorRetrieveUpdateDestroyView
 from .TagView import TagRetrieveUpdateDestroyView
 from .TagView import TagView
+from .TeamMemberView import TeamMemberListCreateView, TeamMemberRetrieveUpdateDestroyView
 from .TournamentView import TournamentListCreateView, TournamentRetrieveUpdateDestroyView
 from .TrainingView import TrainingListCreateView, TrainingRetrieveUpdateDestroyView
 from .UserAdminView import UserAdminView
