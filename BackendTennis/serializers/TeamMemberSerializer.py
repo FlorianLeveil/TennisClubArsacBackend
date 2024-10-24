@@ -3,26 +3,21 @@ from rest_framework import serializers
 from BackendTennis.constant import Constant
 from BackendTennis.models import Image, TeamMember
 from BackendTennis.serializers import ImageDetailSerializer
+from BackendTennis.serializers.base_serializer import BaseMemberSerializer
 
 
-class TeamMemberSerializer(serializers.ModelSerializer):
-    id = serializers.UUIDField(read_only=True)
-    fullName = serializers.CharField(max_length=250, required=True)
-    role = serializers.CharField(max_length=255)
+class TeamMemberSerializer(BaseMemberSerializer):
     image = serializers.PrimaryKeyRelatedField(queryset=Image.objects.all())
     description = serializers.CharField(max_length=10000)
-    order = serializers.IntegerField(default=0)
-    createAt = serializers.DateTimeField(read_only=True)
-    updateAt = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = TeamMember
-        fields = "__all__"
+        fields = '__all__'
 
     @staticmethod
     def validate_image(value):
         if value.type != Constant.IMAGE_TYPE.TEAM_MEMBER:
-            raise serializers.ValidationError("Image must be of type 'team_member'.")
+            raise serializers.ValidationError('Image must be of type \'team_member\'.')
         return value
 
     def create(self, validated_data):

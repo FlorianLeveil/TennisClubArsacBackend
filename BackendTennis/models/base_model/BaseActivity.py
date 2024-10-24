@@ -16,16 +16,16 @@ class BaseActivity(models.Model):
 
     def __str__(self):
         to_return = {
-            "id": self.id,
-            "name": self.name,
-            "unregisteredParticipants": self.unregisteredParticipants,
-            "cancel": self.cancel,
-            "start": self.start,
-            "end": self.end,
-            "createAt": self.createAt,
-            "updateAt": self.updateAt
+            'id': self.id,
+            'name': self.name,
+            'unregisteredParticipants': self.unregisteredParticipants,
+            'cancel': self.cancel,
+            'start': self.start,
+            'end': self.end,
+            'createAt': self.createAt,
+            'updateAt': self.updateAt
         }
-        return "%s" % to_return
+        return '%s' % to_return
 
     class Meta:
         abstract = True

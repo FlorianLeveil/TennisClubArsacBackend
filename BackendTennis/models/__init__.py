@@ -4,6 +4,7 @@ from .Event import Event
 from .Image import Image
 from .News import News
 from .Pricing import Pricing
+from .Professor import Professor
 from .Sponsor import Sponsor
 from .Tag import Tag
 from .TeamMember import TeamMember

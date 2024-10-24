@@ -10,6 +10,7 @@ from .NewsView import NewsListCreateView
 from .NewsView import NewsRetrieveUpdateDestroyView
 from .PricingView import PricingListCreateView
 from .PricingView import PricingRetrieveUpdateDestroyView
+from .ProfessorView import ProfessorListCreateView, ProfessorRetrieveUpdateDestroyView
 from .SponsorView import SponsorListCreateView
 from .SponsorView import SponsorRetrieveUpdateDestroyView
 from .TagView import TagRetrieveUpdateDestroyView

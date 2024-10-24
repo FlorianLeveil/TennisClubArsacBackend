@@ -64,3 +64,7 @@ class TournamentPagination(CustomPagination):
 
 class TeamMemberPagination(CustomPagination):
     page_size = 10
+
+
+class ProfessorPagination(CustomPagination):
+    page_size = 10
