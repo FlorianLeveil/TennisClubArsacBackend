@@ -23,7 +23,7 @@ class TeamMemberListCreateView(ListCreateAPIView):
         return TeamMemberSerializer
 
     @extend_schema(
-        summary="Get list of Team Member",
+        summary='Get list of Team Member',
         parameters=[
             OpenApiParameter(name='page_size', description='Number of results to return per page', required=False,
                              type=int),
@@ -38,7 +38,7 @@ class TeamMemberListCreateView(ListCreateAPIView):
         return self.list(request, *args, **kwargs)
 
     @extend_schema(
-        summary="Create a new Team Member",
+        summary='Create a new Team Member',
         request=serializer_class,
         responses={201: TeamMemberDetailSerializer()},
         tags=['TeamMembers']
@@ -62,8 +62,8 @@ class TeamMemberRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
         return TeamMemberSerializer
 
     @extend_schema(
-        summary="Get Team Member with Id",
-        responses={200: TeamMemberDetailSerializer},
+        summary='Get Team Member with Id',
+        responses={200: serializer_class_response},
         request=serializer_class,
         tags=['TeamMembers']
     )
@@ -71,7 +71,7 @@ class TeamMemberRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
         return super().get(request, *args, **kwargs)
 
     @extend_schema(
-        summary="Update a Team Member",
+        summary='Update a Team Member',
         responses={200: serializer_class_response},
         request=serializer_class,
         tags=['TeamMembers']
@@ -80,7 +80,7 @@ class TeamMemberRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
         return super().patch(request, *args, **kwargs)
 
     @extend_schema(
-        summary="Update a Team Member",
+        summary='Update a Team Member',
         responses={200: serializer_class_response},
         request=serializer_class,
         tags=['TeamMembers']
@@ -89,7 +89,7 @@ class TeamMemberRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
         return super().put(request, *args, **kwargs)
 
     @extend_schema(
-        summary="Delete a Team Member",
+        summary='Delete a Team Member',
         responses={204: None},
         tags=['TeamMembers']
     )

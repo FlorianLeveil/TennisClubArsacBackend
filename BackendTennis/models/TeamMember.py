@@ -10,7 +10,7 @@ class TeamMember(BaseMember):
         related_name='team_members',
         null=True
     )
-    description = models.CharField(max_length=10000)
+    description = models.TextField()
 
     def __str__(self):
         to_return = {

@@ -8,6 +8,7 @@ from .PricingSerializer import PricingSerializer
 from .EventSerializer import EventSerializer, EventDetailSerializer
 from .NewsSerializer import NewsSerializer, NewsDetailSerializer
 from .ProfessorSerializer import ProfessorSerializer, ProfessorDetailSerializer
-from .TournamentSerializer import TournamentSerializer, TournamentDetailSerializer
 from .TeamMemberSerializer import TeamMemberSerializer, TeamMemberDetailSerializer
+from .TeamPageSerializer import TeamPageSerializer, TeamPageDetailSerializer
+from .TournamentSerializer import TournamentSerializer, TournamentDetailSerializer
 from .TrainingSerializer import TrainingSerializer, TrainingDetailSerializer

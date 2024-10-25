@@ -19,7 +19,7 @@ class TournamentListCreateView(ListCreateAPIView):
     permission_classes = [TournamentPermissions]
 
     @extend_schema(
-        summary="Get a list of tournaments",
+        summary='Get a list of tournaments',
         parameters=[
             OpenApiParameter(name='start_date', description='Start date to return tournaments', required=False,
                              type=int),
@@ -53,7 +53,7 @@ class TournamentListCreateView(ListCreateAPIView):
         return queryset
 
     @extend_schema(
-        summary="Create a new tournament",
+        summary='Create a new tournament',
         request=TournamentSerializer,
         responses={201: TournamentDetailSerializer},
         tags=['Tournaments']
@@ -65,13 +65,14 @@ class TournamentListCreateView(ListCreateAPIView):
 class TournamentRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     queryset = Tournament.objects.all()
     serializer_class = TournamentSerializer
+    serializer_class_response = TournamentDetailSerializer
     lookup_field = 'id'
     authentication_classes = [CustomAPIKeyAuthentication, JWTAuthentication]
     permission_classes = [TournamentPermissions]
 
     @extend_schema(
-        summary="Get Tournament by Id",
-        responses={200: TournamentDetailSerializer()},
+        summary='Get Tournament by Id',
+        responses={200: serializer_class_response},
         request=serializer_class,
         tags=['Tournaments']
     )
@@ -79,8 +80,8 @@ class TournamentRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
         return super().get(request, *args, **kwargs)
 
     @extend_schema(
-        summary="Update a Tournament",
-        responses={200: TournamentDetailSerializer()},
+        summary='Update a Tournament',
+        responses={200: serializer_class_response},
         request=serializer_class,
         tags=['Tournaments']
     )
@@ -88,8 +89,8 @@ class TournamentRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
         return super().put(request, *args, **kwargs)
 
     @extend_schema(
-        summary="Update a Tournament",
-        responses={200: TournamentDetailSerializer()},
+        summary='Update a Tournament',
+        responses={200: serializer_class_response},
         request=serializer_class,
         tags=['Tournaments']
     )
@@ -99,7 +100,7 @@ class TournamentRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
         return check_if_is_valid_save_and_return(serializer, TournamentDetailSerializer)
 
     @extend_schema(
-        summary="Delete a Tournament",
+        summary='Delete a Tournament',
         responses={204: None},
         tags=['Tournaments']
     )

@@ -9,7 +9,7 @@ from rest_framework_simplejwt.tokens import AccessToken
 from BackendTennis.models import User, Training
 
 
-class TrainingSerializerTestCase(APITestCase):
+class TrainingViewTests(APITestCase):
 
     @classmethod
     def setUpTestData(cls):
@@ -29,7 +29,7 @@ class TrainingSerializerTestCase(APITestCase):
             birthdate=date(1990, 1, 1)
         )
 
-        cls.api_key, cls.key = APIKey.objects.create_key(name="test-api-key")
+        cls.api_key, cls.key = APIKey.objects.create_key(name='test-api-key')
         cls.token = str(AccessToken.for_user(cls.user))
         cls.superuser_token = str(AccessToken.for_user(cls.superuser))
 
@@ -61,7 +61,7 @@ class TrainingSerializerTestCase(APITestCase):
         response = self.client.get(f'{self.url}?start_date={_date}', HTTP_API_KEY=self.key)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 1)
-        self.assertEqual(response.data['data'][0]['name'], "Test Training")
+        self.assertEqual(response.data['data'][0]['name'], 'Test Training')
 
     def test_get_training_list_with_start_date_only_0_training(self):
         """ Test filtering trainings by start_date """
@@ -76,7 +76,7 @@ class TrainingSerializerTestCase(APITestCase):
         response = self.client.get(f'{self.url}?end_date={_date}', HTTP_API_KEY=self.key)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 1)
-        self.assertEqual(response.data['data'][0]['name'], "Test Training")
+        self.assertEqual(response.data['data'][0]['name'], 'Test Training')
 
     def test_get_training_list_with_end_date_only_0_training(self):
         """ Test filtering trainings by end_date """
@@ -92,7 +92,7 @@ class TrainingSerializerTestCase(APITestCase):
         response = self.client.get(f'{self.url}?start_date={start_date}&end_date={end_date}', HTTP_API_KEY=self.key)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 1)
-        self.assertEqual(response.data['data'][0]['name'], "Test Training")
+        self.assertEqual(response.data['data'][0]['name'], 'Test Training')
 
     def test_get_training_list_with_start_date_end_date_0_training(self):
         """ Test filtering trainings by start_date and end_date """
