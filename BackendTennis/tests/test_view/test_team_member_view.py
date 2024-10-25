@@ -55,7 +55,8 @@ class TeamMemberViewTests(APITestCase):
             'fullName': 'New TeamMember',
             'image': self.image.id,
             'role': 'Test User',
-            'description': 'test description'
+            'description': 'test description',
+            'order': 2
         }
         permission = Permission.objects.get(codename='add_teammember')
         self.user.user_permissions.add(permission)

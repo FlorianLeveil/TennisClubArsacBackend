@@ -133,7 +133,6 @@ class TournamentPermissionsTestCase(APITestCase):
             HTTP_AUTHORIZATION=f'Bearer {self.token}',
             HTTP_API_KEY=self.key
         )
-        print(response.data)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
     def test_superuser_can_post_tournament(self):

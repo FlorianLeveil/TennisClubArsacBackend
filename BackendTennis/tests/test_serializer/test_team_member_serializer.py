@@ -34,7 +34,8 @@ class TeamMemberSerializerTests(TestCase):
             "fullName": "Updated Team Member",
             "image": self.team_member_image.id,
             'role': 'Test User',
-            'description': 'test description'
+            'description': 'test description',
+            'order': 2
         }
         serializer = TeamMemberSerializer(instance=team_member, data=updated_data)
         self.assertTrue(serializer.is_valid(), serializer.errors)

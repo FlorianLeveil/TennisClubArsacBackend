@@ -1,5 +1,5 @@
 from BackendTennis.models import Category
-from BackendTennis.permissions.BasePermission import BasePermissions
+from BackendTennis.permissions.base_permission import BasePermissions
 
 
 class CategoryPermissions(BasePermissions):

@@ -22,6 +22,12 @@ class ProfessorSerializer(BaseMemberSerializer):
             raise serializers.ValidationError('Image must be of type \'professor\'.')
         return value
 
+    @staticmethod
+    def validate_order(value):
+        if Professor.objects.filter(order=value).exists():
+            raise serializers.ValidationError('Another Professor already use this order.')
+        return value
+
     def create(self, validated_data):
         return Professor.objects.create(**validated_data)
 

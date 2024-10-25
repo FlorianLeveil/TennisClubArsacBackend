@@ -20,6 +20,12 @@ class TeamMemberSerializer(BaseMemberSerializer):
             raise serializers.ValidationError('Image must be of type \'team_member\'.')
         return value
 
+    @staticmethod
+    def validate_order(value):
+        if TeamMember.objects.filter(order=value).exists():
+            raise serializers.ValidationError('Another TeamMember already use this order.')
+        return value
+
     def create(self, validated_data):
         return TeamMember.objects.create(**validated_data)
 

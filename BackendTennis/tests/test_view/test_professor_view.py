@@ -57,7 +57,8 @@ class ProfessorViewTests(APITestCase):
             'image': self.image.id,
             'role': 'Test User',
             'diploma': 'DE',
-            'best_rank': '2/6'
+            'best_rank': '2/6',
+            'order': 2
         }
         permission = Permission.objects.get(codename='add_professor')
         self.user.user_permissions.add(permission)

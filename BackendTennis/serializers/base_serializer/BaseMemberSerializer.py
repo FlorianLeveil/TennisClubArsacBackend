@@ -1,7 +1,5 @@
 from rest_framework import serializers
 
-from BackendTennis.models import Professor
-
 
 class BaseMemberSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)

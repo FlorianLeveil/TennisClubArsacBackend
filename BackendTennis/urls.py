@@ -7,7 +7,8 @@ from BackendTennis.views import ImageListCreateView, PricingListCreateView, TagV
     SponsorListCreateView, TrainingListCreateView, TrainingRetrieveUpdateDestroyView, BookingListCreateView, \
     BookingRetrieveUpdateDestroyView, TournamentListCreateView, TournamentRetrieveUpdateDestroyView, \
     TeamMemberListCreateView, TeamMemberRetrieveUpdateDestroyView, ProfessorListCreateView, \
-    ProfessorRetrieveUpdateDestroyView, TeamPageListCreateView, TeamPageRetrieveUpdateDestroyView
+    ProfessorRetrieveUpdateDestroyView, TeamPageListCreateView, TeamPageRetrieveUpdateDestroyView, \
+    ClubValueListCreateView, ClubValueRetrieveUpdateDestroyView
 
 app_name = 'BackendTennis'
 urlpatterns = [
@@ -54,6 +55,10 @@ urlpatterns = [
     path('team_page/', TeamPageListCreateView.as_view(), name='team_page_list_create'),
     path('team_page/<uuid:id>/', TeamPageRetrieveUpdateDestroyView.as_view(),
          name='team_page_retrieve_update_destroy'),
+
+    path('club_value/', ClubValueListCreateView.as_view(), name='club_value_list_create'),
+    path('club_value/<uuid:id>/', ClubValueRetrieveUpdateDestroyView.as_view(),
+         name='club_value_retrieve_update_destroy'),
 
     # path('admin/users/', UserAdminView.as_view(), name='user-admin'),
     # path('admin/users/<uuid:id>/', UserAdminView.as_view(), name='user-admin-detail'),

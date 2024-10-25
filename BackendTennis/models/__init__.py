@@ -1,5 +1,6 @@
 from .Booking import Booking
 from .Category import Category
+from .ClubValue import ClubValue
 from .Event import Event
 from .Image import Image
 from .News import News

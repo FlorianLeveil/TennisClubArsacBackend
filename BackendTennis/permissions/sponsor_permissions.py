@@ -3,7 +3,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.exceptions import AuthenticationFailed
 
 from BackendTennis.models import Sponsor
-from BackendTennis.permissions.BasePermission import BasePermissions
+from BackendTennis.permissions.base_permission import BasePermissions
 
 
 class SponsorPermissions(BasePermissions):

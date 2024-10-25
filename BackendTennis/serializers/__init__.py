@@ -12,3 +12,4 @@ from .TeamMemberSerializer import TeamMemberSerializer, TeamMemberDetailSerializ
 from .TeamPageSerializer import TeamPageSerializer, TeamPageDetailSerializer
 from .TournamentSerializer import TournamentSerializer, TournamentDetailSerializer
 from .TrainingSerializer import TrainingSerializer, TrainingDetailSerializer
+from .ClubValueSerializer import ClubValueSerializer

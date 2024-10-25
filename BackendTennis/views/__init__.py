@@ -2,6 +2,7 @@ from .BookingView import BookingListCreateView
 from .BookingView import BookingRetrieveUpdateDestroyView
 from .CategoryView import CategoryListCreateView
 from .CategoryView import CategoryRetrieveUpdateDestroyView
+from .ClubValueView import ClubValueListCreateView, ClubValueRetrieveUpdateDestroyView
 from .EventView import EventListCreateView
 from .EventView import EventRetrieveUpdateDestroyView
 from .ImageView import ImageListCreateView

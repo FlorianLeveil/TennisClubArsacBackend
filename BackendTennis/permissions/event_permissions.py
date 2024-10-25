@@ -1,5 +1,5 @@
 from BackendTennis.models import Event
-from BackendTennis.permissions.BasePermission import BasePermissions
+from BackendTennis.permissions.base_permission import BasePermissions
 
 
 class EventPermissions(BasePermissions):

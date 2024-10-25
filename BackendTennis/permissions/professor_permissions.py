@@ -1,5 +1,5 @@
 from BackendTennis.models import Professor
-from BackendTennis.permissions.BasePermission import BasePermissions
+from BackendTennis.permissions.base_permission import BasePermissions
 
 
 class ProfessorPermissions(BasePermissions):

@@ -36,7 +36,8 @@ class ProfessorSerializerTests(TestCase):
             'image': self.professor_image.id,
             'role': 'Test User',
             'diploma': 'DE',
-            'best_rank': '2/6'
+            'best_rank': '2/6',
+            'order': 2
         }
         serializer = ProfessorSerializer(instance=professor, data=updated_data)
         self.assertTrue(serializer.is_valid(), serializer.errors)
