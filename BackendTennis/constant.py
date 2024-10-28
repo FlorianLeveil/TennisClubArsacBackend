@@ -7,6 +7,7 @@ class Constant(types.SimpleNamespace):
         ABOUT_PAGE='about_page',
         ADMIN='admin',
         EVENT='event',
+        MENU_ITEM_ROW='menu_item_row',
         NEWS='news',
         PICTURE='picture',
         PRICING='pricing',

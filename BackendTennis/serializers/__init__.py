@@ -15,3 +15,4 @@ from .TrainingSerializer import TrainingSerializer, TrainingDetailSerializer
 from .ClubValueSerializer import ClubValueSerializer
 from .AboutPageSerializer import AboutPageSerializer, AboutPageDetailSerializer
 from .RouteSerializer import RouteSerializer
+from .MenuItemRowSerializer import MenuItemRowSerializer, MenuItemRowDetailSerializer

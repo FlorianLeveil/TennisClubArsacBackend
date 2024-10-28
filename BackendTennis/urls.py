@@ -9,7 +9,8 @@ from BackendTennis.views import ImageListCreateView, PricingListCreateView, TagV
     TeamMemberListCreateView, TeamMemberRetrieveUpdateDestroyView, ProfessorListCreateView, \
     ProfessorRetrieveUpdateDestroyView, TeamPageListCreateView, TeamPageRetrieveUpdateDestroyView, \
     ClubValueListCreateView, ClubValueRetrieveUpdateDestroyView, AboutPageListCreateView, \
-    AboutPageRetrieveUpdateDestroyView, RouteListCreateView, RouteRetrieveUpdateDestroyView
+    AboutPageRetrieveUpdateDestroyView, RouteListCreateView, RouteRetrieveUpdateDestroyView, MenuItemRowListCreateView, \
+    MenuItemRowRetrieveUpdateDestroyView
 
 app_name = 'BackendTennis'
 urlpatterns = [
@@ -66,8 +67,18 @@ urlpatterns = [
          name='about_page_retrieve_update_destroy'),
 
     path('route/', RouteListCreateView.as_view(), name='route_list_create'),
-    path('route/<uuid:id>/', RouteRetrieveUpdateDestroyView.as_view(),
-         name='route_retrieve_update_destroy'),
+    path(
+        'route/<uuid:id>/',
+        RouteRetrieveUpdateDestroyView.as_view(),
+        name='route_retrieve_update_destroy'
+    ),
+
+    path('menu_item_row/', MenuItemRowListCreateView.as_view(), name='menu_item_row_list_create'),
+    path(
+        'menu_item_row/<uuid:id>/',
+        MenuItemRowRetrieveUpdateDestroyView.as_view(),
+        name='menu_item_row_retrieve_update_destroy'
+    ),
 
     # path('admin/users/', UserAdminView.as_view(), name='user-admin'),
     # path('admin/users/<uuid:id>/', UserAdminView.as_view(), name='user-admin-detail'),

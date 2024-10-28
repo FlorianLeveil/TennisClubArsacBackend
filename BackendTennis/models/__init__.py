@@ -3,6 +3,7 @@ from .Category import Category
 from .ClubValue import ClubValue
 from .Event import Event
 from .Image import Image
+from .MenuItemRow import MenuItemRow
 from .News import News
 from .Pricing import Pricing
 from .Professor import Professor
