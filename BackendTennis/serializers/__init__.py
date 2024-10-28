@@ -14,3 +14,4 @@ from .TournamentSerializer import TournamentSerializer, TournamentDetailSerializ
 from .TrainingSerializer import TrainingSerializer, TrainingDetailSerializer
 from .ClubValueSerializer import ClubValueSerializer
 from .AboutPageSerializer import AboutPageSerializer, AboutPageDetailSerializer
+from .RouteSerializer import RouteSerializer
