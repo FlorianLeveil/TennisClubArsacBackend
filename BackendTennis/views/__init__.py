@@ -1,3 +1,4 @@
+from .AboutPageView import AboutPageListCreateView, AboutPageRetrieveUpdateDestroyView
 from .BookingView import BookingListCreateView
 from .BookingView import BookingRetrieveUpdateDestroyView
 from .CategoryView import CategoryListCreateView

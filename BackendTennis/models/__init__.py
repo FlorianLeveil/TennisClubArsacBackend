@@ -12,5 +12,6 @@ from .TeamMember import TeamMember
 from .Tournament import Tournament
 from .Training import Training
 from .User import User
+from .page_model.AboutPage import AboutPage
 from .page_model.TeamPage import TeamPage
 # from .UserManager import UserManager

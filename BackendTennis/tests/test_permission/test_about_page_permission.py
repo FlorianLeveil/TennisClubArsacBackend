@@ -6,10 +6,10 @@ from rest_framework.test import APITestCase
 from rest_framework_api_key.models import APIKey
 from rest_framework_simplejwt.tokens import AccessToken
 
-from BackendTennis.models import User, TeamPage
+from BackendTennis.models import User, AboutPage
 
 
-class TeamPagePermissionsTests(APITestCase):
+class AboutPagePermissionsTests(APITestCase):
 
     @classmethod
     def setUpTestData(cls):
@@ -35,20 +35,20 @@ class TeamPagePermissionsTests(APITestCase):
 
         cls.api_key, cls.key = APIKey.objects.create_key(name='test-api-key')
 
-        cls.team_page = TeamPage.objects.create()
+        cls.about_page = AboutPage.objects.create()
 
-        cls.url = '/BackendTennis/team_page/'
-        cls.detail_url = f'{cls.url}{cls.team_page.id}/'
+        cls.url = '/BackendTennis/about_page/'
+        cls.detail_url = f'{cls.url}{cls.about_page.id}/'
 
-    def test_get_team_page_list_no_authentication(self):
+    def test_get_about_page_list_no_authentication(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    def test_get_team_page_list_with_api_key(self):
+    def test_get_about_page_list_with_api_key(self):
         response = self.client.get(self.url, HTTP_API_KEY=self.key)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_create_team_page_no_permission(self):
+    def test_create_about_page_no_permission(self):
         data = {}
         response = self.client.post(
             self.url,
@@ -58,9 +58,9 @@ class TeamPagePermissionsTests(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    def test_create_team_page_with_permission(self):
+    def test_create_about_page_with_permission(self):
         data = {}
-        permission = Permission.objects.get(codename='add_teampage')
+        permission = Permission.objects.get(codename='add_aboutpage')
         self.user.user_permissions.add(permission)
         response = self.client.post(
             self.url,
@@ -70,7 +70,7 @@ class TeamPagePermissionsTests(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
 
-    def test_superuser_can_create_team_page(self):
+    def test_superuser_can_create_about_page(self):
         data = {}
         response = self.client.post(
             self.url,
@@ -80,8 +80,8 @@ class TeamPagePermissionsTests(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-    def test_update_team_page_no_permission(self):
-        data = {'professorsTitle': 'Updated Team Page'}
+    def test_update_about_page_no_permission(self):
+        data = {'clubTitle': 'Updated About Page'}
         response = self.client.patch(
             self.detail_url,
             data=data,
@@ -90,9 +90,9 @@ class TeamPagePermissionsTests(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    def test_update_team_page_with_permission(self):
-        data = {'professorsTitle': 'Updated Team Page'}
-        permission = Permission.objects.get(codename='change_teampage')
+    def test_update_about_page_with_permission(self):
+        data = {'clubTitle': 'Updated About Page'}
+        permission = Permission.objects.get(codename='change_aboutpage')
         self.user.user_permissions.add(permission)
         response = self.client.patch(
             self.detail_url,
@@ -102,8 +102,8 @@ class TeamPagePermissionsTests(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_superuser_can_update_team_page(self):
-        data = {'professorsTitle': 'Super Updated Team Page'}
+    def test_superuser_can_update_about_page(self):
+        data = {'clubTitle': 'Super Updated About Page'}
         response = self.client.patch(
             self.detail_url,
             data=data,
@@ -112,7 +112,7 @@ class TeamPagePermissionsTests(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_delete_team_page_no_permission(self):
+    def test_delete_about_page_no_permission(self):
         response = self.client.delete(
             self.detail_url,
             HTTP_AUTHORIZATION=f'Bearer {self.token}',
@@ -120,8 +120,8 @@ class TeamPagePermissionsTests(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    def test_delete_team_page_with_permission(self):
-        permission = Permission.objects.get(codename='delete_teampage')
+    def test_delete_about_page_with_permission(self):
+        permission = Permission.objects.get(codename='delete_aboutpage')
         self.user.user_permissions.add(permission)
         response = self.client.delete(
             self.detail_url,
@@ -130,7 +130,7 @@ class TeamPagePermissionsTests(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-    def test_superuser_can_delete_team_page(self):
+    def test_superuser_can_delete_about_page(self):
         response = self.client.delete(
             self.detail_url,
             HTTP_AUTHORIZATION=f'Bearer {self.superuser_token}',
