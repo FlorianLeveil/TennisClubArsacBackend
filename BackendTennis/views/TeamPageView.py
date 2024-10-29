@@ -4,7 +4,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from BackendTennis.authentication import CustomAPIKeyAuthentication
 from BackendTennis.models import TeamPage
-from BackendTennis.permissions.team_page_permissions import TeamPagePermissions
+from BackendTennis.permissions.page_permission.team_page_permissions import TeamPagePermissions
 from BackendTennis.serializers import TeamPageSerializer, TeamPageDetailSerializer
 from BackendTennis.utils import check_if_is_valid_save_and_return
 

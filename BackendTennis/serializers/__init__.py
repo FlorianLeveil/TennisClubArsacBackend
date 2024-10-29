@@ -9,11 +9,12 @@ from .EventSerializer import EventSerializer, EventDetailSerializer
 from .NewsSerializer import NewsSerializer, NewsDetailSerializer
 from .ProfessorSerializer import ProfessorSerializer, ProfessorDetailSerializer
 from .TeamMemberSerializer import TeamMemberSerializer, TeamMemberDetailSerializer
-from .TeamPageSerializer import TeamPageSerializer, TeamPageDetailSerializer
+from BackendTennis.serializers.page_serializer.TeamPageSerializer import TeamPageSerializer, TeamPageDetailSerializer
 from .TournamentSerializer import TournamentSerializer, TournamentDetailSerializer
 from .TrainingSerializer import TrainingSerializer, TrainingDetailSerializer
 from .ClubValueSerializer import ClubValueSerializer
-from .AboutPageSerializer import AboutPageSerializer, AboutPageDetailSerializer
+from BackendTennis.serializers.page_serializer.AboutPageSerializer import AboutPageSerializer, AboutPageDetailSerializer
 from .RouteSerializer import RouteSerializer
 from .MenuItemRowSerializer import MenuItemRowSerializer, MenuItemRowDetailSerializer
 from .MenuItemSerializer import MenuItemSerializer, MenuItemDetailSerializer
+from BackendTennis.serializers.page_serializer.HomePageSerializer import HomePageSerializer, HomePageDetailSerializer

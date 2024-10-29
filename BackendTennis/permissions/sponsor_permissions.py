@@ -1,9 +1,5 @@
-from rest_framework import permissions
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.exceptions import AuthenticationFailed
-
 from BackendTennis.models import Sponsor
-from BackendTennis.permissions.base_permission import BasePermissions
+from BackendTennis.permissions.base_permission.base_permission import BasePermissions
 
 
 class SponsorPermissions(BasePermissions):

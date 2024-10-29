@@ -1,5 +1,5 @@
 from BackendTennis.models import Route
-from BackendTennis.permissions.base_permission import BasePermissions
+from BackendTennis.permissions.base_permission.base_permission import BasePermissions
 
 
 class RoutePermissions(BasePermissions):

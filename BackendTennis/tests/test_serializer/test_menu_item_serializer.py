@@ -153,14 +153,14 @@ class MenuItemSerializerTests(TestCase):
     def test_invalid_value_for_rows(self):
         invalid_data = {
             'title': 'Test name',
-            'route': 'no_route_id'
+            'rows': ['no_rows_id']
         }
         serializer = MenuItemSerializer(data=invalid_data)
         self.assertFalse(serializer.is_valid(), str(serializer.errors))
-        self.assertIn('route', str(serializer.errors))
+        self.assertIn('rows', str(serializer.errors))
         self.assertEqual(
-            serializer.errors['route'][0],
-            '“no_route_id” is not a valid UUID.',
+            serializer.errors['rows'][0],
+            '“no_rows_id” is not a valid UUID.',
             str(serializer.errors))
 
     def test_invalid_value_with_valid_value_for_rows(self):

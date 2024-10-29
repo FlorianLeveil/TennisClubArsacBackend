@@ -1,7 +1,6 @@
 from rest_framework import permissions
-from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.exceptions import AuthenticationFailed
-from BackendTennis.models import Category
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 class BasePermissions(permissions.BasePermission):

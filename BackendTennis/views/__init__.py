@@ -6,6 +6,7 @@ from .CategoryView import CategoryRetrieveUpdateDestroyView
 from .ClubValueView import ClubValueListCreateView, ClubValueRetrieveUpdateDestroyView
 from .EventView import EventListCreateView
 from .EventView import EventRetrieveUpdateDestroyView
+from .HomePageView import HomePageListCreateView, HomePageRetrieveUpdateDestroyView
 from .ImageView import ImageListCreateView
 from .ImageView import ImageRetrieveUpdateDestroyView
 from .MenuItemRowView import MenuItemRowListCreateView, MenuItemRowRetrieveUpdateDestroyView
