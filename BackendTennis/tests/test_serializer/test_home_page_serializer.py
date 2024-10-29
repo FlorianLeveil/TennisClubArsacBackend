@@ -2,21 +2,19 @@ import uuid
 
 from django.test import TestCase
 
-from BackendTennis.models import HomePage, MenuItem
+from BackendTennis.models import HomePage, NavigationItem
 from BackendTennis.serializers import HomePageSerializer
 
 
 class HomePageSerializerTests(TestCase):
 
     def setUp(self):
-        self.menu_item = MenuItem.objects.create(
-            title='New Test MenuItem',
-            order=1
+        self.navigation_item = NavigationItem.objects.create(
+            title='New Test NavigationItem',
         )
 
-        self.menu_item_2 = MenuItem.objects.create(
-            title='New Test MenuItem 2',
-            order=2
+        self.navigation_item_2 = NavigationItem.objects.create(
+            title='New Test NavigationItem 2',
         )
 
         self.home_page_data = {
@@ -105,7 +103,7 @@ class HomePageSerializerTests(TestCase):
     def test_invalid_value_with_valid_value_for_menuItems(self):
         invalid_data = {
             'title': 'Test name',
-            'menuItems': [self.menu_item.id, 'no_menuItems_id']
+            'menuItems': [self.navigation_item.id, 'no_menuItems_id']
         }
         serializer = HomePageSerializer(data=invalid_data)
         self.assertFalse(serializer.is_valid(), str(serializer.errors))
@@ -127,7 +125,7 @@ class HomePageSerializerTests(TestCase):
 
     def test_update_menuItems(self):
         data = {
-            'menuItems': [self.menu_item.id, self.menu_item_2.id],
+            'menuItems': [self.navigation_item.id, self.navigation_item_2.id],
         }
         serializer = HomePageSerializer(instance=self.home_page, data=data, partial=True)
         self.assertTrue(serializer.is_valid(), str(serializer.errors))
@@ -137,5 +135,5 @@ class HomePageSerializerTests(TestCase):
 
         home_page_rows_id = self.home_page.menuItems.values_list('id', flat=True)
         self.assertEqual(self.home_page.menuItems.count(), 2, str(serializer.errors))
-        self.assertIn(self.menu_item.id, home_page_rows_id, str(serializer.errors))
-        self.assertIn(self.menu_item.id, home_page_rows_id, str(serializer.errors))
+        self.assertIn(self.navigation_item.id, home_page_rows_id, str(serializer.errors))
+        self.assertIn(self.navigation_item_2.id, home_page_rows_id, str(serializer.errors))

@@ -3,22 +3,22 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from BackendTennis.authentication import CustomAPIKeyAuthentication
-from BackendTennis.models import MenuItem
-from BackendTennis.permissions.menu_item_permissions import MenuItemPermissions
-from BackendTennis.serializers import MenuItemSerializer, MenuItemDetailSerializer
+from BackendTennis.models import NavigationItem
+from BackendTennis.permissions.navigation_item_permissions import NavigationItemPermissions
+from BackendTennis.serializers import NavigationItemSerializer, NavigationItemDetailSerializer
 from BackendTennis.utils import check_if_is_valid_save_and_return
 
 
-class MenuItemListCreateView(ListCreateAPIView):
-    queryset = MenuItem.objects.all()
-    serializer_class = MenuItemSerializer
+class NavigationItemListCreateView(ListCreateAPIView):
+    queryset = NavigationItem.objects.all()
+    serializer_class = NavigationItemSerializer
     authentication_classes = [CustomAPIKeyAuthentication, JWTAuthentication]
-    permission_classes = [MenuItemPermissions]
+    permission_classes = [NavigationItemPermissions]
 
     @extend_schema(
         summary='Get list of MenuItem',
         parameters=[],
-        responses={200: MenuItemDetailSerializer(many=True)},
+        responses={200: NavigationItemDetailSerializer(many=True)},
         tags=['MenuItems']
     )
     def get(self, request, *args, **kwargs):
@@ -28,21 +28,21 @@ class MenuItemListCreateView(ListCreateAPIView):
     @extend_schema(
         summary='Create a new MenuItem',
         request=serializer_class,
-        responses={201: MenuItemDetailSerializer()},
+        responses={201: NavigationItemDetailSerializer()},
         tags=['MenuItems']
     )
     def post(self, request, *args, **kwargs):
-        serializer = MenuItemSerializer(data=request.data)
-        return check_if_is_valid_save_and_return(serializer, MenuItemDetailSerializer, is_creation=True)
+        serializer = NavigationItemSerializer(data=request.data)
+        return check_if_is_valid_save_and_return(serializer, NavigationItemDetailSerializer, is_creation=True)
 
 
-class MenuItemRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
-    queryset = MenuItem.objects.all()
-    serializer_class = MenuItemSerializer
-    serializer_class_response = MenuItemDetailSerializer
+class NavigationItemRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+    queryset = NavigationItem.objects.all()
+    serializer_class = NavigationItemSerializer
+    serializer_class_response = NavigationItemDetailSerializer
     lookup_field = 'id'
     authentication_classes = [CustomAPIKeyAuthentication, JWTAuthentication]
-    permission_classes = [MenuItemPermissions]
+    permission_classes = [NavigationItemPermissions]
 
     @extend_schema(
         summary='Get MenuItem with Id',
