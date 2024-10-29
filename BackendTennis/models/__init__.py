@@ -7,6 +7,7 @@ from .MenuItem import MenuItem
 from .News import News
 from .Pricing import Pricing
 from .Professor import Professor
+from .Render import Render
 from .Route import Route
 from .Sponsor import Sponsor
 from .Tag import Tag

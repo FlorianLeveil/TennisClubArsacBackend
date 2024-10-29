@@ -15,11 +15,10 @@ from .NewsView import NewsRetrieveUpdateDestroyView
 from .PricingView import PricingListCreateView
 from .PricingView import PricingRetrieveUpdateDestroyView
 from .ProfessorView import ProfessorListCreateView, ProfessorRetrieveUpdateDestroyView
+from .RenderView import RenderListCreateView, RenderRetrieveUpdateDestroyView
 from .RouteView import RouteListCreateView, RouteRetrieveUpdateDestroyView
-from .SponsorView import SponsorListCreateView
-from .SponsorView import SponsorRetrieveUpdateDestroyView
-from .TagView import TagRetrieveUpdateDestroyView
-from .TagView import TagView
+from .SponsorView import SponsorListCreateView, SponsorRetrieveUpdateDestroyView
+from .TagView import TagView, TagRetrieveUpdateDestroyView
 from .TeamMemberView import TeamMemberListCreateView, TeamMemberRetrieveUpdateDestroyView
 from .TeamPageView import TeamPageListCreateView, TeamPageRetrieveUpdateDestroyView
 from .TournamentView import TournamentListCreateView, TournamentRetrieveUpdateDestroyView

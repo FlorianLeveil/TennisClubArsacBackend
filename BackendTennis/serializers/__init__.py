@@ -17,3 +17,4 @@ from BackendTennis.serializers.page_serializer.AboutPageSerializer import AboutP
 from .RouteSerializer import RouteSerializer
 from .MenuItemSerializer import MenuItemSerializer, MenuItemDetailSerializer
 from BackendTennis.serializers.page_serializer.HomePageSerializer import HomePageSerializer, HomePageDetailSerializer
+from .RenderSerializer import RenderSerializer
