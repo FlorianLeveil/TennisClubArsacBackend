@@ -15,6 +15,5 @@ from .TrainingSerializer import TrainingSerializer, TrainingDetailSerializer
 from .ClubValueSerializer import ClubValueSerializer
 from BackendTennis.serializers.page_serializer.AboutPageSerializer import AboutPageSerializer, AboutPageDetailSerializer
 from .RouteSerializer import RouteSerializer
-from .MenuItemRowSerializer import MenuItemRowSerializer, MenuItemRowDetailSerializer
 from .MenuItemSerializer import MenuItemSerializer, MenuItemDetailSerializer
 from BackendTennis.serializers.page_serializer.HomePageSerializer import HomePageSerializer, HomePageDetailSerializer

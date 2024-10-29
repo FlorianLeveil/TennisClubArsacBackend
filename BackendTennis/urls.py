@@ -9,8 +9,8 @@ from BackendTennis.views import ImageListCreateView, PricingListCreateView, TagV
     TeamMemberListCreateView, TeamMemberRetrieveUpdateDestroyView, ProfessorListCreateView, \
     ProfessorRetrieveUpdateDestroyView, TeamPageListCreateView, TeamPageRetrieveUpdateDestroyView, \
     ClubValueListCreateView, ClubValueRetrieveUpdateDestroyView, AboutPageListCreateView, \
-    AboutPageRetrieveUpdateDestroyView, RouteListCreateView, RouteRetrieveUpdateDestroyView, MenuItemRowListCreateView, \
-    MenuItemRowRetrieveUpdateDestroyView, MenuItemListCreateView, MenuItemRetrieveUpdateDestroyView, \
+    AboutPageRetrieveUpdateDestroyView, RouteListCreateView, RouteRetrieveUpdateDestroyView, MenuItemListCreateView, \
+    MenuItemRetrieveUpdateDestroyView, \
     HomePageListCreateView, HomePageRetrieveUpdateDestroyView
 
 app_name = 'BackendTennis'
@@ -72,13 +72,6 @@ urlpatterns = [
         'route/<uuid:id>/',
         RouteRetrieveUpdateDestroyView.as_view(),
         name='route_retrieve_update_destroy'
-    ),
-
-    path('menu_item_row/', MenuItemRowListCreateView.as_view(), name='menu_item_row_list_create'),
-    path(
-        'menu_item_row/<uuid:id>/',
-        MenuItemRowRetrieveUpdateDestroyView.as_view(),
-        name='menu_item_row_retrieve_update_destroy'
     ),
 
     path('menu_item/', MenuItemListCreateView.as_view(), name='menu_item_list_create'),

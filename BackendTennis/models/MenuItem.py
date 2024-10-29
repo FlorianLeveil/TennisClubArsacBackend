@@ -19,10 +19,6 @@ class MenuItem(models.Model):
         related_name='menu_items',
         null=True
     )
-    rows = models.ManyToManyField(
-        'BackendTennis.MenuItemRow',
-        related_name='menu_items'
-    )
     order = models.PositiveSmallIntegerField(default=0)
     createAt = models.DateTimeField(auto_now_add=True)
     updateAt = models.DateTimeField(auto_now=True)

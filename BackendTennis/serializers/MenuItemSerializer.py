@@ -1,8 +1,8 @@
 from rest_framework import serializers
 
 from BackendTennis.constant import Constant
-from BackendTennis.models import MenuItem, Route, Image, MenuItemRow
-from BackendTennis.serializers import RouteSerializer, ImageDetailSerializer, MenuItemRowDetailSerializer
+from BackendTennis.models import MenuItem, Route, Image
+from BackendTennis.serializers import RouteSerializer, ImageDetailSerializer
 
 
 class MenuItemSerializer(serializers.ModelSerializer):
@@ -11,7 +11,6 @@ class MenuItemSerializer(serializers.ModelSerializer):
     description = serializers.CharField(required=False)
     image = serializers.PrimaryKeyRelatedField(queryset=Image.objects.all(), required=False)
     route = serializers.PrimaryKeyRelatedField(queryset=Route.objects.all(), required=False)
-    rows = serializers.PrimaryKeyRelatedField(queryset=MenuItemRow.objects.all(), many=True, required=False)
     order = serializers.IntegerField(default=0, required=False)
     createAt = serializers.DateTimeField(read_only=True)
     updateAt = serializers.DateTimeField(read_only=True)
@@ -36,7 +35,6 @@ class MenuItemSerializer(serializers.ModelSerializer):
 class MenuItemDetailSerializer(serializers.ModelSerializer):
     image = ImageDetailSerializer()
     route = RouteSerializer()
-    rows = MenuItemRowDetailSerializer(many=True)
 
     class Meta:
         model = MenuItem
