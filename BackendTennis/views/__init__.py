@@ -9,6 +9,7 @@ from .EventView import EventRetrieveUpdateDestroyView
 from .ImageView import ImageListCreateView
 from .ImageView import ImageRetrieveUpdateDestroyView
 from .MenuItemRowView import MenuItemRowListCreateView, MenuItemRowRetrieveUpdateDestroyView
+from .MenuItemView import MenuItemListCreateView, MenuItemRetrieveUpdateDestroyView
 from .NewsView import NewsListCreateView
 from .NewsView import NewsRetrieveUpdateDestroyView
 from .PricingView import PricingListCreateView
