@@ -114,7 +114,7 @@ class RenderSerializerTests(TestCase):
             '"baraque" is not a valid choice.',
             str(serializer.errors))
 
-    def test_invalid_value_for_type(self):
+    def test_invalid_max_length_for_color(self):
         invalid_data = {
             'navBarPosition': 'left',
             'type': 'nav_bar',

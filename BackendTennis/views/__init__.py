@@ -12,6 +12,7 @@ from .ImageView import ImageRetrieveUpdateDestroyView
 from .MenuItemView import MenuItemListCreateView, MenuItemRetrieveUpdateDestroyView
 from .NewsView import NewsListCreateView
 from .NewsView import NewsRetrieveUpdateDestroyView
+from .PageRenderView import PageRenderListCreateView, PageRenderRetrieveUpdateDestroyView
 from .PricingView import PricingListCreateView
 from .PricingView import PricingRetrieveUpdateDestroyView
 from .ProfessorView import ProfessorListCreateView, ProfessorRetrieveUpdateDestroyView

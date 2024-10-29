@@ -11,7 +11,8 @@ from BackendTennis.views import ImageListCreateView, PricingListCreateView, TagV
     ClubValueListCreateView, ClubValueRetrieveUpdateDestroyView, AboutPageListCreateView, \
     AboutPageRetrieveUpdateDestroyView, RouteListCreateView, RouteRetrieveUpdateDestroyView, MenuItemListCreateView, \
     MenuItemRetrieveUpdateDestroyView, \
-    HomePageListCreateView, HomePageRetrieveUpdateDestroyView, RenderListCreateView, RenderRetrieveUpdateDestroyView
+    HomePageListCreateView, HomePageRetrieveUpdateDestroyView, RenderListCreateView, RenderRetrieveUpdateDestroyView, \
+    PageRenderListCreateView, PageRenderRetrieveUpdateDestroyView
 
 app_name = 'BackendTennis'
 urlpatterns = [
@@ -93,6 +94,13 @@ urlpatterns = [
         'render/<uuid:id>/',
         RenderRetrieveUpdateDestroyView.as_view(),
         name='render_retrieve_update_destroy'
+    ),
+
+    path('page_render/', PageRenderListCreateView.as_view(), name='page_render_list_create'),
+    path(
+        'page_render/<uuid:id>/',
+        PageRenderRetrieveUpdateDestroyView.as_view(),
+        name='page_render_retrieve_update_destroy'
     ),
 
     # path('admin/users/', UserAdminView.as_view(), name='user-admin'),

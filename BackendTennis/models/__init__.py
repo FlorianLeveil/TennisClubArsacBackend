@@ -5,6 +5,7 @@ from .Event import Event
 from .Image import Image
 from .MenuItem import MenuItem
 from .News import News
+from .PageRender import PageRender
 from .Pricing import Pricing
 from .Professor import Professor
 from .Render import Render
