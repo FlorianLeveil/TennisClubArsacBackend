@@ -6,8 +6,12 @@ from BackendTennis.serializers import NavigationItemDetailSerializer
 
 class HomePageSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
-    title = serializers.CharField(max_length=100)
-    menuItems = serializers.PrimaryKeyRelatedField(queryset=NavigationItem.objects.all(), many=True, required=False)
+    title = serializers.CharField(max_length=100, required=False)
+    navigationItems = serializers.PrimaryKeyRelatedField(
+        queryset=NavigationItem.objects.all(),
+        many=True,
+        required=False
+    )
     createAt = serializers.DateTimeField(read_only=True)
     updateAt = serializers.DateTimeField(read_only=True)
 
@@ -17,7 +21,7 @@ class HomePageSerializer(serializers.ModelSerializer):
 
 
 class HomePageDetailSerializer(serializers.ModelSerializer):
-    menuItems = NavigationItemDetailSerializer(many=True)
+    navigationItems = NavigationItemDetailSerializer(many=True)
 
     class Meta:
         model = HomePage

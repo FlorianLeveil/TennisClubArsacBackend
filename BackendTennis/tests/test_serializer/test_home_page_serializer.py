@@ -43,7 +43,7 @@ class HomePageSerializerTests(TestCase):
         self.assertEqual(self.home_page.title, 'Updated HomePage', str(serializer.errors))
 
     def test_home_page_creation_with_invalid_data(self):
-        invalid_data = {}
+        invalid_data = {'title': 'aa'*100}
         serializer = HomePageSerializer(data=invalid_data)
         self.assertFalse(serializer.is_valid(), str(serializer.errors))
 
@@ -87,30 +87,30 @@ class HomePageSerializerTests(TestCase):
             str(serializer.errors)
         )
 
-    def test_invalid_value_for_menuItems(self):
+    def test_invalid_value_for_navigationItems(self):
         invalid_data = {
             'title': 'Test name',
-            'menuItems': ['no_menuItems_id']
+            'navigationItems': ['no_navigationItems_id']
         }
         serializer = HomePageSerializer(data=invalid_data)
         self.assertFalse(serializer.is_valid(), str(serializer.errors))
-        self.assertIn('menuItems', str(serializer.errors))
+        self.assertIn('navigationItems', str(serializer.errors))
         self.assertEqual(
-            serializer.errors['menuItems'][0],
-            '“no_menuItems_id” is not a valid UUID.',
+            serializer.errors['navigationItems'][0],
+            '“no_navigationItems_id” is not a valid UUID.',
             str(serializer.errors))
 
-    def test_invalid_value_with_valid_value_for_menuItems(self):
+    def test_invalid_value_with_valid_value_for_navigationItems(self):
         invalid_data = {
             'title': 'Test name',
-            'menuItems': [self.navigation_item.id, 'no_menuItems_id']
+            'navigationItems': [self.navigation_item.id, 'no_navigationItems_id']
         }
         serializer = HomePageSerializer(data=invalid_data)
         self.assertFalse(serializer.is_valid(), str(serializer.errors))
-        self.assertIn('menuItems', str(serializer.errors))
+        self.assertIn('navigationItems', str(serializer.errors))
         self.assertEqual(
-            serializer.errors['menuItems'][0],
-            '“no_menuItems_id” is not a valid UUID.',
+            serializer.errors['navigationItems'][0],
+            '“no_navigationItems_id” is not a valid UUID.',
             str(serializer.errors))
 
     def test_update_title(self):
@@ -123,9 +123,9 @@ class HomePageSerializerTests(TestCase):
         self.home_page.refresh_from_db()
         self.assertEqual(self.home_page.title, 'Updated Test title', str(serializer.errors))
 
-    def test_update_menuItems(self):
+    def test_update_navigationItems(self):
         data = {
-            'menuItems': [self.navigation_item.id, self.navigation_item_2.id],
+            'navigationItems': [self.navigation_item.id, self.navigation_item_2.id],
         }
         serializer = HomePageSerializer(instance=self.home_page, data=data, partial=True)
         self.assertTrue(serializer.is_valid(), str(serializer.errors))
@@ -133,7 +133,7 @@ class HomePageSerializerTests(TestCase):
         serializer.save()
         self.home_page.refresh_from_db()
 
-        home_page_rows_id = self.home_page.menuItems.values_list('id', flat=True)
-        self.assertEqual(self.home_page.menuItems.count(), 2, str(serializer.errors))
+        home_page_rows_id = self.home_page.navigationItems.values_list('id', flat=True)
+        self.assertEqual(self.home_page.navigationItems.count(), 2, str(serializer.errors))
         self.assertIn(self.navigation_item.id, home_page_rows_id, str(serializer.errors))
         self.assertIn(self.navigation_item_2.id, home_page_rows_id, str(serializer.errors))

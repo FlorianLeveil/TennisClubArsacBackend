@@ -5,8 +5,8 @@ from django.db import models
 
 class HomePage(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField(max_length=100)
-    menuItems = models.ManyToManyField(
+    title = models.CharField(max_length=100, null=True, blank=True)
+    navigationItems = models.ManyToManyField(
         'BackendTennis.NavigationItem',
         related_name='home_pages'
     )
@@ -16,6 +16,8 @@ class HomePage(models.Model):
     def __str__(self):
         to_return = {
             'id': self.id,
+            'title': self.title,
+            'navigationItems': self.navigationItems,
             'createAt': self.createAt,
             'updateAt': self.updateAt,
         }

@@ -68,7 +68,7 @@ class NavigationBarSerializerTests(TestCase):
         self.assertEqual(self.navigation_bar.logo.id, self.image_2.id, str(serializer.errors))
 
     def test_navigation_bar_creation_with_invalid_data(self):
-        invalid_data = {'title': 1}
+        invalid_data = {'routeLogo': 'fakeId'}
         serializer = NavigationBarSerializer(data=invalid_data)
         self.assertFalse(serializer.is_valid(), str(serializer.errors))
 
