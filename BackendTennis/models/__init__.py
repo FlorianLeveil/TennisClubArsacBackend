@@ -19,5 +19,6 @@ from .Training import Training
 from .User import User
 from .page_model.AboutPage import AboutPage
 from .page_model.HomePage import HomePage
+from .page_model.PricingPage import PricingPage
 from .page_model.TeamPage import TeamPage
 # from .UserManager import UserManager

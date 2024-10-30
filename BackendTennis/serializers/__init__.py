@@ -4,19 +4,20 @@ from .CategorySerializer import CategorySerializer
 from .TagSerializer import TagSerializer
 from .ImageSerializer import ImageSerializer, ImageDetailSerializer
 from .SponsorSerializer import SponsorSerializer, SponsorDetailSerializer
-from .PricingSerializer import PricingSerializer
+from .PricingSerializer import PricingSerializer, PricingDetailSerializer
 from .EventSerializer import EventSerializer, EventDetailSerializer
 from .NewsSerializer import NewsSerializer, NewsDetailSerializer
 from .ProfessorSerializer import ProfessorSerializer, ProfessorDetailSerializer
 from .TeamMemberSerializer import TeamMemberSerializer, TeamMemberDetailSerializer
-from BackendTennis.serializers.page_serializer.TeamPageSerializer import TeamPageSerializer, TeamPageDetailSerializer
+from .page_serializer.TeamPageSerializer import TeamPageSerializer, TeamPageDetailSerializer
 from .TournamentSerializer import TournamentSerializer, TournamentDetailSerializer
 from .TrainingSerializer import TrainingSerializer, TrainingDetailSerializer
 from .ClubValueSerializer import ClubValueSerializer
-from BackendTennis.serializers.page_serializer.AboutPageSerializer import AboutPageSerializer, AboutPageDetailSerializer
+from .page_serializer.AboutPageSerializer import AboutPageSerializer, AboutPageDetailSerializer
 from .RouteSerializer import RouteSerializer
 from .RenderSerializer import RenderSerializer
 from .PageRenderSerializer import PageRenderSerializer, PageRenderDetailSerializer
 from .NavigationItemSerializer import NavigationItemSerializer, NavigationItemDetailSerializer
-from BackendTennis.serializers.page_serializer.HomePageSerializer import HomePageSerializer, HomePageDetailSerializer
+from .page_serializer.HomePageSerializer import HomePageSerializer, HomePageDetailSerializer
 from .NavigationBarSerializer import NavigationBarSerializer, NavigationBarDetailSerializer
+from .page_serializer.PricingPageSerializer import PricingPageSerializer, PricingPageDetailSerializer

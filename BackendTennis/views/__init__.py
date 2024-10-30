@@ -14,6 +14,7 @@ from .NavigationItemView import NavigationItemListCreateView, NavigationItemRetr
 from .NewsView import NewsListCreateView
 from .NewsView import NewsRetrieveUpdateDestroyView
 from .PageRenderView import PageRenderListCreateView, PageRenderRetrieveUpdateDestroyView
+from .PricingPageView import PricingPageListCreateView, PricingPageRetrieveUpdateDestroyView
 from .PricingView import PricingListCreateView
 from .PricingView import PricingRetrieveUpdateDestroyView
 from .ProfessorView import ProfessorListCreateView, ProfessorRetrieveUpdateDestroyView
