@@ -19,3 +19,4 @@ from .RenderSerializer import RenderSerializer
 from .PageRenderSerializer import PageRenderSerializer, PageRenderDetailSerializer
 from .NavigationItemSerializer import NavigationItemSerializer, NavigationItemDetailSerializer
 from BackendTennis.serializers.page_serializer.HomePageSerializer import HomePageSerializer, HomePageDetailSerializer
+from .NavigationBarSerializer import NavigationBarSerializer, NavigationBarDetailSerializer

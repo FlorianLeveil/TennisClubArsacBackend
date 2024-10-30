@@ -13,7 +13,8 @@ from BackendTennis.views import ImageListCreateView, PricingListCreateView, TagV
     NavigationItemListCreateView, \
     NavigationItemRetrieveUpdateDestroyView, \
     HomePageListCreateView, HomePageRetrieveUpdateDestroyView, RenderListCreateView, RenderRetrieveUpdateDestroyView, \
-    PageRenderListCreateView, PageRenderRetrieveUpdateDestroyView
+    PageRenderListCreateView, PageRenderRetrieveUpdateDestroyView, NavigationBarListCreateView, \
+    NavigationBarRetrieveUpdateDestroyView
 
 app_name = 'BackendTennis'
 urlpatterns = [
@@ -102,6 +103,13 @@ urlpatterns = [
         'page_render/<uuid:id>/',
         PageRenderRetrieveUpdateDestroyView.as_view(),
         name='page_render_retrieve_update_destroy'
+    ),
+
+    path('navigation_bar/', NavigationBarListCreateView.as_view(), name='navigation_bar_list_create'),
+    path(
+        'navigation_bar/<uuid:id>/',
+        NavigationBarRetrieveUpdateDestroyView.as_view(),
+        name='navigation_bar_retrieve_update_destroy'
     ),
 
     # path('admin/users/', UserAdminView.as_view(), name='user-admin'),

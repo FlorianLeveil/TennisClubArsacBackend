@@ -3,6 +3,7 @@ from .Category import Category
 from .ClubValue import ClubValue
 from .Event import Event
 from .Image import Image
+from .NavigationBar import NavigationBar
 from .NavigationItem import NavigationItem
 from .News import News
 from .PageRender import PageRender
