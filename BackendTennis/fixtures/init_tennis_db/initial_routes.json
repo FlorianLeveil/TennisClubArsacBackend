@@ -1,0 +1,352 @@
+[
+  {
+    "model": "BackendTennis.Route",
+    "pk": "404d9993-6391-4876-979b-e8317408bcc2",
+    "fields": {
+      "id": "404d9993-6391-4876-979b-e8317408bcc2",
+      "name": "Home",
+      "protocol": "https",
+      "domainUrl": "tennis-club-arsac.fr",
+      "pathUrl": "/home",
+      "componentPath": "Homepage.vue",
+      "metaTitle": "TC Arsac | Pratiquez le tennis en Gironde",
+      "metaTags": [
+        {
+          "name": "description",
+          "content": "Vous souhaitez vous initier au tennis ou participer à des compétitions seul ou en équipe ? Rejoignez le club d'Arsac : plus de 50 ans d'expérience !"
+        },
+        {
+          "property": "og:description",
+          "content": "Vous souhaitez vous initier au tennis ou participer à des compétitions seul ou en équipe ? Rejoignez le club d'Arsac : plus de 50 ans d'expérience !"
+        }
+      ],
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Route",
+    "pk": "3a66176f-48a5-4e9f-96e7-1c121f5cfb87",
+    "fields": {
+      "id": "3a66176f-48a5-4e9f-96e7-1c121f5cfb87",
+      "name": "News",
+      "protocol": "https",
+      "domainUrl": "tennis-club-arsac.fr",
+      "pathUrl": "/news",
+      "componentPath": "NewsPage.vue",
+      "metaTitle": "TC Arsac | Actualités et Newsletter",
+      "metaTags": [
+        {
+          "name": "description",
+          "content": "Retrouvez l'actualité du Tennis Club d'Arsac avec les tournois en cours, les résultats des matchs et d'autres informations pour toutes les catégories !"
+        },
+        {
+          "property": "og:description",
+          "content": "Retrouvez l'actualité du Tennis Club d'Arsac avec les tournois en cours, les résultats des matchs et d'autres informations pour toutes les catégories !"
+        }
+      ],
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Route",
+    "pk": "d3d960e0-05c4-42fb-a29e-d802211e5486",
+    "fields": {
+      "id": "d3d960e0-05c4-42fb-a29e-d802211e5486",
+      "name": "Animations",
+      "protocol": "https",
+      "domainUrl": "tennis-club-arsac.fr",
+      "pathUrl": "/animations",
+      "componentPath": "AnimationsPage.vue",
+      "metaTitle": "TC Arsac | Animations, tournois et historiques",
+      "metaTags": [
+        {
+          "name": "description",
+          "content": "Découvrez les animations et tournois à venir du Club de Tennis d'Arsac ! Un historique concernant les anciens événements reste accessible."
+        },
+        {
+          "property": "og:description",
+          "content": "Découvrez les animations et tournois à venir du Club de Tennis d'Arsac ! Un historique concernant les anciens événements reste accessible."
+        }
+      ],
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Route",
+    "pk": "e050c671-86ed-4514-9e46-57d60ac63cd8",
+    "fields": {
+      "id": "e050c671-86ed-4514-9e46-57d60ac63cd8",
+      "name": "Calendar",
+      "protocol": "https",
+      "domainUrl": "tennis-club-arsac.fr",
+      "pathUrl": "/calendar",
+      "componentPath": "CalendarPage.vue",
+      "metaTitle": "TC Arsac | Le calendrier des événements",
+      "metaTags": [
+        {
+          "name": "description",
+          "content": "Accédez au calendrier du club pour connaître les événements programmés. Vous pouvez obtenir des informations détaillées pour chacun d'entre eux."
+        },
+        {
+          "property": "og:description",
+          "content": "Accédez au calendrier du club pour connaître les événements programmés. Vous pouvez obtenir des informations détaillées pour chacun d'entre eux."
+        }
+      ],
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Route",
+    "pk": "787c1dd0-2f20-459e-90e7-1aeaf509802e",
+    "fields": {
+      "id": "787c1dd0-2f20-459e-90e7-1aeaf509802e",
+      "name": "Gallery",
+      "protocol": "https",
+      "domainUrl": "tennis-club-arsac.fr",
+      "pathUrl": "/galerie",
+      "componentPath": "GalleryPage.vue",
+      "metaTitle": "TC Arsac | Galerie des photos souvenirs",
+      "metaTags": [
+        {
+          "name": "description",
+          "content": "Redécouvrez d'anciens événements dans la galerie photos du club de tennis d'Arsac ! Vous pouvez intégrer des filtres et des tags dans vos recherches."
+        },
+        {
+          "property": "og:description",
+          "content": "Redécouvrez d'anciens événements dans la galerie photos du club de tennis d'Arsac ! Vous pouvez intégrer des filtres et des tags dans vos recherches."
+        }
+      ],
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Route",
+    "pk": "2cee040e-2605-432e-ad0c-c56b9eb584e1",
+    "fields": {
+      "id": "2cee040e-2605-432e-ad0c-c56b9eb584e1",
+      "name": "TarifsAdult",
+      "protocol": "https",
+      "domainUrl": "tennis-club-arsac.fr",
+      "pathUrl": "/tarifications-adultes",
+      "componentPath": "TarifsAdultPage.vue",
+      "metaTitle": "TC Arsac | Cotisations pour adultes",
+      "metaTags": [
+        {
+          "name": "description",
+          "content": "Retrouvez toutes les offres destinées aux personnes majeures. La licence vous permet de participer aux tournois partout en France."
+        },
+        {
+          "property": "og:description",
+          "content": "Retrouvez toutes les offres destinées aux personnes majeures. La licence vous permet de participer aux tournois partout en France."
+        }
+      ],
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Route",
+    "pk": "48375a4d-e7da-4d1a-b1d0-12ace60830f3",
+    "fields": {
+      "id": "48375a4d-e7da-4d1a-b1d0-12ace60830f3",
+      "name": "TarifsChildren",
+      "protocol": "https",
+      "domainUrl": "tennis-club-arsac.fr",
+      "pathUrl": "/tarifications-enfants",
+      "componentPath": "TarifsChildrenPage.vue",
+      "metaTitle": "TC Arsac | Cotisations pour jeunes",
+      "metaTags": [
+        {
+          "name": "description",
+          "content": "Retrouvez toutes les offres destinées aux personnes mineurs. La licence vous permet de participer aux tournois partout en France."
+        },
+        {
+          "property": "og:description",
+          "content": "Retrouvez toutes les offres destinées aux personnes mineurs. La licence vous permet de participer aux tournois partout en France."
+        }
+      ],
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Route",
+    "pk": "db384a2c-6d33-4323-98d3-251cb940162a",
+    "fields": {
+      "id": "db384a2c-6d33-4323-98d3-251cb940162a",
+      "name": "TarifsOther",
+      "protocol": "https",
+      "domainUrl": "tennis-club-arsac.fr",
+      "pathUrl": "/tarifications-autres",
+      "componentPath": "TarifsOtherPage.vue",
+      "metaTitle": "TC Arsac | Autres offres proposées",
+      "metaTags": [
+        {
+          "name": "description",
+          "content": "Retrouvez des offres temporaires et récurrentes. Pour réserver les salles, une section dédiée aux réservations existe sur le site."
+        },
+        {
+          "property": "og:description",
+          "content": "Retrouvez des offres temporaires et récurrentes. Pour réserver les salles, une section dédiée aux réservations existe sur le site."
+        }
+      ],
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Route",
+    "pk": "cdb88ded-f093-4438-9ff2-eff3510c0edf",
+    "fields": {
+      "id": "cdb88ded-f093-4438-9ff2-eff3510c0edf",
+      "name": "About",
+      "protocol": "https",
+      "domainUrl": "tennis-club-arsac.fr",
+      "pathUrl": "/about",
+      "componentPath": "AboutPage.vue",
+      "metaTitle": "TC Arsac | Un club historique avec des valeurs",
+      "metaTags": [
+        {
+          "name": "description",
+          "content": "Une association depuis plus de 50 ans pour promouvoir et valoriser la pratique du tennis. Passionnés ou professionnels ? Vous êtes les bienvenus au club !"
+        },
+        {
+          "property": "og:description",
+          "content": "Une association depuis plus de 50 ans pour promouvoir et valoriser la pratique du tennis. Passionnés ou professionnels ? Vous êtes les bienvenus au club !"
+        }
+      ],
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Route",
+    "pk": "dec997fe-70bf-4bcb-a2dc-ca935e4d46ab",
+    "fields": {
+      "id": "dec997fe-70bf-4bcb-a2dc-ca935e4d46ab",
+      "name": "Contact",
+      "protocol": "https",
+      "domainUrl": "tennis-club-arsac.fr",
+      "pathUrl": "/contact",
+      "componentPath": "ContactPage.vue",
+      "metaTitle": "TC Arsac | Formulaire de contact et Infos",
+      "metaTags": [
+        {
+          "name": "description",
+          "content": "Vous souhaitez contacter le club pour obtenir des informations ou vous inscrire ? Écrivez-nous ou joignez-nous via l'un de nos moyens de contact !"
+        },
+        {
+          "property": "og:description",
+          "content": "Vous souhaitez contacter le club pour obtenir des informations ou vous inscrire ? Écrivez-nous ou joignez-nous via l'un de nos moyens de contact !"
+        }
+      ],
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Route",
+    "pk": "e26f9408-1d90-4d5a-83b7-2f03e01e7194",
+    "fields": {
+      "id": "e26f9408-1d90-4d5a-83b7-2f03e01e7194",
+      "name": "Inscription",
+      "protocol": "https",
+      "domainUrl": "tennis-club-arsac.fr",
+      "pathUrl": "/signup",
+      "componentPath": "SignUpPage.vue",
+      "metaTitle": "TC Arsac | Connexion",
+      "metaTags": [
+        {
+          "name": "description",
+          "content": "Creéz un compte pour vous ou votre famille."
+        },
+        {
+          "property": "og:description",
+          "content": "Creéz un compte pour vous ou votre famille."
+        }
+      ],
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Route",
+    "pk": "c50fad6e-e57b-478a-a56c-01f5774a90f9",
+    "fields": {
+      "id": "c50fad6e-e57b-478a-a56c-01f5774a90f9",
+      "name": "Connexion",
+      "protocol": "https",
+      "domainUrl": "tennis-club-arsac.fr",
+      "pathUrl": "/login",
+      "componentPath": "LoginPage.vue",
+      "metaTitle": "TC Arsac | Connexion",
+      "metaTags": [
+        {
+          "name": "description",
+          "content": "Connexion au compte utilisateur."
+        },
+        {
+          "property": "og:description",
+          "content": "Connexion au compte utilisateur."
+        }
+      ],
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Route",
+    "pk": "84b1cb57-6296-4281-94da-b7084d00f4e7",
+    "fields": {
+      "id": "84b1cb57-6296-4281-94da-b7084d00f4e7",
+      "name": "Booking",
+      "protocol": "https",
+      "domainUrl": "tennis-club-arsac.fr",
+      "pathUrl": "/reservation",
+      "componentPath": "ReservationPage.vue",
+      "metaTitle": "TC Arsac | Réserver une salle",
+      "metaTags": [
+        {
+          "name": "description",
+          "content": "Reservez et profitez de nos salle pour vous entrainer ou jouer avec vos proches."
+        },
+        {
+          "property": "og:description",
+          "content": "Reservez et profitez de nos salle pour vous entrainer ou jouer avec vos proches."
+        }
+      ],
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Route",
+    "pk": "59e71409-daab-4e13-93cc-4e4d435b6dc1",
+    "fields": {
+      "id": "59e71409-daab-4e13-93cc-4e4d435b6dc1",
+      "name": "Team",
+      "protocol": "https",
+      "domainUrl": "tennis-club-arsac.fr",
+      "pathUrl": "/team",
+      "componentPath": "TeamPage.vue",
+      "metaTitle": "TC Arsac | Une équipe à l'écoute !",
+      "metaTags": [
+        {
+          "name": "description",
+          "content": "Les membres du bureau et professeurs diplômés d'état du club représentent les valeurs de l'association."
+        },
+        {
+          "property": "og:description",
+          "content": "Les membres du bureau et professeurs diplômés d'état du club représentent les valeurs de l'association."
+        }
+      ],
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  }
+]
