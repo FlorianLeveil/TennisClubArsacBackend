@@ -1,4 +1,3 @@
-import copy
 import uuid
 
 from django.core.exceptions import ValidationError
@@ -64,46 +63,43 @@ class NavigationItem(models.Model):
     class Meta:
         app_label = 'BackendTennis'
 
-    def _clean(self, instance: 'NavigationItem'):
+    def _clean(self):
         if self.navBarRender:
             if not self.parent_navigation_items.exists():
-                self._validate_order_for_root_items(instance)
+                self._validate_order_for_root_items()
             else:
-                self._validate_order_for_child_items(instance)
-        self._validate_order_for_children_navigation_item(instance)
+                self._validate_order_for_child_items()
+        self._validate_order_for_children_navigation_item()
 
-    @staticmethod
-    def _validate_order_for_root_items(instance: 'NavigationItem'):
-        """Valide l'ordre pour les items racine (sans parent)."""
+    def _validate_order_for_root_items(self):
+        """Validate the order for root items (without a parent)."""
         if NavigationItem.objects.filter(
                 parent_navigation_items=None,
-                navBarRender__order=instance.navBarRender.order
-        ).exclude(id=instance.id).exists():
+                navBarRender__order=self.navBarRender.order
+        ).exclude(id=self.id).exists():
             raise ValidationError({
                 'navBarRender': f'(root_items) Several elements use the same order'
-                                f' [{instance.navBarRender.order}] for navBarRender'
+                                f' [{self.navBarRender.order}] for navBarRender'
             })
 
-    @staticmethod
-    def _validate_order_for_child_items(instance: 'NavigationItem'):
-        """Valide l'ordre pour les items avec un parent."""
-        for parent in instance.parent_navigation_items.all():
+    def _validate_order_for_child_items(self):
+        """Validate the order for items with a parent."""
+        for parent in self.parent_navigation_items.all():
             if NavigationItem.objects.filter(
                     parent_navigation_items=parent,
-                    navBarRender__order=instance.navBarRender.order
-            ).exclude(id=instance.id).exists():
+                    navBarRender__order=self.navBarRender.order
+            ).exclude(id=self.id).exists():
                 raise ValidationError({
                     'navBarRender': f'(child_items) Several elements use the same order'
-                                    f' [{instance.navBarRender.order}] for navBarRender'
+                                    f' [{self.navBarRender.order}] for navBarRender'
                 })
 
-    @staticmethod
-    def _validate_order_for_children_navigation_item(instance: 'NavigationItem'):
-        """Valide les enfants de chaque item pour détecter les conflits d'ordre."""
+    def _validate_order_for_children_navigation_item(self):
+        """Validate each item's children to detect order conflicts."""
 
         new_children_by_orders = {}
 
-        for child in instance.childrenNavigationItems.all():
+        for child in self.childrenNavigationItems.all():
             if child.navBarRender is None:
                 continue
             order = child.navBarRender.order
@@ -123,20 +119,20 @@ class NavigationItem(models.Model):
             )
 
     def save(self, *args, **kwargs):
-        instance_copy = copy.deepcopy(self)
         for attr, value in kwargs.items():
             match attr:
                 case 'childrenNavigationItems':
-                    instance_copy.childrenNavigationItems.set(value)
+                    self.childrenNavigationItems.set(value)
                 case 'pageRenders':
-                    instance_copy.pageRenders.set(value)
+                    self.pageRenders.set(value)
                 case _:
-                    setattr(instance_copy, attr, value)
+                    setattr(self, attr, value)
 
-        for attr in ['childrenNavigationItems', 'navBarRender']:
+        for attr in ['title', 'description', 'image', 'route', 'navBarRender',
+                     'pageRenders', 'childrenNavigationItems', 'enabled']:
             if attr in kwargs:
                 kwargs.pop(attr)
 
         self.full_clean()
-        self._clean(instance_copy)
+        self._clean()
         super().save(*args, **kwargs)

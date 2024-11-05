@@ -39,6 +39,7 @@ class NavigationItemViewTests(APITestCase):
 
         cls.url = '/BackendTennis/navigation_item/'
         cls.detail_url = f'{cls.url}{cls.navigation_item.id}/'
+        cls.update_multi_url = '/BackendTennis/navigation_items/'
 
     def test_get_navigation_item_list_no_authentication(self):
         """ Test if unauthenticated users cannot access the navigation_item list """
@@ -136,3 +137,46 @@ class NavigationItemViewTests(APITestCase):
                                       HTTP_AUTHORIZATION=f'Bearer {self.superuser_token}')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT, str(response.data))
         self.assertEqual(NavigationItem.objects.count(), 0, str(response.data))
+
+    def test_multiple_update_navigation_item_no_permission(self):
+        """ Test updating a navigation_item without permission """
+        navigation_item_2 = NavigationItem.objects.create(
+            title='New Test NavigationItem  2',
+        )
+
+        data = {
+            "updates": [
+                {"id": self.navigation_item.id, "title": "Updated Item 1"},
+                {"id": navigation_item_2.id, "title": "Updated Item 2"}
+            ]
+        }
+        response = self.client.patch(self.update_multi_url,
+                                     data=data,
+                                     format='json',
+                                     HTTP_API_KEY=self.key,
+                                     HTTP_AUTHORIZATION=f'Bearer {self.token}')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, str(response.data))
+
+    def test_multiple_update_navigation_item_with_permission(self):
+        """ Test updating a navigation_item with correct permissions """
+        navigation_item_2 = NavigationItem.objects.create(
+            title='New Test NavigationItem  2',
+        )
+        data = {
+            'updates': [
+                {'id': self.navigation_item.id, 'title': 'Updated Item 1'},
+                {'id': navigation_item_2.id, 'title': 'Updated Item 2'}
+            ]
+        }
+        permission = Permission.objects.get(codename='change_navigationitem')
+        self.user.user_permissions.add(permission)
+        response = self.client.patch(self.update_multi_url,
+                                     data=data,
+                                     format='json',
+                                     HTTP_API_KEY=self.key,
+                                     HTTP_AUTHORIZATION=f'Bearer {self.token}')
+        self.assertEqual(response.status_code, status.HTTP_200_OK, str(response.data))
+        self.navigation_item.refresh_from_db()
+        navigation_item_2.refresh_from_db()
+        self.assertEqual('Updated Item 1', self.navigation_item.title, str(response.data))
+        self.assertEqual('Updated Item 2', navigation_item_2.title, str(response.data))

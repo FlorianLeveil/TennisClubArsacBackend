@@ -10,7 +10,8 @@ from .HomePageView import HomePageListCreateView, HomePageRetrieveUpdateDestroyV
 from .ImageView import ImageListCreateView
 from .ImageView import ImageRetrieveUpdateDestroyView
 from .NavigationBarView import NavigationBarListCreateView, NavigationBarRetrieveUpdateDestroyView
-from .NavigationItemView import NavigationItemListCreateView, NavigationItemRetrieveUpdateDestroyView
+from .NavigationItemView import NavigationItemListCreateView, NavigationItemRetrieveUpdateDestroyView, \
+    UpdateNavigationItemsView
 from .NewsView import NewsListCreateView
 from .NewsView import NewsRetrieveUpdateDestroyView
 from .PageRenderView import PageRenderListCreateView, PageRenderRetrieveUpdateDestroyView
