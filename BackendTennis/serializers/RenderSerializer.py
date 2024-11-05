@@ -18,9 +18,3 @@ class RenderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Render
         fields = '__all__'
-
-    @staticmethod
-    def validate_order(value):
-        if Render.objects.filter(order=value).exists():
-            raise serializers.ValidationError('Another Render already use this order.')
-        return value

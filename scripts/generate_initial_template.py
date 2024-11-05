@@ -6,7 +6,7 @@ def get_initial_data_template(model_name, extra_props):
     _uuid = str(uuid.uuid4())
     extra_props_dict = {prop_name: '' for prop_name in extra_props}
     extra_props_dict['createAt'] = '2024-05-30T11:01:26.151680+02:00'
-    extra_props_dict['updateAt'] = '2024-05-30T11:01:26.151680+02:00'`
+    extra_props_dict['updateAt'] = '2024-05-30T11:01:26.151680+02:00'
 
     template = {
         'model': f'BackendTennis.{model_name}',
@@ -22,8 +22,8 @@ def get_initial_data_template(model_name, extra_props):
 
 def main():
     nb_to_generate = 15
-    model_name = 'Route'
-    extra_props = ['name', 'protocol', 'domainUrl', 'pathUrl', 'componentPath', 'metaTitle', 'metaTags']
+    model_name = 'Render'
+    extra_props = ['order', 'navBarPosition', 'visible', 'type', 'color', 'isButton']
 
     full_template = []
     for i in range(nb_to_generate):

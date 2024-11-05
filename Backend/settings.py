@@ -171,6 +171,11 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': False,
         },
+        'BackendTennis.signals': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
     }
 }
 

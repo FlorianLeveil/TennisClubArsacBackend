@@ -21,6 +21,7 @@ class NavigationItemSerializer(serializers.ModelSerializer):
     )
 
     route = serializers.PrimaryKeyRelatedField(queryset=Route.objects.all(), required=False)
+    parent_navigation_items = serializers.SerializerMethodField(read_only=True)
     enabled = serializers.BooleanField(required=False)
     createAt = serializers.DateTimeField(read_only=True)
     updateAt = serializers.DateTimeField(read_only=True)
@@ -30,10 +31,28 @@ class NavigationItemSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     @staticmethod
+    def get_parent_navigation_items(obj):
+        parents = obj.parent_navigation_items.all()
+        return NavigationItemSerializer(parents, many=True).data
+
+    @staticmethod
     def validate_image(value):
         if value.type != Constant.IMAGE_TYPE.NAVIGATION_ITEM:
             raise serializers.ValidationError('Image must be of type \'navigation_item\'.')
         return value
+
+    def validate(self, attrs):
+        nav_bar_render = attrs.get('navBarRender')
+        if nav_bar_render and nav_bar_render.type.lower() not in Constant.RENDER_TYPE_CHOICES.NAV_BAR:
+            raise serializers.ValidationError({'navBarRender': 'navBarRender must be of type \'nav_bar\'.'})
+        return attrs
+
+    def update(self, instance, validated_data):
+        new_children_navigation_items = validated_data.pop('childrenNavigationItems', [])
+        instance.save(childrenNavigationItems=new_children_navigation_items)
+        instance.childrenNavigationItems.set(new_children_navigation_items)
+
+        return super().update(instance, validated_data)
 
 
 class NavigationItemDetailSerializer(serializers.ModelSerializer):

@@ -71,21 +71,6 @@ class RenderSerializerTests(TestCase):
 
         self.assertEqual(self.render.navBarPosition, 'right', str(serializer.errors))
 
-    def test_order_already_used(self):
-        invalid_data = {
-            'navBarPosition': 'left',
-            'type': 'nav_bar',
-            'order': 0
-        }
-        serializer = RenderSerializer(data=invalid_data)
-        self.assertFalse(serializer.is_valid(), str(serializer.errors))
-        self.assertIn('order', str(serializer.errors))
-        self.assertEqual(
-            serializer.errors['order'][0],
-            'Another Render already use this order.',
-            str(serializer.errors)
-        )
-
     def test_invalid_value_for_navBarPosition(self):
         invalid_data = {
             'navBarPosition': 'lefttttt',
