@@ -137,7 +137,7 @@
       "title": "accueil__actu",
       "tags": [],
       "type": "navigation_item",
-      "imageUrl": "home_page/news.webp",
+      "imageUrl": "images/home_page/news.webp",
       "createAt": "2024-05-30T11:01:26.151680+02:00",
       "updateAt": "2024-05-30T11:01:26.151680+02:00"
     }
@@ -150,7 +150,7 @@
       "title": "accueil__animation",
       "tags": [],
       "type": "navigation_item",
-      "imageUrl": "home_page/animations.webp",
+      "imageUrl": "images/home_page/animations.webp",
       "createAt": "2024-05-30T11:01:26.151680+02:00",
       "updateAt": "2024-05-30T11:01:26.151680+02:00"
     }
@@ -163,7 +163,7 @@
       "title": "accueil__calendrier",
       "tags": [],
       "type": "navigation_item",
-      "imageUrl": "home_page/calendar.webp",
+      "imageUrl": "images/home_page/calendar.webp",
       "createAt": "2024-05-30T11:01:26.151680+02:00",
       "updateAt": "2024-05-30T11:01:26.151680+02:00"
     }
@@ -176,7 +176,7 @@
       "title": "accueil__galerie_photos",
       "tags": [],
       "type": "navigation_item",
-      "imageUrl": "home_page/gallery.webp",
+      "imageUrl": "images/home_page/gallery.webp",
       "createAt": "2024-05-30T11:01:26.151680+02:00",
       "updateAt": "2024-05-30T11:01:26.151680+02:00"
     }
@@ -189,7 +189,7 @@
       "title": "accueil__tarifs",
       "tags": [],
       "type": "navigation_item",
-      "imageUrl": "home_page/prices.webp",
+      "imageUrl": "images/home_page/prices.webp",
       "createAt": "2024-05-30T11:01:26.151680+02:00",
       "updateAt": "2024-05-30T11:01:26.151680+02:00"
     }
@@ -202,7 +202,7 @@
       "title": "accueil__propos_equipe",
       "tags": [],
       "type": "navigation_item",
-      "imageUrl": "home_page/about.webp",
+      "imageUrl": "images/home_page/about.webp",
       "createAt": "2024-05-30T11:01:26.151680+02:00",
       "updateAt": "2024-05-30T11:01:26.151680+02:00"
     }
@@ -215,7 +215,7 @@
       "title": "accueil__contact",
       "tags": [],
       "type": "navigation_item",
-      "imageUrl": "home_page/contact.webp",
+      "imageUrl": "images/home_page/contact.webp",
       "createAt": "2024-05-30T11:01:26.151680+02:00",
       "updateAt": "2024-05-30T11:01:26.151680+02:00"
     }
@@ -228,7 +228,20 @@
       "title": "accueil__reservation",
       "tags": [],
       "type": "navigation_item",
-      "imageUrl": "home_page/booking.webp",
+      "imageUrl": "images/home_page/booking.webp",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Image",
+    "pk": "f57c8ea4-df3a-4f15-bf71-440545680f9e",
+    "fields": {
+      "id": "f57c8ea4-df3a-4f15-bf71-440545680f9e",
+      "title": "logo_tennis_arsac",
+      "tags": [],
+      "type": "navigation_bar",
+      "imageUrl": "images/logo_arsac.webp",
       "createAt": "2024-05-30T11:01:26.151680+02:00",
       "updateAt": "2024-05-30T11:01:26.151680+02:00"
     }

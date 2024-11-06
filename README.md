@@ -114,6 +114,8 @@ print("Clé générée :", key)
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_images.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_routes.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_renders_navigation_items.json
+python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_home_pages.json
+python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_navigation_bars.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_pricings.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_training.json
 

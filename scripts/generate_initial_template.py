@@ -2,12 +2,17 @@ import json
 import uuid
 
 IMAGE_PROPS = ['title', 'tags', 'type', 'imageUrl']
+
 NAVIGATION_ITEM_PROPS = ['title', 'description', 'image', 'route', 'navBarRender', 'pageRenders',
                          'childrenNavigationItems', 'enabled']
 
 RENDER_PROPS = ['order', 'navBarPosition', 'visible', 'type', 'color', 'isButton']
 
 PAGE_RENDER_PROPS = ['route', 'render']
+
+NAVIGATION_BAR_PROPS = ['logo', 'routeLogo', 'navigationItems']
+
+HOME_PAGE_PROPS = ['title', 'navigationItems']
 
 
 def get_initial_data_template(model_name, extra_props):
@@ -30,8 +35,8 @@ def get_initial_data_template(model_name, extra_props):
 
 def main():
     nb_to_generate = 1
-    model_name = 'PageRender'
-    extra_props = PAGE_RENDER_PROPS
+    model_name = 'HomePage'
+    extra_props = HOME_PAGE_PROPS
 
     full_template = []
     for i in range(nb_to_generate):
