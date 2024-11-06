@@ -109,6 +109,16 @@ api_key, key = APIKey.objects.create_key(
 print("Clé générée :", key)
 ```
 
+## Ajout des données en base
+```bash
+python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_images.json
+python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_routes.json
+python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_renders_navigation_items.json
+python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_pricings.json
+python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_training.json
+
+```
+
 
 ## Lancer le serveur de développement
 

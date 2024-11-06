@@ -1,7 +1,10 @@
+import logging
 import uuid
 
 from django.core.exceptions import ValidationError
 from django.db import models
+
+logger = logging.getLogger(__name__)
 
 
 class NavigationItem(models.Model):
@@ -75,8 +78,11 @@ class NavigationItem(models.Model):
         """Validate the order for root items (without a parent)."""
         if NavigationItem.objects.filter(
                 parent_navigation_items=None,
-                navBarRender__order=self.navBarRender.order
+                navBarRender__order=self.navBarRender.order,
+                navBarRender__navBarPosition=self.navBarRender.navBarPosition
         ).exclude(id=self.id).exists():
+            logger.debug(f'(root_items) [{self.id}] Several elements use the same order [{self.navBarRender.order}] '
+                         f'for navBarRender')
             raise ValidationError({
                 'navBarRender': f'(root_items) Several elements use the same order'
                                 f' [{self.navBarRender.order}] for navBarRender'
@@ -87,8 +93,12 @@ class NavigationItem(models.Model):
         for parent in self.parent_navigation_items.all():
             if NavigationItem.objects.filter(
                     parent_navigation_items=parent,
-                    navBarRender__order=self.navBarRender.order
+                    navBarRender__order=self.navBarRender.order,
+                    navBarRender__navBarPosition=self.navBarRender.navBarPosition
             ).exclude(id=self.id).exists():
+                logger.debug(
+                    f'(root_items) [{self.id}] Several elements use the same order [{self.navBarRender.order}] '
+                    f'for navBarRender')
                 raise ValidationError({
                     'navBarRender': f'(child_items) Several elements use the same order'
                                     f' [{self.navBarRender.order}] for navBarRender'
@@ -97,23 +107,29 @@ class NavigationItem(models.Model):
     def _validate_order_for_children_navigation_item(self):
         """Validate each item's children to detect order conflicts."""
 
-        new_children_by_orders = {}
-
+        children_orders_by_position = {}
         for child in self.childrenNavigationItems.all():
             if child.navBarRender is None:
                 continue
+            position = child.navBarRender.navBarPosition
+            if position not in children_orders_by_position:
+                children_orders_by_position[position] = {}
+
+            order_by_position = children_orders_by_position[position]
             order = child.navBarRender.order
-            if order not in new_children_by_orders:
-                new_children_by_orders[order] = []
-            new_children_by_orders[order].append(child.id)
+            if order not in order_by_position:
+                order_by_position[order] = []
+            order_by_position[order].append(child.id)
         error_messages = []
-        for order, children_with_same_order in new_children_by_orders.items():
-            if len(children_with_same_order) > 1:
-                error_messages.append(
-                    f'(childrenNavigationItems) Several elements use the same order'
-                    f' [{order}] for navBarRender of childrenNavigationItems'
-                )
+        for position, children_by_orders in children_orders_by_position.items():
+            for order, children_with_same_order in children_by_orders.items():
+                if len(children_with_same_order) > 1:
+                    error_messages.append(
+                        f'(childrenNavigationItems) Several elements use the same order'
+                        f' [{order}] and position [{position}] for navBarRender of childrenNavigationItems'
+                    )
         if error_messages:
+            logger.debug('\n'.join(error_messages))
             raise ValidationError(
                 {'childrenNavigationItems': '\n'.join(error_messages)}
             )

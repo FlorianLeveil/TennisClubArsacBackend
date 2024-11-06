@@ -48,11 +48,21 @@ class NavigationItemSerializer(serializers.ModelSerializer):
         return attrs
 
     def update(self, instance, validated_data):
+        if 'childrenNavigationItems' in validated_data:
+            new_children_navigation_items = validated_data.pop('childrenNavigationItems', [])
+            instance.save(childrenNavigationItems=new_children_navigation_items)
+            instance.childrenNavigationItems.set(new_children_navigation_items)
+        else:
+            instance.save()
+        return super().update(instance, validated_data)
+
+    def create(self, validated_data):
         new_children_navigation_items = validated_data.pop('childrenNavigationItems', [])
+        instance = super().create(validated_data)
         instance.save(childrenNavigationItems=new_children_navigation_items)
         instance.childrenNavigationItems.set(new_children_navigation_items)
 
-        return super().update(instance, validated_data)
+        return instance
 
 
 class NavigationItemDetailSerializer(serializers.ModelSerializer):

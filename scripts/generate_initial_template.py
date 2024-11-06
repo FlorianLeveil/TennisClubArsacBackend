@@ -1,6 +1,14 @@
 import json
 import uuid
 
+IMAGE_PROPS = ['title', 'tags', 'type', 'imageUrl']
+NAVIGATION_ITEM_PROPS = ['title', 'description', 'image', 'route', 'navBarRender', 'pageRenders',
+                         'childrenNavigationItems', 'enabled']
+
+RENDER_PROPS = ['order', 'navBarPosition', 'visible', 'type', 'color', 'isButton']
+
+PAGE_RENDER_PROPS = ['route', 'render']
+
 
 def get_initial_data_template(model_name, extra_props):
     _uuid = str(uuid.uuid4())
@@ -21,9 +29,9 @@ def get_initial_data_template(model_name, extra_props):
 
 
 def main():
-    nb_to_generate = 15
-    model_name = 'Render'
-    extra_props = ['order', 'navBarPosition', 'visible', 'type', 'color', 'isButton']
+    nb_to_generate = 1
+    model_name = 'PageRender'
+    extra_props = PAGE_RENDER_PROPS
 
     full_template = []
     for i in range(nb_to_generate):

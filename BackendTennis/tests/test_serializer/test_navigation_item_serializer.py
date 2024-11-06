@@ -391,11 +391,12 @@ class NavigationItemSerializerTests(TestCase):
         )
 
         self.assertTrue(serializer_2.is_valid(), str(serializer_2.errors))
-
+        print('HERE')
         with self.assertRaises(
                 ValidationError,
                 msg='Save should failed on NavigationItem._validate_order_for_child_items with error : '
-                    '\'(children_navigation_items) Several elements use the same order [2021] for navBarRender\''
+                    '\'(children_navigation_items) Several elements use the same order [2021] and '
+                    'position [left] for navBarRender\''
         ):
             serializer_2.save()
 
@@ -577,3 +578,107 @@ class NavigationItemSerializerTests(TestCase):
         self.assertEqual(self.navigation_item.childrenNavigationItems.count(), 2, str(serializer.errors))
         self.assertIn(self.childrenNavigationItems.id, children_navigation_items, str(serializer.errors))
         self.assertIn(self.childrenNavigationItems_2.id, children_navigation_items, str(serializer.errors))
+
+    def test_navBarRender_order_and_navBarRender_navBarPosition(self):
+        new_nav_bar_render = Render.objects.create(
+            navBarPosition='left',
+            type='nav_bar',
+            order=2010
+        )
+
+        new_nav_bar_render_2 = Render.objects.create(
+            navBarPosition='right',
+            type='nav_bar',
+            order=2010
+        )
+
+        navigation_item = NavigationItem.objects.create(
+            title='Test NavigationItem',
+            navBarRender=new_nav_bar_render,
+        )
+        data = {
+            'title': 'Test NavigationItem 2',
+            'navBarRender': new_nav_bar_render_2.id,
+        }
+
+        serializer = NavigationItemSerializer(data=data)
+        self.assertTrue(serializer.is_valid(), str(serializer.errors))
+        new_element = serializer.save()
+        self.assertEqual(new_element.navBarRender.id, new_nav_bar_render_2.id, str(serializer.errors))
+        self.assertEqual(navigation_item.navBarRender.id, new_nav_bar_render.id, str(serializer.errors))
+
+    def test_children_navBarRender_order_and_navBarRender_navBarPosition(self):
+        children_nav_bar_render = Render.objects.create(
+            navBarPosition='left',
+            type='nav_bar',
+            order=2010
+        )
+
+        children_nav_bar_render_2 = Render.objects.create(
+            navBarPosition='right',
+            type='nav_bar',
+            order=2010
+        )
+
+        children_navigation_item = NavigationItem.objects.create(
+            title='Test Children NavigationItem',
+            navBarRender=children_nav_bar_render,
+        )
+
+        children_navigation_item_2 = NavigationItem.objects.create(
+            title='Test Children NavigationItem',
+            navBarRender=children_nav_bar_render_2,
+        )
+
+        data = {
+            'title': 'Test NavigationItem',
+            'childrenNavigationItems': [children_navigation_item.id, children_navigation_item_2.id],
+        }
+
+        serializer = NavigationItemSerializer(data=data)
+        self.assertTrue(serializer.is_valid(), str(serializer.errors))
+        new_element = serializer.save()
+        children_navigation_items = new_element.childrenNavigationItems.values_list('id', flat=True)
+        self.assertEqual(new_element.childrenNavigationItems.count(), 2, str(serializer.errors))
+        self.assertIn(children_navigation_item.id, children_navigation_items, str(serializer.errors))
+        self.assertIn(children_navigation_item_2.id, children_navigation_items, str(serializer.errors))
+
+    def test_update_dont_override_childrenNavigationItems_values(self):
+        children_nav_bar_render = Render.objects.create(
+            navBarPosition='left',
+            type='nav_bar',
+            order=2010
+        )
+
+        children_nav_bar_render_2 = Render.objects.create(
+            navBarPosition='right',
+            type='nav_bar',
+            order=2010
+        )
+
+        children_navigation_item = NavigationItem.objects.create(
+            title='Test Children NavigationItem',
+            navBarRender=children_nav_bar_render,
+        )
+
+        children_navigation_item_2 = NavigationItem.objects.create(
+            title='Test Children NavigationItem',
+            navBarRender=children_nav_bar_render_2,
+        )
+
+        navigation_item = NavigationItem.objects.create(
+            title='Test NavigationItem'
+        )
+        navigation_item.childrenNavigationItems.set([children_navigation_item, children_navigation_item_2])
+
+        data = {
+            'title': 'Updated NavigationItem',
+        }
+        serializer = NavigationItemSerializer(instance=navigation_item, data=data)
+        self.assertTrue(serializer.is_valid(), str(serializer.errors))
+        serializer.save()
+
+        children_navigation_items = navigation_item.childrenNavigationItems.values_list('id', flat=True)
+        self.assertEqual(navigation_item.childrenNavigationItems.count(), 2, str(serializer.errors))
+        self.assertIn(children_navigation_item.id, children_navigation_items, str(serializer.errors))
+        self.assertIn(children_navigation_item_2.id, children_navigation_items, str(serializer.errors))
