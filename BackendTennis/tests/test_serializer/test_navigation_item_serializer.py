@@ -391,7 +391,6 @@ class NavigationItemSerializerTests(TestCase):
         )
 
         self.assertTrue(serializer_2.is_valid(), str(serializer_2.errors))
-        print('HERE')
         with self.assertRaises(
                 ValidationError,
                 msg='Save should failed on NavigationItem._validate_order_for_child_items with error : '
@@ -451,6 +450,228 @@ class NavigationItemSerializerTests(TestCase):
             serializer.errors['pageRenders'][0],
             '“no_pageRenders_id” is not a valid UUID.',
             str(serializer.errors))
+
+    def test_pageRenders_same_type(self):
+        old_nav_bar_render = Render.objects.create(
+            navBarPosition='left',
+            type='nav_bar',
+            order=2005
+        )
+
+        old_nav_bar_render_2 = Render.objects.create(
+            navBarPosition='left',
+            type='nav_bar',
+            order=2005
+        )
+
+        page_render = PageRender.objects.create(
+            render=old_nav_bar_render
+        )
+
+        page_render_2 = PageRender.objects.create(
+            render=old_nav_bar_render_2
+        )
+
+        data = {
+            'title': 'Test name',
+            'pageRenders': [page_render.id, page_render_2.id]
+        }
+        serializer_1 = NavigationItemSerializer(data=data)
+        self.assertTrue(serializer_1.is_valid(), str(serializer_1.errors))
+        with self.assertRaises(
+                ValidationError,
+                msg='Save should failed on NavigationItem._validate_same_type_page_renders with error : '
+                    'Too many PageRender with same type [nav_bar] : '
+                    f'[{page_render.id}, {page_render_2.id}]'
+        ) as _exception:
+            serializer_1.save()
+
+        self.assertEqual(
+            'Too many PageRender with same type [nav_bar] : '
+            f'[{page_render.id}, {page_render_2.id}]',
+            _exception.exception.message_dict['pageRenders'][0]
+        )
+
+    def test_root_item_pageRenders_render_order_already_used(self):
+        old_nav_bar_render = Render.objects.create(
+            navBarPosition='left',
+            type='nav_bar',
+            order=2005
+        )
+
+        old_nav_bar_render_2 = Render.objects.create(
+            navBarPosition='left',
+            type='nav_bar',
+            order=2005
+        )
+
+        page_render = PageRender.objects.create(
+            render=old_nav_bar_render
+        )
+
+        page_render_2 = PageRender.objects.create(
+            render=old_nav_bar_render_2
+        )
+
+        data = {
+            'title': 'Test name',
+            'pageRenders': [page_render.id]
+        }
+
+        serializer_1 = NavigationItemSerializer(data=data)
+        self.assertTrue(serializer_1.is_valid(), str(serializer_1.errors))
+        serializer_1.save()
+
+        data_2 = {
+            'title': 'Test name 2',
+            'pageRenders': [page_render_2.id]
+        }
+
+        serializer_2 = NavigationItemSerializer(data=data_2)
+        self.assertTrue(serializer_2.is_valid(), str(serializer_2.errors))
+        with self.assertRaises(
+                ValidationError,
+                msg='Save should failed on NavigationItem._validate_pageRenders_order_for_root_items with error : '
+                    '(root_items) Several elements use the same order'
+                    f' [{page_render.render.order}] for pageRenders of type [{page_render.render.type}]'
+
+        ) as _exception:
+            serializer_2.save()
+
+        self.assertEqual(
+            f'(root_items) Several elements use the same order'
+            f' [{page_render.render.order}] for pageRenders of type [{page_render.render.type}]',
+            _exception.exception.message_dict['pageRenders'][0]
+        )
+
+    def test_child_items_pageRenders_render_order_already_used(self):
+        old_nav_bar_render = Render.objects.create(
+            navBarPosition='left',
+            type='nav_bar',
+            order=2005
+        )
+
+        old_nav_bar_render_2 = Render.objects.create(
+            navBarPosition='left',
+            type='nav_bar',
+            order=2006
+        )
+
+        new_nav_bar_render = Render.objects.create(
+            navBarPosition='left',
+            type='nav_bar',
+            order=2005
+        )
+
+        page_render = PageRender.objects.create(
+            render=old_nav_bar_render
+        )
+
+        page_render_2 = PageRender.objects.create(
+            render=old_nav_bar_render_2
+        )
+
+        new_page_render = PageRender.objects.create(
+            render=new_nav_bar_render
+        )
+
+        children_navigation_item = NavigationItem.objects.create(
+            title='Child NavigationItem'
+        )
+        children_navigation_item.pageRenders.set([page_render])
+
+        children_navigation_item_2 = NavigationItem.objects.create(
+            title='Child NavigationItem 2'
+        )
+        children_navigation_item_2.pageRenders.set([page_render_2])
+
+        navigation_item = NavigationItem.objects.create(
+            title='NavigationItem'
+        )
+        navigation_item.childrenNavigationItems.set([children_navigation_item.id, children_navigation_item_2.id])
+
+        data = {
+            'pageRenders': [new_page_render.id]
+        }
+
+        serializer_1 = NavigationItemSerializer(instance=children_navigation_item_2, data=data, partial=True)
+        self.assertTrue(serializer_1.is_valid(), str(serializer_1.errors))
+        with self.assertRaises(
+                ValidationError,
+                msg='Save should failed on NavigationItem._validate_pageRenders_order_for_root_items with error : '
+                    f'(child_items) Several elements use the same order'
+                    f' [{new_page_render.render.order}] for pageRenders of type [{new_page_render.render.type}]'
+                    f' for parent [{navigation_item.title}]'
+
+        ) as _exception:
+            serializer_1.save()
+
+        self.assertEqual(
+            f'(child_items) Several elements use the same order'
+            f' [{new_page_render.render.order}] for pageRenders of type [{new_page_render.render.type}]'
+            f' for parent [{navigation_item.title}]',
+            _exception.exception.message_dict['pageRenders'][0]
+        )
+
+    def test_children_navigation_item_pageRenders_render_order_already_used(self):
+        old_nav_bar_render = Render.objects.create(
+            navBarPosition='left',
+            type='nav_bar',
+            order=2005
+        )
+
+        old_nav_bar_render_2 = Render.objects.create(
+            navBarPosition='left',
+            type='nav_bar',
+            order=2005
+        )
+
+        page_render = PageRender.objects.create(
+            render=old_nav_bar_render
+        )
+
+        page_render_2 = PageRender.objects.create(
+            render=old_nav_bar_render_2
+        )
+
+        children_navigation_item = NavigationItem.objects.create(
+            title='Child NavigationItem'
+        )
+        children_navigation_item.pageRenders.set([page_render])
+
+        children_navigation_item_2 = NavigationItem.objects.create(
+            title='Child NavigationItem 2'
+        )
+        children_navigation_item_2.pageRenders.set([page_render_2])
+
+        navigation_item = NavigationItem.objects.create(
+            title='NavigationItem'
+        )
+        navigation_item.childrenNavigationItems.set([children_navigation_item])
+
+        data = {
+            'childrenNavigationItems': [children_navigation_item.id, children_navigation_item_2.id]
+        }
+
+        serializer_1 = NavigationItemSerializer(instance=navigation_item, data=data, partial=True)
+        self.assertTrue(serializer_1.is_valid(), str(serializer_1.errors))
+        with self.assertRaises(
+                ValidationError,
+                msg='Save should failed on NavigationItem._validate_order_for_children_navigation_item with error : '
+                    f'(pageRenders) Several elements use the same order'
+                    f' [{page_render.render.order}] for pageRenders of type [{page_render.render.type}]'
+                    f' for parent [{navigation_item.title}] : '
+                    f'[{children_navigation_item.title}, {children_navigation_item_2.title}]'
+
+        ) as _exception:
+            serializer_1.save()
+        children_with_same_order = [children_navigation_item.title, children_navigation_item_2.title]
+        self.assertEqual(
+            f'(pageRenders) Several elements use the same order'
+            f' [{page_render.render.order}] for pageRenders of type [{page_render.render.type}]'
+            f' for parent [{navigation_item.title}] : [{', '.join(children_with_same_order)}]',
+            _exception.exception.message_dict['childrenNavigationItems'][0]
+        )
 
     def test_invalid_value_for_childrenNavigationItems(self):
         invalid_data = {
@@ -553,7 +774,7 @@ class NavigationItemSerializerTests(TestCase):
 
     def test_update_pageRenders(self):
         data = {
-            'pageRenders': [self.pageRender.id, self.pageRender_2.id],
+            'pageRenders': [self.pageRender.id],
         }
         serializer = NavigationItemSerializer(instance=self.navigation_item, data=data, partial=True)
         self.assertTrue(serializer.is_valid(), str(serializer.errors))
@@ -561,9 +782,8 @@ class NavigationItemSerializerTests(TestCase):
         self.navigation_item.refresh_from_db()
 
         page_renders_id = self.navigation_item.pageRenders.values_list('id', flat=True)
-        self.assertEqual(self.navigation_item.pageRenders.count(), 2, str(serializer.errors))
+        self.assertEqual(self.navigation_item.pageRenders.count(), 1, str(serializer.errors))
         self.assertIn(self.pageRender.id, page_renders_id, str(serializer.errors))
-        self.assertIn(self.pageRender_2.id, page_renders_id, str(serializer.errors))
 
     def test_update_childrenNavigationItems(self):
         data = {

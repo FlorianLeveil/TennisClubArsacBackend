@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from BackendTennis.constant import Constant
 from BackendTennis.models import PageRender, Route, Render
 from BackendTennis.serializers import RenderSerializer, RouteSerializer
 
@@ -14,6 +15,12 @@ class PageRenderSerializer(serializers.ModelSerializer):
     class Meta:
         model = PageRender
         fields = '__all__'
+
+    @staticmethod
+    def validate_render(render):
+        if render.type in Constant.RENDER_TYPE_CHOICES.NAV_BAR:
+            raise serializers.ValidationError('Render of PageRender cannot be of \'nav_bar\' type.')
+        return render
 
 
 class PageRenderDetailSerializer(serializers.ModelSerializer):

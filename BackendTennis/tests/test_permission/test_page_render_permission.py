@@ -37,7 +37,7 @@ class PageRenderPermissionsTests(APITestCase):
 
         cls.render = Render.objects.create(
             navBarPosition='left',
-            type='nav_bar'
+            type='home_page'
         )
 
         cls.route = Route.objects.create(

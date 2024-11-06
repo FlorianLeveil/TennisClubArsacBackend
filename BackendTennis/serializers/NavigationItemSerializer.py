@@ -36,30 +36,38 @@ class NavigationItemSerializer(serializers.ModelSerializer):
         return NavigationItemSerializer(parents, many=True).data
 
     @staticmethod
-    def validate_image(value):
-        if value.type != Constant.IMAGE_TYPE.NAVIGATION_ITEM:
+    def validate_image(image):
+        if image.type != Constant.IMAGE_TYPE.NAVIGATION_ITEM:
             raise serializers.ValidationError('Image must be of type \'navigation_item\'.')
-        return value
+        return image
 
-    def validate(self, attrs):
-        nav_bar_render = attrs.get('navBarRender')
-        if nav_bar_render and nav_bar_render.type.lower() not in Constant.RENDER_TYPE_CHOICES.NAV_BAR:
-            raise serializers.ValidationError({'navBarRender': 'navBarRender must be of type \'nav_bar\'.'})
-        return attrs
+    @staticmethod
+    def validate_navBarRender(nav_bar_render):
+        if nav_bar_render.type.lower() not in Constant.RENDER_TYPE_CHOICES.NAV_BAR:
+            raise serializers.ValidationError('navBarRender must be of type \'nav_bar\'.')
+        return nav_bar_render
 
     def update(self, instance, validated_data):
         if 'childrenNavigationItems' in validated_data:
             new_children_navigation_items = validated_data.pop('childrenNavigationItems', [])
             instance.save(childrenNavigationItems=new_children_navigation_items)
             instance.childrenNavigationItems.set(new_children_navigation_items)
+        elif 'pageRenders' in validated_data:
+            new_page_renders = validated_data.pop('pageRenders', [])
+            instance.save(pageRenders=new_page_renders)
+            instance.pageRenders.set(new_page_renders)
         else:
             instance.save()
         return super().update(instance, validated_data)
 
     def create(self, validated_data):
         new_children_navigation_items = validated_data.pop('childrenNavigationItems', [])
+        new_page_renders = validated_data.pop('pageRenders', [])
         instance = super().create(validated_data)
-        instance.save(childrenNavigationItems=new_children_navigation_items)
+        instance.save(
+            childrenNavigationItems=new_children_navigation_items,
+            pageRenders=new_page_renders
+        )
         instance.childrenNavigationItems.set(new_children_navigation_items)
 
         return instance

@@ -11,7 +11,7 @@ class PageRenderSerializerTests(TestCase):
     def setUp(self):
         self.render = Render.objects.create(
             navBarPosition='left',
-            type='nav_bar'
+            type='home_page'
         )
 
         self.render_2 = Render.objects.create(
@@ -90,6 +90,22 @@ class PageRenderSerializerTests(TestCase):
         self.page_render.refresh_from_db()
 
         self.assertEqual(self.page_render.route.id, self.route_2.id, str(serializer.errors))
+
+    def test_invalid_render_type(self):
+        self.assertEqual(self.page_render.render.id, self.render.id, 'Wrong route id at start test')
+        invalid_render = Render.objects.create(
+            navBarPosition='right',
+            type='nav_bar'
+        )
+        data = {
+            'render': invalid_render.id
+        }
+        serializer = PageRenderSerializer(instance=self.page_render, data=data, partial=True)
+        self.assertFalse(serializer.is_valid(), str(serializer.errors))
+        self.assertIn('render', serializer.errors, str(serializer.errors))
+        self.assertEqual('Render of PageRender cannot be of \'nav_bar\' type.',
+                         serializer.errors['render'][0],
+                         str(serializer.errors))
 
     def test_update_route(self):
         self.assertEqual(self.page_render.route.id, self.route.id, 'Wrong route id at start test')
