@@ -1,0 +1,52 @@
+[
+  {
+    "model": "BackendTennis.PricingPage",
+    "pk": "8d25d2dc-ad47-4cf7-bfd7-954178cc0f2a",
+    "fields": {
+      "id": "8d25d2dc-ad47-4cf7-bfd7-954178cc0f2a",
+      "title": "Cotisations enfants",
+      "description": "Vous trouverez toutes les offres destinées aux personnes mineurs. La licence vous permet de participer aux tournois partout en France. Les inscriptions et le paiement s’effectuent sur place et lors des portes ouvertes uniquement.\n\nUne réduction de 10% sera accordée à partir de 3 adhésions de la même famille (hors mini-tennis)",
+      "pricing": [
+        "dee5f936-eb69-4c85-8fd3-938ac6eb27d3",
+        "dee5f936-eb69-4c85-8fd3-938ac6eb27d4",
+        "dee5f936-eb69-4c85-8fd3-938ac6eb27d5",
+        "dee5f936-eb69-4c85-8fd3-938ac6eb27d6",
+        "dee5f936-eb69-4c85-8fd3-938ac6eb27d7",
+        "dee5f936-eb69-4c85-8fd3-938ac6eb27d8"
+      ],
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.PricingPage",
+    "pk": "85279fb3-a6e1-4874-af8d-6c70c2cebb78",
+    "fields": {
+      "id": "85279fb3-a6e1-4874-af8d-6c70c2cebb78",
+      "title": "Cotisations adultes",
+      "description": "Vous trouverez toutes les offres destinées aux personnes majeures. La licence vous permet de participer aux tournois partout en France. Les inscriptions et le paiement s’effectuent sur place et lors des portes ouvertes uniquement.\n\nUne réduction de 10% sera accordée à partir de 3 adhésions de la même famille (hors mini-tennis)",
+      "pricing": [
+        "dee5f936-eb69-4c85-8fd3-938ac6eb27d0",
+        "dee5f936-eb69-4c85-8fd3-938ac6eb27d1",
+        "dee5f936-eb69-4c85-8fd3-938ac6eb27d2"
+      ],
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.PricingPage",
+    "pk": "a9ddf3a6-9561-4e64-a90c-81aa4684c9d3",
+    "fields": {
+      "id": "a9ddf3a6-9561-4e64-a90c-81aa4684c9d3",
+      "title": "Autres offres",
+      "description": "Vous trouverez les offres temporaires et différentes des offres récurrentes.\nPour réserver les salles, une section dédiée aux réservations existe sur le site.",
+      "pricing": [
+        "dee5f936-eb69-4c85-8fd3-938ac6eb27d9",
+        "dee5f936-eb69-4c85-8fd3-938ac6eb27e1"
+      ],
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  }
+]

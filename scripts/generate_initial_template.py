@@ -10,11 +10,13 @@ RENDER_PROPS = ['order', 'navBarPosition', 'visible', 'type', 'color', 'isButton
 
 PAGE_RENDER_PROPS = ['route', 'render']
 
+ROUTE_PROPS = ['name', 'protocol', 'domainUrl', 'pathUrl', 'componentPath', 'metaTitle', 'metaTags']
+
 NAVIGATION_BAR_PROPS = ['logo', 'routeLogo', 'navigationItems']
 
-HOME_PAGE_PROPS = ['title', 'navigationItems']
+PRICING_PAGE_PROPS = ['title', 'description', 'pricing']
 
-ROUTE_PROPS = ['name', 'protocol', 'domainUrl', 'pathUrl', 'componentPath', 'metaTitle', 'metaTags']
+HOME_PAGE_PROPS = ['title', 'navigationItems']
 
 
 def get_initial_data_template(model_name, extra_props):
@@ -36,9 +38,9 @@ def get_initial_data_template(model_name, extra_props):
 
 
 def main():
-    nb_to_generate = 1
-    model_name = 'NavigationItem'
-    extra_props = NAVIGATION_ITEM_PROPS
+    nb_to_generate = 3
+    model_name = 'AboutPage'
+    extra_props = PRICING_PAGE_PROPS
 
     full_template = []
     for i in range(nb_to_generate):
