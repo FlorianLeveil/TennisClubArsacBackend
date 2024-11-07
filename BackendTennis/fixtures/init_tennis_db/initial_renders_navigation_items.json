@@ -709,9 +709,9 @@
   },
   {
     "model": "BackendTennis.Render",
-    "pk": "62bc73cc-8594-431e-9a1a-0d3c8f22f0fc",
+    "pk": "29492463-6c2c-4128-bd29-07b5b930180b",
     "fields": {
-      "id": "62bc73cc-8594-431e-9a1a-0d3c8f22f0fc",
+      "id": "29492463-6c2c-4128-bd29-07b5b930180b",
       "order": 0,
       "navBarPosition": "right",
       "visible": true,
@@ -723,13 +723,14 @@
   },
   {
     "model": "BackendTennis.Render",
-    "pk": "074afad9-f2db-4525-a767-7611ce03b6af",
+    "pk": "e269004d-7dc2-480f-ae47-4fae9463a67d",
     "fields": {
-      "id": "074afad9-f2db-4525-a767-7611ce03b6af",
+      "id": "e269004d-7dc2-480f-ae47-4fae9463a67d",
       "order": 0,
       "navBarPosition": "right",
       "visible": true,
       "type": "home_page",
+      "color": "#C1000033",
       "isButton": false,
       "createAt": "2024-05-30T11:01:26.151680+02:00",
       "updateAt": "2024-05-30T11:01:26.151680+02:00"
@@ -737,27 +738,85 @@
   },
   {
     "model": "BackendTennis.PageRender",
-    "pk": "0de3d038-6243-446c-a7b7-263c4e3e3fa5",
+    "pk": "7b6d520d-6996-4e88-bc46-7c707dcabb49",
     "fields": {
-      "id": "0de3d038-6243-446c-a7b7-263c4e3e3fa5",
-      "route": "dec997fe-70bf-4bcb-a2dc-ca935e4d46ab",
-      "render": "074afad9-f2db-4525-a767-7611ce03b6af",
+      "id": "7b6d520d-6996-4e88-bc46-7c707dcabb49",
+      "route": "f2004859-1825-4501-b9a3-e7e249916715",
+      "render": "e269004d-7dc2-480f-ae47-4fae9463a67d",
       "createAt": "2024-05-30T11:01:26.151680+02:00",
       "updateAt": "2024-05-30T11:01:26.151680+02:00"
     }
   },
   {
     "model": "BackendTennis.NavigationItem",
-    "pk": "7c66b922-dd69-4239-a7ef-8dda461908d4",
+    "pk": "3ef214bc-f996-4a48-9c0c-34290c197c7e",
     "fields": {
-      "id": "7c66b922-dd69-4239-a7ef-8dda461908d4",
-      "title": "Contact",
-      "description": "Page de Contact",
-      "image": "686d900d-7812-4eb0-a352-c349c9632370",
-      "route": "dec997fe-70bf-4bcb-a2dc-ca935e4d46ab",
-      "navBarRender": "62bc73cc-8594-431e-9a1a-0d3c8f22f0fc",
+      "id": "3ef214bc-f996-4a48-9c0c-34290c197c7e",
+      "title": "Terrains",
+      "description": "Redirection FFT Réservation Terrains",
+      "image": null,
+      "route": "f2004859-1825-4501-b9a3-e7e249916715",
+      "navBarRender": "29492463-6c2c-4128-bd29-07b5b930180b",
       "pageRenders": [
-        "0de3d038-6243-446c-a7b7-263c4e3e3fa5"
+        "7b6d520d-6996-4e88-bc46-7c707dcabb49"
+      ],
+      "childrenNavigationItems": [],
+      "enabled": true,
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Render",
+    "pk": "0b9367c1-3e83-41c7-8358-62386c1bb9bb",
+    "fields": {
+      "id": "0b9367c1-3e83-41c7-8358-62386c1bb9bb",
+      "order": 1,
+      "navBarPosition": "right",
+      "visible": true,
+      "type": "nav_bar",
+      "isButton": false,
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Render",
+    "pk": "3b700336-a020-444f-9eb1-dcef593036b9",
+    "fields": {
+      "id": "3b700336-a020-444f-9eb1-dcef593036b9",
+      "order": 1,
+      "navBarPosition": "right",
+      "visible": true,
+      "type": "home_page",
+      "color": "#0B103E33",
+      "isButton": false,
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.PageRender",
+    "pk": "8320ee2b-af8e-4662-ab11-acbf2ed78f98",
+    "fields": {
+      "id": "8320ee2b-af8e-4662-ab11-acbf2ed78f98",
+      "route": "84b1cb57-6296-4281-94da-b7084d00f4e7",
+      "render": "3b700336-a020-444f-9eb1-dcef593036b9",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.NavigationItem",
+    "pk": "dee4e3c7-d9af-4fa7-a330-e60148279706",
+    "fields": {
+      "id": "dee4e3c7-d9af-4fa7-a330-e60148279706",
+      "title": "Salles",
+      "description": "Page Réservation salle du tennis",
+      "route": "84b1cb57-6296-4281-94da-b7084d00f4e7",
+      "navBarRender": "0b9367c1-3e83-41c7-8358-62386c1bb9bb",
+      "pageRenders": [
+        "8320ee2b-af8e-4662-ab11-acbf2ed78f98"
       ],
       "childrenNavigationItems": [],
       "enabled": true,
@@ -810,12 +869,73 @@
     "fields": {
       "id": "c9e86c1d-8565-4ab4-97dc-41fdc8a8ffd9",
       "title": "Réservation",
-      "description": "Page Réservation",
+      "description": "Réservation",
       "image": "78b7dc52-bf1b-446e-8261-2a5fb5f3070a",
-      "route": "84b1cb57-6296-4281-94da-b7084d00f4e7",
+      "route": null,
       "navBarRender": "6cf6562d-5007-4dd4-be44-182c8d879f92",
       "pageRenders": [
         "4feab06b-c7a1-4649-acc8-e358ee6da422"
+      ],
+      "childrenNavigationItems": [
+        "3ef214bc-f996-4a48-9c0c-34290c197c7e",
+        "dee4e3c7-d9af-4fa7-a330-e60148279706"
+      ],
+      "enabled": true,
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Render",
+    "pk": "62bc73cc-8594-431e-9a1a-0d3c8f22f0fc",
+    "fields": {
+      "id": "62bc73cc-8594-431e-9a1a-0d3c8f22f0fc",
+      "order": 0,
+      "navBarPosition": "right",
+      "visible": true,
+      "type": "nav_bar",
+      "isButton": false,
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Render",
+    "pk": "074afad9-f2db-4525-a767-7611ce03b6af",
+    "fields": {
+      "id": "074afad9-f2db-4525-a767-7611ce03b6af",
+      "order": 0,
+      "navBarPosition": "right",
+      "visible": true,
+      "type": "home_page",
+      "isButton": false,
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.PageRender",
+    "pk": "0de3d038-6243-446c-a7b7-263c4e3e3fa5",
+    "fields": {
+      "id": "0de3d038-6243-446c-a7b7-263c4e3e3fa5",
+      "route": "dec997fe-70bf-4bcb-a2dc-ca935e4d46ab",
+      "render": "074afad9-f2db-4525-a767-7611ce03b6af",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.NavigationItem",
+    "pk": "7c66b922-dd69-4239-a7ef-8dda461908d4",
+    "fields": {
+      "id": "7c66b922-dd69-4239-a7ef-8dda461908d4",
+      "title": "Contact",
+      "description": "Page de Contact",
+      "image": "686d900d-7812-4eb0-a352-c349c9632370",
+      "route": "dec997fe-70bf-4bcb-a2dc-ca935e4d46ab",
+      "navBarRender": "62bc73cc-8594-431e-9a1a-0d3c8f22f0fc",
+      "pageRenders": [
+        "0de3d038-6243-446c-a7b7-263c4e3e3fa5"
       ],
       "childrenNavigationItems": [],
       "enabled": true,

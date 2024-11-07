@@ -14,6 +14,8 @@ NAVIGATION_BAR_PROPS = ['logo', 'routeLogo', 'navigationItems']
 
 HOME_PAGE_PROPS = ['title', 'navigationItems']
 
+ROUTE_PROPS = ['name', 'protocol', 'domainUrl', 'pathUrl', 'componentPath', 'metaTitle', 'metaTags']
+
 
 def get_initial_data_template(model_name, extra_props):
     _uuid = str(uuid.uuid4())
@@ -35,8 +37,8 @@ def get_initial_data_template(model_name, extra_props):
 
 def main():
     nb_to_generate = 1
-    model_name = 'HomePage'
-    extra_props = HOME_PAGE_PROPS
+    model_name = 'NavigationItem'
+    extra_props = NAVIGATION_ITEM_PROPS
 
     full_template = []
     for i in range(nb_to_generate):

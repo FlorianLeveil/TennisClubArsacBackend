@@ -348,5 +348,17 @@
       "createAt": "2024-05-30T11:01:26.151680+02:00",
       "updateAt": "2024-05-30T11:01:26.151680+02:00"
     }
+  },
+  {
+    "model": "BackendTennis.Route",
+    "pk": "f2004859-1825-4501-b9a3-e7e249916715",
+    "fields": {
+      "id": "f2004859-1825-4501-b9a3-e7e249916715",
+      "name": "FFT Redirection",
+      "protocol": "https",
+      "domainUrl": "tenup.fft.fr",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
   }
 ]
