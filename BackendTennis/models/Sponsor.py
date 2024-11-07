@@ -1,18 +1,11 @@
-from __future__ import annotations
-
-from typing import TYPE_CHECKING
-
 import uuid
 
-from django.core.exceptions import ValidationError
 from django.db import models
 
-if TYPE_CHECKING:
-    from ..models import AboutPage
+from ..mixins import UniqueOrderValidationMixin
 
 
-
-class Sponsor(models.Model):
+class Sponsor(models.Model, UniqueOrderValidationMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     brandName = models.CharField(max_length=100, blank=False, null=True)
     image = models.ForeignKey(
@@ -40,17 +33,9 @@ class Sponsor(models.Model):
         ordering = ['createAt']
         app_label = 'BackendTennis'
 
-    def validate_unique_order(self, page: AboutPage) -> None:
-        if page.sponsors.filter(order=self.order).exclude(id=self.id).exists():
-            raise ValidationError(
-                {
-                    'order': f'Order [{self.order}] of sponsor [{self.brandName}] already used by another Sponsor'
-                             f' in the about page "{page.clubTitle}" .'}
-            )
-
     def clean(self):
         for about_page in self.about_pages.all():
-            self.validate_unique_order(about_page)
+            self.validate_unique_order(about_page, self.brandName)
 
     def save(self, *args, **kwargs):
         self.full_clean()

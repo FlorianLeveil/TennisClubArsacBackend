@@ -11,7 +11,7 @@ from BackendTennis.models import Image
 from BackendTennis.pagination import ImagePagination
 from BackendTennis.permissions.image_permissions import ImagePermissions
 from BackendTennis.serializers import ImageSerializer, ImageDetailSerializer
-from BackendTennis.utils import move_deleted_image_to_new_path
+from BackendTennis.utils.utils import move_deleted_image_to_new_path
 from BackendTennis.validators import validate_image_type
 
 

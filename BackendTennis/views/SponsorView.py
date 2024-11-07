@@ -1,7 +1,5 @@
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.permissions import IsAuthenticated
-from rest_framework_api_key.permissions import HasAPIKey
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from BackendTennis.authentication import CustomAPIKeyAuthentication
@@ -9,7 +7,7 @@ from BackendTennis.models import Sponsor
 from BackendTennis.pagination import SponsorPagination
 from BackendTennis.permissions.sponsor_permissions import SponsorPermissions
 from BackendTennis.serializers import SponsorSerializer, SponsorDetailSerializer
-from BackendTennis.utils import check_if_is_valid_save_and_return
+from BackendTennis.utils.utils import check_if_is_valid_save_and_return
 
 
 class SponsorListCreateView(ListCreateAPIView):

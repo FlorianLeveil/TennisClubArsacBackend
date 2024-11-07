@@ -1,7 +1,6 @@
 import datetime
 import json
 import os
-from uuid import uuid4
 
 from rest_framework import status
 from rest_framework.response import Response

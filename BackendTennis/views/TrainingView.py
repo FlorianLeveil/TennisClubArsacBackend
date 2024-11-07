@@ -8,7 +8,7 @@ from BackendTennis.models import Training
 from BackendTennis.pagination import TrainingPagination
 from BackendTennis.permissions.training_permissions import TrainingPermissions
 from BackendTennis.serializers import TrainingSerializer, TrainingDetailSerializer
-from BackendTennis.utils import check_if_is_valid_save_and_return
+from BackendTennis.utils.utils import check_if_is_valid_save_and_return
 
 
 class TrainingListCreateView(ListCreateAPIView):

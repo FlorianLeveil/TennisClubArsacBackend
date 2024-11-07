@@ -7,7 +7,7 @@ from BackendTennis.models import News
 from BackendTennis.pagination import NewsPagination
 from BackendTennis.permissions.news_permissions import NewsPermissions
 from BackendTennis.serializers import NewsSerializer, NewsDetailSerializer
-from BackendTennis.utils import check_if_is_valid_save_and_return
+from BackendTennis.utils.utils import check_if_is_valid_save_and_return
 
 
 class NewsListCreateView(ListCreateAPIView):

@@ -9,7 +9,7 @@ from BackendTennis.models import NavigationItem
 from BackendTennis.permissions.navigation_item_permissions import NavigationItemPermissions
 from BackendTennis.serializers import NavigationItemSerializer, NavigationItemDetailSerializer
 from BackendTennis.services.navigation_item_service import update_multiple_navigation_items
-from BackendTennis.utils import check_if_is_valid_save_and_return
+from BackendTennis.utils.utils import check_if_is_valid_save_and_return
 
 
 class NavigationItemListCreateView(ListCreateAPIView):

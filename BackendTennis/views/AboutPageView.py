@@ -6,7 +6,7 @@ from BackendTennis.authentication import CustomAPIKeyAuthentication
 from BackendTennis.models import AboutPage
 from BackendTennis.permissions.page_permission.about_page_permissions import AboutPagePermissions
 from BackendTennis.serializers import AboutPageSerializer, AboutPageDetailSerializer
-from BackendTennis.utils import check_if_is_valid_save_and_return
+from BackendTennis.utils.utils import check_if_is_valid_save_and_return
 
 
 class AboutPageListCreateView(ListCreateAPIView):

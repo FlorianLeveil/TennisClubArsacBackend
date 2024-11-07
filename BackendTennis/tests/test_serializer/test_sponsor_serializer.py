@@ -138,19 +138,21 @@ class SponsorSerializerTests(TestCase):
 
     def test_update_sponsor_full(self):
         new_sponsor_image = Image.objects.create(title='New Image', type=Constant.IMAGE_TYPE.SPONSOR)
+        sponsor = Sponsor.objects.create(brandName='Test Sponsor', image=self.sponsor_image, order=10)
+
         data = {
             'brandName': 'Updated Sponsor',
             'image': new_sponsor_image.id,
             'order': 20
         }
 
-        serializer = SponsorSerializer(instance=self.sponsor_image, data=data)
+        serializer = SponsorSerializer(instance=sponsor, data=data)
         self.assertTrue(serializer.is_valid(), str(serializer.errors))
-        sponsor = serializer.save()
+        new_sponsor = serializer.save()
 
-        self.assertEqual('Updated Sponsor', sponsor.brandName, str(serializer.errors))
-        self.assertEqual(new_sponsor_image.id, sponsor.image.id, str(serializer.errors))
-        self.assertEqual(20, sponsor.order, str(serializer.errors))
+        self.assertEqual('Updated Sponsor', new_sponsor.brandName, str(serializer.errors))
+        self.assertEqual(new_sponsor_image.id, new_sponsor.image.id, str(serializer.errors))
+        self.assertEqual(20, new_sponsor.order, str(serializer.errors))
 
     def test_order_already_used(self):
         data = {
@@ -185,13 +187,13 @@ class SponsorSerializerTests(TestCase):
         with self.assertRaises(
                 ValidationError,
                 msg='Save should failed on Sponsor.clean with error : '
-                    f'Order [{data['order']}] of sponsor [{new_sponsor.brandName}]'
+                    f'Order [{data['order']}] of Sponsor [{new_sponsor.brandName}]'
                     f' already used by another Sponsor in the about page "{about_page.clubTitle}" .'
         ) as _exception:
             serializer_about_page.save()
 
         self.assertEqual(
-            f'Order [{data['order']}] of sponsor [{new_sponsor.brandName}]'
+            f'Order [{data['order']}] of Sponsor [{new_sponsor.brandName}]'
             f' already used by another Sponsor in the about page "{about_page.clubTitle}" .',
             _exception.exception.message_dict['order'][0]
         )

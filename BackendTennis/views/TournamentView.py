@@ -8,7 +8,7 @@ from BackendTennis.models import Tournament
 from BackendTennis.pagination import TournamentPagination
 from BackendTennis.permissions.tournament_permissions import TournamentPermissions
 from BackendTennis.serializers import TournamentSerializer, TournamentDetailSerializer
-from BackendTennis.utils import check_if_is_valid_save_and_return
+from BackendTennis.utils.utils import check_if_is_valid_save_and_return
 
 
 class TournamentListCreateView(ListCreateAPIView):

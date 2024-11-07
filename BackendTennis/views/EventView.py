@@ -12,7 +12,7 @@ from BackendTennis.models import Event
 from BackendTennis.pagination import EventPagination
 from BackendTennis.permissions.event_permissions import EventPermissions
 from BackendTennis.serializers import EventSerializer, EventDetailSerializer
-from BackendTennis.utils import check_if_is_valid_save_and_return
+from BackendTennis.utils.utils import check_if_is_valid_save_and_return
 
 
 class EventModeMixin:
@@ -122,4 +122,3 @@ class EventRetrieveUpdateDestroyView(EventModeMixin, RetrieveUpdateDestroyAPIVie
     )
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
-

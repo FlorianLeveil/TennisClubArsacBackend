@@ -9,7 +9,7 @@ from BackendTennis.models import Pricing
 from BackendTennis.pagination import PricingPagination
 from BackendTennis.permissions.pricing_permissions import PricingPermissions
 from BackendTennis.serializers import PricingSerializer, PricingDetailSerializer
-from BackendTennis.utils import check_if_is_valid_save_and_return
+from BackendTennis.utils.utils import check_if_is_valid_save_and_return
 from BackendTennis.validators import validate_pricing_type
 
 

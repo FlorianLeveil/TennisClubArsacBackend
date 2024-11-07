@@ -6,7 +6,7 @@ from BackendTennis.authentication import CustomAPIKeyAuthentication
 from BackendTennis.models import Route
 from BackendTennis.permissions.route_permissions import RoutePermissions
 from BackendTennis.serializers import RouteSerializer
-from BackendTennis.utils import check_if_is_valid_save_and_return
+from BackendTennis.utils.utils import check_if_is_valid_save_and_return
 
 
 class RouteListCreateView(ListCreateAPIView):

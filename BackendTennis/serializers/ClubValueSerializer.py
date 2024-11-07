@@ -14,19 +14,3 @@ class ClubValueSerializer(serializers.ModelSerializer):
     class Meta:
         model = ClubValue
         fields = '__all__'
-
-    @staticmethod
-    def validate_order(value):
-        if ClubValue.objects.filter(order=value).exists():
-            raise serializers.ValidationError('Another Club Value already use this order.')
-        return value
-
-    def create(self, validated_data):
-        return ClubValue.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        instance.title = validated_data.get('title', instance.title)
-        instance.description = validated_data.get('description', instance.description)
-        instance.order = validated_data.get('order', instance.order)
-        instance.save()
-        return instance

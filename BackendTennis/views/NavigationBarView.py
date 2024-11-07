@@ -6,7 +6,7 @@ from BackendTennis.authentication import CustomAPIKeyAuthentication
 from BackendTennis.models import NavigationBar
 from BackendTennis.permissions.navigation_bar_permissions import NavigationBarPermissions
 from BackendTennis.serializers import NavigationBarSerializer, NavigationBarDetailSerializer
-from BackendTennis.utils import check_if_is_valid_save_and_return
+from BackendTennis.utils.utils import check_if_is_valid_save_and_return
 
 
 class NavigationBarListCreateView(ListCreateAPIView):

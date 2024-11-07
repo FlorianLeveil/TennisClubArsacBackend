@@ -6,7 +6,7 @@ from BackendTennis.authentication import CustomAPIKeyAuthentication
 from BackendTennis.models import HomePage
 from BackendTennis.permissions.page_permission.home_page_permissions import HomePagePermissions
 from BackendTennis.serializers import HomePageSerializer, HomePageDetailSerializer
-from BackendTennis.utils import check_if_is_valid_save_and_return
+from BackendTennis.utils.utils import check_if_is_valid_save_and_return
 
 
 class HomePageListCreateView(ListCreateAPIView):

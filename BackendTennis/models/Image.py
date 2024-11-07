@@ -1,7 +1,8 @@
 import uuid
 
 from django.db import models
-from BackendTennis.utils import compute_image_url
+
+from BackendTennis.utils.utils import compute_image_url
 from BackendTennis.validators import validate_image_type
 
 

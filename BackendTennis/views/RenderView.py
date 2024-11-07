@@ -6,7 +6,7 @@ from BackendTennis.authentication import CustomAPIKeyAuthentication
 from BackendTennis.models import Render
 from BackendTennis.permissions.render_permissions import RenderPermissions
 from BackendTennis.serializers import RenderSerializer
-from BackendTennis.utils import check_if_is_valid_save_and_return
+from BackendTennis.utils.utils import check_if_is_valid_save_and_return
 
 
 class RenderListCreateView(ListCreateAPIView):

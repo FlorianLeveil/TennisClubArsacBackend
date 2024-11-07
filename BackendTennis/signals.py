@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.db.models.signals import pre_save, m2m_changed
 from django.dispatch import receiver
 
-from BackendTennis.models import Render, NavigationItem, AboutPage, Sponsor
+from BackendTennis.models import Render, NavigationItem, AboutPage, Sponsor, ClubValue
 
 logger = logging.getLogger('BackendTennis.SIGNALS')
 
@@ -32,6 +32,19 @@ def validate_sponsor_order(sender, instance, action, **kwargs):
         sponsors = Sponsor.objects.filter(id__in=sponsor_ids)
         for sponsor in sponsors:
             try:
-                sponsor.validate_unique_order(instance)
+                sponsor.validate_unique_order(instance, sponsor.brandName)
+            except ValidationError as e:
+                raise e
+
+
+@receiver(m2m_changed, sender=AboutPage.clubValues.through)
+def validate_club_values_order(sender, instance, action, **kwargs):
+    _log_function_start_info(sender, instance)
+    if action == 'pre_add':
+        club_value_ids = kwargs.get('pk_set', [])
+        club_values = ClubValue.objects.filter(id__in=club_value_ids)
+        for club_value in club_values:
+            try:
+                club_value.validate_unique_order(instance, club_value.title)
             except ValidationError as e:
                 raise e

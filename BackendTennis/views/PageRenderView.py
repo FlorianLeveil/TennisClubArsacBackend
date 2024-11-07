@@ -6,7 +6,7 @@ from BackendTennis.authentication import CustomAPIKeyAuthentication
 from BackendTennis.models import PageRender
 from BackendTennis.permissions.page_render_permissions import PageRenderPermissions
 from BackendTennis.serializers import PageRenderSerializer, PageRenderDetailSerializer
-from BackendTennis.utils import check_if_is_valid_save_and_return
+from BackendTennis.utils.utils import check_if_is_valid_save_and_return
 
 
 class PageRenderListCreateView(ListCreateAPIView):

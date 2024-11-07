@@ -1,6 +1,5 @@
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework_api_key.permissions import HasAPIKey
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from BackendTennis.authentication import CustomAPIKeyAuthentication
@@ -8,7 +7,7 @@ from BackendTennis.models import Tag
 from BackendTennis.pagination import TagPagination
 from BackendTennis.permissions.tag_permissions import TagPermissions
 from BackendTennis.serializers import TagSerializer
-from BackendTennis.utils import check_if_is_valid_save_and_return
+from BackendTennis.utils.utils import check_if_is_valid_save_and_return
 
 
 class TagView(ListCreateAPIView):

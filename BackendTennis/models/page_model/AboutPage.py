@@ -2,15 +2,13 @@ import uuid
 
 from django.db import models
 
-from BackendTennis.models import Image, ClubValue, Sponsor
-
 
 class AboutPage(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     clubTitle = models.CharField(max_length=255, null=True, blank=True)
     clubDescription = models.TextField(null=True, blank=True)
     clubImage = models.ForeignKey(
-        Image,
+        'BackendTennis.Image',
         on_delete=models.SET_NULL,
         related_name='about_pages',
         null=True,
@@ -20,14 +18,14 @@ class AboutPage(models.Model):
 
     clubValueTitle = models.CharField(max_length=255, null=True, blank=True)
     clubValues = models.ManyToManyField(
-        ClubValue,
+        'BackendTennis.ClubValue',
         related_name='about_pages',
         blank=True
     )
 
     sponsorTitle = models.CharField(max_length=255, null=True, blank=True)
     sponsors = models.ManyToManyField(
-        Sponsor,
+        'BackendTennis.Sponsor',
         related_name='about_pages',
         blank=True
     )

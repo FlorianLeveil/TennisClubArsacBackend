@@ -7,7 +7,7 @@ from BackendTennis.models import TeamMember
 from BackendTennis.pagination import TeamMemberPagination
 from BackendTennis.permissions.team_member_permissions import TeamMemberPermissions
 from BackendTennis.serializers import TeamMemberSerializer, TeamMemberDetailSerializer
-from BackendTennis.utils import check_if_is_valid_save_and_return
+from BackendTennis.utils.utils import check_if_is_valid_save_and_return
 
 
 class TeamMemberListCreateView(ListCreateAPIView):

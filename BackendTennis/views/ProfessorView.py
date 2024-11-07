@@ -7,7 +7,7 @@ from BackendTennis.models import Professor
 from BackendTennis.pagination import ProfessorPagination
 from BackendTennis.permissions.professor_permissions import ProfessorPermissions
 from BackendTennis.serializers import ProfessorSerializer, ProfessorDetailSerializer
-from BackendTennis.utils import check_if_is_valid_save_and_return
+from BackendTennis.utils.utils import check_if_is_valid_save_and_return
 
 
 class ProfessorListCreateView(ListCreateAPIView):

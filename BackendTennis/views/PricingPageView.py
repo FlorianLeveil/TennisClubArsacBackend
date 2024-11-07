@@ -6,7 +6,7 @@ from BackendTennis.authentication import CustomAPIKeyAuthentication
 from BackendTennis.models import PricingPage
 from BackendTennis.permissions.page_permission.pricing_page_permissions import PricingPagePermissions
 from BackendTennis.serializers import PricingPageSerializer, PricingPageDetailSerializer
-from BackendTennis.utils import check_if_is_valid_save_and_return
+from BackendTennis.utils.utils import check_if_is_valid_save_and_return
 
 
 class PricingPageListCreateView(ListCreateAPIView):
