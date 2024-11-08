@@ -69,6 +69,7 @@ class NavigationItemSerializer(serializers.ModelSerializer):
             pageRenders=new_page_renders
         )
         instance.childrenNavigationItems.set(new_children_navigation_items)
+        instance.pageRenders.set(new_page_renders)
 
         return instance
 

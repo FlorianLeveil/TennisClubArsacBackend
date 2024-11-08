@@ -30,7 +30,7 @@ class ClubValue(models.Model, UniqueOrderValidationMixin):
 
     def clean(self):
         for about_page in self.about_pages.all():
-            self.validate_unique_order(about_page, self.title)
+            self.validate_unique_order(about_page, self.title, about_page.clubTitle)
 
     def save(self, *args, **kwargs):
         self.full_clean()

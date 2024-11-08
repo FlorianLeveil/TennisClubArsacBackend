@@ -22,12 +22,12 @@ class AboutPageSerializerTests(TestCase):
         self.club_value_2 = ClubValue.objects.create(
             title='ClubValue Title 2',
             description='ClubValue description 2',
-            order=0
+            order=1
         )
 
         self.sponsor_image = Image.objects.create(title='Club Image', type=Constant.IMAGE_TYPE.SPONSOR)
-        self.sponsor = Sponsor.objects.create(brandName='Sponsor', image=self.sponsor_image)
-        self.sponsor_2 = Sponsor.objects.create(brandName='Sponsor 2', image=self.sponsor_image)
+        self.sponsor = Sponsor.objects.create(brandName='Sponsor', image=self.sponsor_image, order=0)
+        self.sponsor_2 = Sponsor.objects.create(brandName='Sponsor 2', image=self.sponsor_image, order=1)
 
         self.about_page_data = {}
 

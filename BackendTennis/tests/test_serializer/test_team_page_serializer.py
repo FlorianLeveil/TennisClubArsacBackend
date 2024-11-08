@@ -11,10 +11,42 @@ class TeamPageSerializerTests(TestCase):
 
     def setUp(self):
         self.professor_image = Image.objects.create(title='Professor Image', type=Constant.IMAGE_TYPE.PROFESSOR)
-        self.professor_1 = Professor.objects.create(fullName='Professor 1', image=self.professor_image)
-        self.professor_2 = Professor.objects.create(fullName='Professor 2', image=self.professor_image)
-        self.team_members_1 = TeamMember.objects.create(fullName='Team Member 1', image=self.professor_image)
-        self.team_members_2 = TeamMember.objects.create(fullName='Team Member 2', image=self.professor_image)
+        self.team_member_image = Image.objects.create(title='Professor Image', type=Constant.IMAGE_TYPE.TEAM_MEMBER)
+        self.professor_1 = Professor.objects.create(
+            fullName='Professor 1',
+            image=self.professor_image,
+            role='Test User',
+            year_experience='567 ans',
+            diploma='E',
+            best_rank='6',
+            order=6
+        )
+        self.professor_2 = Professor.objects.create(
+            fullName='Professor 2',
+            image=self.professor_image,
+            role='Test User',
+            year_experience='567 ans',
+            diploma='E',
+            best_rank='6',
+            order=5
+        )
+
+        self.team_members_1 = TeamMember.objects.create(
+            fullName='Team Member 1',
+            image=self.team_member_image,
+            role='Test Member  1',
+            description='test description',
+            order=1
+        )
+
+        self.team_members_2 = TeamMember.objects.create(
+            fullName='Team Member 2',
+            image=self.team_member_image,
+            role='Test Member  2',
+            description='test description',
+            order=2
+        )
+
         self.team_page_data = {}
 
     def test_team_page_creation(self):

@@ -19,30 +19,6 @@ class TeamPageSerializer(serializers.ModelSerializer):
         model = TeamPage
         fields = '__all__'
 
-    def create(self, validated_data):
-        professors = validated_data.pop('professors', [])
-        team_members = validated_data.pop('teamMembers', [])
-        team_page = TeamPage.objects.create(**validated_data)
-        team_page.professors.set(professors)
-        team_page.teamMembers.set(team_members)
-        return team_page
-
-    def update(self, instance, validated_data):
-        professors = validated_data.get('professors', None)
-        if professors:
-            instance.professors.set(professors)
-
-        team_members = validated_data.get('teamMembers', None)
-        if team_members:
-            instance.teamMember.set(team_members)
-
-        instance.professorsTitle = validated_data.get('professorsTitle', instance.professorsTitle)
-        instance.professorsDescription = validated_data.get('professorsDescription', instance.professorsDescription)
-        instance.teamMembersTitle = validated_data.get('teamMembersTitle', instance.teamMembersTitle)
-        instance.dataCounter = validated_data.get('dataCounter', instance.dataCounter)
-        instance.save()
-        return instance
-
 
 class TeamPageDetailSerializer(serializers.ModelSerializer):
     professors = ProfessorDetailSerializer(many=True)

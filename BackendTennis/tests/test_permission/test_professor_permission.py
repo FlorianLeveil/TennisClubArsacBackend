@@ -43,7 +43,8 @@ class ProfessorPermissionsTests(APITestCase):
             image=cls.image,
             role='Test User',
             diploma='DE',
-            best_rank='2/6'
+            best_rank='2/6',
+            year_experience='34 ans'
         )
 
         cls.url = '/BackendTennis/professor/'
@@ -78,7 +79,8 @@ class ProfessorPermissionsTests(APITestCase):
             'role': 'Test User',
             'diploma': 'DE',
             'best_rank': '2/6',
-            'order': 2
+            'order': 2,
+            'year_experience': '34 ans'
         }
         permission = Permission.objects.get(codename='add_professor')
         self.user.user_permissions.add(permission)
@@ -97,7 +99,8 @@ class ProfessorPermissionsTests(APITestCase):
             'role': 'Test User',
             'diploma': 'DE',
             'best_rank': '2/6',
-            'order': 2
+            'order': 2,
+            'year_experience': '34 ans'
         }
         response = self.client.post(
             self.url,

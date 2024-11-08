@@ -188,13 +188,13 @@ class SponsorSerializerTests(TestCase):
                 ValidationError,
                 msg='Save should failed on Sponsor.clean with error : '
                     f'Order [{data['order']}] of Sponsor [{new_sponsor.brandName}]'
-                    f' already used by another Sponsor in the about page "{about_page.clubTitle}" .'
+                    f' already used by another Sponsor in the About page "{about_page.clubTitle}" .'
         ) as _exception:
             serializer_about_page.save()
 
         self.assertEqual(
             f'Order [{data['order']}] of Sponsor [{new_sponsor.brandName}]'
-            f' already used by another Sponsor in the about page "{about_page.clubTitle}" .',
+            f' already used by another Sponsor in the About page "{about_page.clubTitle}" .',
             _exception.exception.message_dict['order'][0]
         )
 
@@ -292,3 +292,48 @@ class SponsorSerializerTests(TestCase):
         about_page_sponsors = about_page.sponsors.values_list('id', flat=True)
         self.assertEqual(about_page.sponsors.count(), 1, str(serializer_about_page.errors))
         self.assertIn(new_sponsor.id, about_page_sponsors, str(serializer_about_page.errors))
+
+    def test_order_already_used_at_page_creation(self):
+        data = {
+            'brandName': 'First Sponsor',
+            'image': self.sponsor_image.id,
+            'order': 0
+        }
+
+        serializer_first_sponsor = SponsorSerializer(data=data)
+        self.assertTrue(serializer_first_sponsor.is_valid(), str(serializer_first_sponsor.errors))
+        first_sponsor = serializer_first_sponsor.save()
+
+        data = {
+            'brandName': 'New Sponsor',
+            'image': self.sponsor_image.id,
+            'order': 0
+        }
+
+        serializer_new_sponsor = SponsorSerializer(data=data)
+        self.assertTrue(serializer_new_sponsor.is_valid(), str(serializer_new_sponsor.errors))
+        new_sponsor = serializer_new_sponsor.save()
+
+        data_about_page = {
+            'clubTitle': 'About Page',
+            'sponsors': [first_sponsor.id, new_sponsor.id]
+        }
+
+        serializer_about_page = AboutPageSerializer(
+            data=data_about_page
+        )
+        self.assertTrue(serializer_about_page.is_valid(), str(serializer_about_page.errors))
+
+        with self.assertRaises(
+                ValidationError,
+                msg='Save should failed on Sponsor.clean with error : '
+                    f'Order [{data['order']}] of Sponsor [{first_sponsor.brandName}]'
+                    f' already used by another Sponsor in the About page "{data_about_page['clubTitle']}" .'
+        ) as _exception:
+            serializer_about_page.save()
+
+        self.assertEqual(
+            f'Order [{data['order']}] of Sponsor [{first_sponsor.brandName}]'
+            f' already used by another Sponsor in the About page "{data_about_page['clubTitle']}" .',
+            _exception.exception.message_dict['order'][0]
+        )

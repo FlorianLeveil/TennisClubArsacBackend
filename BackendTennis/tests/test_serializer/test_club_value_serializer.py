@@ -155,13 +155,13 @@ class ClubValueSerializerTests(APITestCase):
                 ValidationError,
                 msg='Save should failed on ClubValue.clean with error : '
                     f'Order [{data['order']}] of ClubValue [{new_club_value.title}]'
-                    f' already used by another ClubValue in the about page "{about_page.clubTitle}" .'
+                    f' already used by another ClubValue in the About page "{about_page.clubTitle}" .'
         ) as _exception:
             serializer_about_page.save()
 
         self.assertEqual(
             f'Order [{data['order']}] of ClubValue [{new_club_value.title}]'
-            f' already used by another ClubValue in the about page "{about_page.clubTitle}" .',
+            f' already used by another ClubValue in the About page "{about_page.clubTitle}" .',
             _exception.exception.message_dict['order'][0]
         )
 
@@ -259,3 +259,47 @@ class ClubValueSerializerTests(APITestCase):
         about_page_club_values = about_page.clubValues.values_list('id', flat=True)
         self.assertEqual(about_page.clubValues.count(), 1, str(serializer_about_page.errors))
         self.assertIn(new_club_value.id, about_page_club_values, str(serializer_about_page.errors))
+
+    def test_order_already_used_at_page_creation(self):
+        data = {
+            'title': 'First ClubValue',
+            'description': 'First Tennis ClubValue description',
+            'order': 10
+        }
+
+        serializer_first_club_value = ClubValueSerializer(data=data)
+        self.assertTrue(serializer_first_club_value.is_valid(), str(serializer_first_club_value.errors))
+        first_club_value = serializer_first_club_value.save()
+
+        data = {
+            'title': 'New ClubValue',
+            'description': 'New Tennis ClubValue description',
+            'order': 10
+        }
+
+        serializer_new_club_value = ClubValueSerializer(data=data)
+        self.assertTrue(serializer_new_club_value.is_valid(), str(serializer_new_club_value.errors))
+        new_club_value = serializer_new_club_value.save()
+        data_about_page = {
+            'clubTitle': 'About Page',
+            'clubValues': [first_club_value.id, new_club_value.id]
+        }
+
+        serializer_about_page = AboutPageSerializer(
+            data=data_about_page
+        )
+        self.assertTrue(serializer_about_page.is_valid(), str(serializer_about_page.errors))
+
+        with self.assertRaises(
+                ValidationError,
+                msg='Save should failed on ClubValue.clean with error : '
+                    f'Order [{data['order']}] of ClubValue [{first_club_value.title}]'
+                    f' already used by another ClubValue in the About page "{data_about_page['clubTitle']}" .'
+        ) as _exception:
+            serializer_about_page.save()
+
+        self.assertEqual(
+            f'Order [{data['order']}] of ClubValue [{first_club_value.title}]'
+            f' already used by another ClubValue in the About page "{data_about_page['clubTitle']}" .',
+            _exception.exception.message_dict['order'][0]
+        )
