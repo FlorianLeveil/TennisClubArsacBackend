@@ -157,15 +157,15 @@ class AboutPageSerializerTests(TestCase):
             'dataCounter': [
                 {
                     'name': 'Adhérents',
-                    'counter': 180
+                    'count': 180
                 },
                 {
                     'name': 'Terrains couverts',
-                    'counter': 2
+                    'count': 2
                 },
                 {
                     'name': 'Terrains extérieurs',
-                    'counter': 3
+                    'count': 3
                 }
 
             ]
@@ -175,25 +175,25 @@ class AboutPageSerializerTests(TestCase):
         about_page = serializer.save()
 
         self.assertEqual(about_page.dataCounter[0]['name'], 'Adhérents')
-        self.assertEqual(about_page.dataCounter[0]['counter'], 180)
+        self.assertEqual(about_page.dataCounter[0]['count'], 180)
         self.assertEqual(about_page.dataCounter[1]['name'], 'Terrains couverts')
-        self.assertEqual(about_page.dataCounter[1]['counter'], 2)
+        self.assertEqual(about_page.dataCounter[1]['count'], 2)
         self.assertEqual(about_page.dataCounter[2]['name'], 'Terrains extérieurs')
-        self.assertEqual(about_page.dataCounter[2]['counter'], 3)
+        self.assertEqual(about_page.dataCounter[2]['count'], 3)
 
         data = {
             'dataCounter': [
                 {
                     'name': 'Adhérents',
-                    'counter': 1800
+                    'count': 1800
                 },
                 {
                     'name': 'Terrains couverts',
-                    'counter': 20
+                    'count': 20
                 },
                 {
                     'name': 'Terrains extérieurs',
-                    'counter': 30
+                    'count': 30
                 }
 
             ]
@@ -203,11 +203,11 @@ class AboutPageSerializerTests(TestCase):
         about_page = serializer.save()
 
         self.assertEqual(about_page.dataCounter[0]['name'], 'Adhérents')
-        self.assertEqual(about_page.dataCounter[0]['counter'], 1800)
+        self.assertEqual(about_page.dataCounter[0]['count'], 1800)
         self.assertEqual(about_page.dataCounter[1]['name'], 'Terrains couverts')
-        self.assertEqual(about_page.dataCounter[1]['counter'], 20)
+        self.assertEqual(about_page.dataCounter[1]['count'], 20)
         self.assertEqual(about_page.dataCounter[2]['name'], 'Terrains extérieurs')
-        self.assertEqual(about_page.dataCounter[2]['counter'], 30)
+        self.assertEqual(about_page.dataCounter[2]['count'], 30)
 
     def test_update_clubValueTitle(self):
         data = {

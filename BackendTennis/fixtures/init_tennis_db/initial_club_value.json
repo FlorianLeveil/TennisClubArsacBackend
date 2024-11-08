@@ -1,0 +1,38 @@
+[
+  {
+    "model": "BackendTennis.ClubValue",
+    "pk": "509a8bc0-b547-4cd3-b276-a2c462f490c7",
+    "fields": {
+      "id": "509a8bc0-b547-4cd3-b276-a2c462f490c7",
+      "title": "Familiale",
+      "description": "La cohésion et le lien d’entraide entre tous les participants est omniprésent.\n\nLe club de Gironde peut continuellement grandir mais chacun s’intègre facilement aux équipes. Cette force d’adaptation reflète l’ensemble des valeurs du club d’Arsac.",
+      "order": 0,
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.ClubValue",
+    "pk": "c8aa4e91-4739-47d2-8086-94fc50d4c195",
+    "fields": {
+      "id": "c8aa4e91-4739-47d2-8086-94fc50d4c195",
+      "title": "Convivialité",
+      "description": "Les membres du club pratiquent le sport avant tout par passion.\n\nL’objectif consiste à toujours prendre du plaisir à jouer. Les compétitions doivent donc favoriser l’entraide et l’encouragement entre chaque joueur, en cas de défaite et de victoire. L’échange et lepartage reste ainsi favorisé !",
+      "order": 1,
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.ClubValue",
+    "pk": "7703a778-4734-4d31-9877-f924fa25aa46",
+    "fields": {
+      "id": "7703a778-4734-4d31-9877-f924fa25aa46",
+      "title": "Compétitivité",
+      "description": "Arsac est un club compétitif où des membres ont déjà été dans le top 10 de leur catégorie en France !\n\nLa compétitivité implique également la solidarité et la maitrise de soi au quotidien. L’intérêt de l’équipe et des objectifs communs doivent intégrer l’esprit de chacun.",
+      "order": 2,
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  }
+]

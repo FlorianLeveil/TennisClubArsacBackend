@@ -1,0 +1,45 @@
+[
+  {
+    "model": "BackendTennis.AboutPage",
+    "pk": "218aeedf-e2b5-4675-a0b0-ac751e03eef6",
+    "fields": {
+      "id": "218aeedf-e2b5-4675-a0b0-ac751e03eef6",
+      "clubTitle": "Le club de tennis d'Arsac",
+      "clubDescription": "Nous sommes une association créée depuis plus de 50 ans pour promouvoir et valoriser la pratique du tennis en Gironde.\nPassionnés ou professionnels ? Vous êtes les bienvenus au club !\n\nVous pourrez participer à des compétitions adaptées à votre niveau partout en Gironde et en France. Le club propose des entraînement théoriques et physiques avec la pratique du tennis dans les meilleurs conditions. Des cours sont prévus chaque jour sauf le dimanche en fonction des demandes et disponibilités de chacun.",
+      "clubImage": "fca84f0d-8473-4f9f-9b8b-44926be8d9cc",
+      "dataCounter": [
+        {
+          "name": "Adhérents",
+          "count": 180
+        },
+        {
+          "name": "Terrains couverts",
+          "count": 2
+        },
+        {
+          "name": "Terrains exterieur",
+          "count": 3
+        }
+      ],
+      "clubValueTitle": "Les valeurs du club",
+      "clubValues": [
+        "509a8bc0-b547-4cd3-b276-a2c462f490c7",
+        "c8aa4e91-4739-47d2-8086-94fc50d4c195",
+        "7703a778-4734-4d31-9877-f924fa25aa46"
+      ],
+      "sponsorTitle": "Ils soutiennent l'association d'Arsac",
+      "sponsors": [
+        "6fddfba6-b8c9-4a37-9da8-40d1d78f7029",
+        "8e6ff287-9f26-405e-86bf-3761faeb1529",
+        "becb705b-bb1b-4f05-98a7-11aa512b15d6",
+        "73fce2ea-f585-438b-a947-6796fbe32895",
+        "1c58e9a2-18f5-4cd9-8a8c-41e1798e11a7",
+        "fdaca380-23bd-48a8-b6fe-c160083e7224",
+        "15b9666a-f0ef-42fa-9281-24c8657e250b",
+        "cea43f5f-1c6c-4224-966f-6b2b177eb628"
+      ],
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  }
+]

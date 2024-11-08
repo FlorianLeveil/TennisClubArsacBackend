@@ -245,5 +245,122 @@
       "createAt": "2024-05-30T11:01:26.151680+02:00",
       "updateAt": "2024-05-30T11:01:26.151680+02:00"
     }
+  },
+  {
+    "model": "BackendTennis.Image",
+    "pk": "87be7013-33aa-46b5-beca-397872acdd1f",
+    "fields": {
+      "id": "87be7013-33aa-46b5-beca-397872acdd1f",
+      "title": "Sponsor Tour de Bessan",
+      "tags": [],
+      "type": "sponsor",
+      "imageUrl": "images/about_page/sponsor/tour_de_bessan.png",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Image",
+    "pk": "9046d655-a132-4e71-bc1c-c2574fad74b5",
+    "fields": {
+      "id": "9046d655-a132-4e71-bc1c-c2574fad74b5",
+      "title": "Sponsor Brasserie d'Arsac",
+      "tags": [],
+      "type": "sponsor",
+      "imageUrl": "images/about_page/sponsor/brasserie_arsac.png",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Image",
+    "pk": "493b4f25-cc73-4854-8a4e-6c2c93992484",
+    "fields": {
+      "id": "493b4f25-cc73-4854-8a4e-6c2c93992484",
+      "title": "Sponsor Cocci Market Arsac",
+      "tags": [],
+      "type": "sponsor",
+      "imageUrl": "images/about_page/sponsor/cocci_market.png",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Image",
+    "pk": "5900f512-e1cd-4ec1-bba3-c8d93d79dcfe",
+    "fields": {
+      "id": "5900f512-e1cd-4ec1-bba3-c8d93d79dcfe",
+      "title": "Sponsor Mairie d'Arsac",
+      "tags": [],
+      "type": "sponsor",
+      "imageUrl": "images/about_page/sponsor/arsac_mairie.png",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Image",
+    "pk": "309230b1-4f75-4ca5-9844-6c9501ac4025",
+    "fields": {
+      "id": "309230b1-4f75-4ca5-9844-6c9501ac4025",
+      "title": "Sponsor Crédit Mutuel",
+      "tags": [],
+      "type": "sponsor",
+      "imageUrl": "images/about_page/sponsor/credit_mutuel.png",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Image",
+    "pk": "5dbc3b5e-a8db-4f9c-b3aa-133e3a44c999",
+    "fields": {
+      "id": "5dbc3b5e-a8db-4f9c-b3aa-133e3a44c999",
+      "title": "Sponsor Département de la Gironde",
+      "tags": [],
+      "type": "sponsor",
+      "imageUrl": "images/about_page/sponsor/departement_gironde.png",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Image",
+    "pk": "4dd98ca2-f9e4-43fd-b3f6-b87837b8933a",
+    "fields": {
+      "id": "4dd98ca2-f9e4-43fd-b3f6-b87837b8933a",
+      "title": "Sponsor Région nouvelle Aquitaine",
+      "tags": [],
+      "type": "sponsor",
+      "imageUrl": "images/about_page/sponsor/region_nouvelle_aquitaine.png",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Image",
+    "pk": "102b32ad-5ddd-4028-95ae-dba32d825d48",
+    "fields": {
+      "id": "102b32ad-5ddd-4028-95ae-dba32d825d48",
+      "title": "Sponsor Groupama",
+      "tags": [],
+      "type": "sponsor",
+      "imageUrl": "images/about_page/sponsor/groupama.png",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Image",
+    "pk": "fca84f0d-8473-4f9f-9b8b-44926be8d9cc",
+    "fields": {
+      "id": "fca84f0d-8473-4f9f-9b8b-44926be8d9cc",
+      "title": "Club Arsac Photo",
+      "tags": [],
+      "type": "about_page",
+      "imageUrl": "images/about_page/club.png",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
   }
 ]

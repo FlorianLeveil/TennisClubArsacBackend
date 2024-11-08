@@ -112,11 +112,14 @@ print("Clé générée :", key)
 ## Ajout des données en base
 ```bash
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_images.json
+python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_sponsors.json
+python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_club_value.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_routes.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_renders_navigation_items.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/pages/initial_home_pages.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/pages/initial_navigation_bars.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/pages/initial_pricing_pages.json
+python manage.py loaddata BackendTennis/fixtures/init_tennis_db/pages/initial_about_pages.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_pricings.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_training.json
 

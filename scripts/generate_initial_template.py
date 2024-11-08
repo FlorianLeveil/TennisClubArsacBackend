@@ -12,11 +12,20 @@ PAGE_RENDER_PROPS = ['route', 'render']
 
 ROUTE_PROPS = ['name', 'protocol', 'domainUrl', 'pathUrl', 'componentPath', 'metaTitle', 'metaTags']
 
+CLUB_VALUE_PROPS = ['title', 'description', 'order']
+
+SPONSOR_PROPS = ['brandName', 'image', 'order']
+
 NAVIGATION_BAR_PROPS = ['logo', 'routeLogo', 'navigationItems']
 
 PRICING_PAGE_PROPS = ['title', 'description', 'pricing']
 
 HOME_PAGE_PROPS = ['title', 'navigationItems']
+
+ABOUT_PAGE_PROPS = [
+    'clubTitle', 'clubDescription', 'clubImage', 'dataCounter',
+    'clubValueTitle', 'clubValues', 'sponsorTitle', 'sponsors'
+]
 
 
 def get_initial_data_template(model_name, extra_props):
@@ -38,9 +47,9 @@ def get_initial_data_template(model_name, extra_props):
 
 
 def main():
-    nb_to_generate = 3
-    model_name = 'AboutPage'
-    extra_props = PRICING_PAGE_PROPS
+    nb_to_generate = 9
+    model_name = 'Image'
+    extra_props = IMAGE_PROPS
 
     full_template = []
     for i in range(nb_to_generate):
