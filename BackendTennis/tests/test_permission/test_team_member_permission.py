@@ -39,11 +39,11 @@ class TeamMemberPermissionsTests(APITestCase):
         cls.api_key, cls.key = APIKey.objects.create_key(name="test-api-key")
 
         cls.team_member = TeamMember.objects.create(
-            fullName='Test Team Member',
-            image=cls.image,
+            fullNames=['Test Team Member'],
             role='Test User',
             description='test description'
         )
+        cls.team_member.images.set([cls.image])
 
         cls.url = '/BackendTennis/team_member/'
         cls.detail_url = f'{cls.url}{cls.team_member.id}/'
@@ -73,8 +73,8 @@ class TeamMemberPermissionsTests(APITestCase):
 
     def test_create_team_member_with_permission(self):
         data = {
-            'fullName': 'New Team Member',
-            'image': self.image.id,
+            'fullNames': ['New Team Member'],
+            'images': [self.image.id],
             'role': 'Test User',
             'description': 'test description',
             'order': 2
@@ -91,8 +91,8 @@ class TeamMemberPermissionsTests(APITestCase):
 
     def test_superuser_can_create_team_member(self):
         data = {
-            'fullName': 'Super Team Member',
-            'image': self.image.id,
+            'fullNames': ['Super Team Member'],
+            'images': [self.image.id],
             'role': 'Test User',
             'description': 'test description',
             'order': 2
@@ -106,7 +106,7 @@ class TeamMemberPermissionsTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_update_team_member_no_permission(self):
-        data = {'fullName': 'Updated Team Member'}
+        data = {'fullNames': ['Updated Team Member']}
         response = self.client.patch(
             self.detail_url,
             data=data,

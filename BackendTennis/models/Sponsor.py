@@ -35,7 +35,7 @@ class Sponsor(models.Model, UniqueOrderValidationMixin):
 
     def clean(self):
         for about_page in self.about_pages.all():
-            self.validate_unique_order(about_page, self.brandName, about_page.clubTitle)
+            self.validate_unique_order(about_page)
 
     def save(self, *args, **kwargs):
         self.full_clean()

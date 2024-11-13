@@ -7,6 +7,7 @@ from BackendTennis.serializers.base_serializer import BaseMemberSerializer
 
 
 class ProfessorSerializer(BaseMemberSerializer):
+    fullName = serializers.CharField(max_length=250, required=True)
     image = serializers.PrimaryKeyRelatedField(queryset=Image.objects.all())
     diploma = serializers.CharField(max_length=1000)
     year_experience = serializers.CharField(max_length=25)

@@ -187,14 +187,14 @@ class SponsorSerializerTests(TestCase):
         with self.assertRaises(
                 ValidationError,
                 msg='Save should failed on Sponsor.clean with error : '
-                    f'Order [{data['order']}] of Sponsor [{new_sponsor.brandName}]'
-                    f' already used by another Sponsor in the About page "{about_page.clubTitle}" .'
+                    f'Order [{data['order']}] of Sponsor [{new_sponsor.id}]'
+                    f' already used by another Sponsor in the About page "{about_page.id}".'
         ) as _exception:
             serializer_about_page.save()
 
         self.assertEqual(
-            f'Order [{data['order']}] of Sponsor [{new_sponsor.brandName}]'
-            f' already used by another Sponsor in the About page "{about_page.clubTitle}" .',
+            f'Order [{data['order']}] of Sponsor [{new_sponsor.id}]'
+            f' already used by another Sponsor in the About page "{about_page.id}".',
             _exception.exception.message_dict['order'][0]
         )
 
@@ -327,13 +327,13 @@ class SponsorSerializerTests(TestCase):
         with self.assertRaises(
                 ValidationError,
                 msg='Save should failed on Sponsor.clean with error : '
-                    f'Order [{data['order']}] of Sponsor [{first_sponsor.brandName}]'
-                    f' already used by another Sponsor in the About page "{data_about_page['clubTitle']}" .'
+                    f'Order [{data['order']}] of Sponsor [{first_sponsor.id}]'
+                    f' already used by another Sponsor in the About page'
         ) as _exception:
             serializer_about_page.save()
 
-        self.assertEqual(
-            f'Order [{data['order']}] of Sponsor [{first_sponsor.brandName}]'
-            f' already used by another Sponsor in the About page "{data_about_page['clubTitle']}" .',
+        self.assertIn(
+            f'Order [{data['order']}] of Sponsor [{first_sponsor.id}]'
+            f' already used by another Sponsor in the About page',
             _exception.exception.message_dict['order'][0]
         )

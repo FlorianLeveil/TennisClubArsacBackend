@@ -5,6 +5,7 @@ from BackendTennis.models.base_model.BaseMember import BaseMember
 
 
 class Professor(BaseMember, UniqueOrderValidationMixin):
+    fullName = models.CharField(max_length=255, unique=True)
     image = models.ForeignKey(
         'BackendTennis.Image',
         on_delete=models.SET_NULL,
@@ -36,7 +37,7 @@ class Professor(BaseMember, UniqueOrderValidationMixin):
 
     def clean(self):
         for team_page in self.team_pages.all():
-            self.validate_unique_order(team_page, self.fullName, team_page.professorsTitle)
+            self.validate_unique_order(team_page)
 
     def save(self, *args, **kwargs):
         self.full_clean()

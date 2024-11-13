@@ -279,14 +279,14 @@ class ProfessorSerializerTests(TestCase):
         with self.assertRaises(
                 ValidationError,
                 msg='Save should failed on Professor.clean with error : '
-                    f'Order [{data['order']}] of Professor [{new_professor.fullName}]'
-                    f' already used by another Professor in the Team page "{team_page.professorsTitle}" .'
+                    f'Order [{data['order']}] of Professor [{new_professor.id}]'
+                    f' already used by another Professor in the Team page "{team_page.id}" .'
         ) as _exception:
             serializer_team_page.save()
 
         self.assertEqual(
-            f'Order [{data['order']}] of Professor [{new_professor.fullName}]'
-            f' already used by another Professor in the Team page "{team_page.professorsTitle}" .',
+            f'Order [{data['order']}] of Professor [{new_professor.id}]'
+            f' already used by another Professor in the Team page "{team_page.id}".',
             _exception.exception.message_dict['order'][0]
         )
 
@@ -447,14 +447,14 @@ class ProfessorSerializerTests(TestCase):
         with self.assertRaises(
                 ValidationError,
                 msg='Save should failed on Professor.clean with error : '
-                    f'Order [{data['order']}] of Professor [{new_professor.fullName}]'
-                    f' already used by another Professor in the Team page "{team_page.professorsTitle}" .'
+                    f'Order [{data['order']}] of Professor [{new_professor.id}]'
+                    f' already used by another Professor in the Team page "{team_page.id}" .'
         ) as _exception:
             serializer_update_professor.save()
 
         self.assertEqual(
-            f'Order [{data['order']}] of Professor [{new_professor.fullName}]'
-            f' already used by another Professor in the Team page "{team_page.professorsTitle}" .',
+            f'Order [{data['order']}] of Professor [{new_professor.id}]'
+            f' already used by another Professor in the Team page "{team_page.id}".',
             _exception.exception.message_dict['order'][0]
         )
 
@@ -499,13 +499,13 @@ class ProfessorSerializerTests(TestCase):
         with self.assertRaises(
                 ValidationError,
                 msg='Save should failed on Professor.clean with error : '
-                    f'Order [{data['order']}] of Professor [{first_professor.fullName}]'
-                    f' already used by another Professor in the Team page "{data_team_page['professorsTitle']}" .'
+                    f'Order [{data['order']}] of Professor [{first_professor.id}]'
+                    f' already used by another Professor in the Team page'
         ) as _exception:
             serializer_team_page.save()
 
-        self.assertEqual(
-            f'Order [{data['order']}] of Professor [{first_professor.fullName}]'
-            f' already used by another Professor in the Team page "{data_team_page['professorsTitle']}" .',
+        self.assertIn(
+            f'Order [{data['order']}] of Professor [{first_professor.id}]'
+            f' already used by another Professor in the Team page',
             _exception.exception.message_dict['order'][0]
         )

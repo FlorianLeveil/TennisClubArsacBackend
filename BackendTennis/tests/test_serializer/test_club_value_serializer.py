@@ -154,14 +154,14 @@ class ClubValueSerializerTests(APITestCase):
         with self.assertRaises(
                 ValidationError,
                 msg='Save should failed on ClubValue.clean with error : '
-                    f'Order [{data['order']}] of ClubValue [{new_club_value.title}]'
-                    f' already used by another ClubValue in the About page "{about_page.clubTitle}" .'
+                    f'Order [{data['order']}] of ClubValue [{new_club_value.id}]'
+                    f' already used by another ClubValue in the About page "{about_page.id}".'
         ) as _exception:
             serializer_about_page.save()
 
         self.assertEqual(
-            f'Order [{data['order']}] of ClubValue [{new_club_value.title}]'
-            f' already used by another ClubValue in the About page "{about_page.clubTitle}" .',
+            f'Order [{data['order']}] of ClubValue [{new_club_value.id}]'
+            f' already used by another ClubValue in the About page "{about_page.id}".',
             _exception.exception.message_dict['order'][0]
         )
 
@@ -293,13 +293,13 @@ class ClubValueSerializerTests(APITestCase):
         with self.assertRaises(
                 ValidationError,
                 msg='Save should failed on ClubValue.clean with error : '
-                    f'Order [{data['order']}] of ClubValue [{first_club_value.title}]'
+                    f'Order [{data['order']}] of ClubValue [{first_club_value.id}]'
                     f' already used by another ClubValue in the About page "{data_about_page['clubTitle']}" .'
         ) as _exception:
             serializer_about_page.save()
 
-        self.assertEqual(
-            f'Order [{data['order']}] of ClubValue [{first_club_value.title}]'
-            f' already used by another ClubValue in the About page "{data_about_page['clubTitle']}" .',
+        self.assertIn(
+            f'Order [{data['order']}] of ClubValue [{first_club_value.id}]'
+            f' already used by another ClubValue in the About page',
             _exception.exception.message_dict['order'][0]
         )

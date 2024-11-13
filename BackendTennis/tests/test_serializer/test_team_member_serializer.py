@@ -11,13 +11,13 @@ from BackendTennis.serializers import TeamMemberSerializer, TeamPageSerializer
 class TeamMemberSerializerTests(TestCase):
 
     def setUp(self):
-        self.team_member_image = Image.objects.create(title="TeamMember Image", type=Constant.IMAGE_TYPE.TEAM_MEMBER)
+        self.team_member_image = Image.objects.create(title='TeamMember Image', type=Constant.IMAGE_TYPE.TEAM_MEMBER)
 
-        self.invalid_image = Image.objects.create(title="Invalid Image", type="profile")
+        self.invalid_image = Image.objects.create(title='Invalid Image', type='profile')
 
         self.team_member_data = {
-            "fullName": "Test Team Member",
-            "image": self.team_member_image.id,
+            'fullNames': ['Test Team Member'],
+            'images': [self.team_member_image.id],
             'role': 'Test User',
             'description': 'test description'
         }
@@ -26,20 +26,22 @@ class TeamMemberSerializerTests(TestCase):
         serializer = TeamMemberSerializer(data=self.team_member_data)
         self.assertTrue(serializer.is_valid(), serializer.errors)
         team_member = serializer.save()
-        self.assertEqual(team_member.fullName, "Test Team Member")
-        self.assertEqual(team_member.image, self.team_member_image)
+
+        images_id = list(team_member.images.values_list('id', flat=True))
+        self.assertEqual(team_member.fullNames, ['Test Team Member'])
+        self.assertEqual(images_id, [self.team_member_image.id])
 
     def test_team_member_update(self):
         team_member = TeamMember.objects.create(
-            fullName="Old Team Member",
-            image=self.team_member_image,
+            fullNames=['Old Team Member'],
             role='Test User',
             description='test description',
             order=2
         )
+        team_member.images.set([self.team_member_image])
         updated_data = {
-            "fullName": "Updated Team Member",
-            "image": self.team_member_image.id,
+            'fullNames': ['Updated Team Member'],
+            'images': [self.team_member_image.id],
             'role': 'Test User',
             'description': 'test description',
             'order': 2
@@ -47,50 +49,39 @@ class TeamMemberSerializerTests(TestCase):
         serializer = TeamMemberSerializer(instance=team_member, data=updated_data)
         self.assertTrue(serializer.is_valid(), serializer.errors)
         updated_team_member = serializer.save()
-        self.assertEqual(updated_team_member.fullName, "Updated Team Member")
+        self.assertEqual(updated_team_member.fullNames, ['Updated Team Member'])
 
     def test_image_type_validation(self):
         invalid_data = {
-            "fullName": "Test Team Member",
-            "image": self.invalid_image.id,
+            'fullNames': ['Test Team Member'],
+            'images': [self.invalid_image.id],
             'role': 'Test User',
             'description': 'test description'
         }
         serializer = TeamMemberSerializer(data=invalid_data)
         self.assertFalse(serializer.is_valid(), serializer.errors)
-        self.assertIn("Image must be of type 'team_member'.", serializer.errors['image'])
+        self.assertIn('Image must be of type \'team_member\'.', serializer.errors['images'])
 
     def test_team_member_creation_with_invalid_data(self):
         invalid_data = {
-            "fullName": "Test Team Member",
-            "image": self.invalid_image.id,
+            'fullNames': ['Test Team Member'],
+            'images': [self.invalid_image.id],
             'role': 'Test User',
             'description': 'test description'
         }
         serializer = TeamMemberSerializer(data=invalid_data)
         self.assertFalse(serializer.is_valid(), serializer.errors)
-        self.assertIn("Image must be of type 'team_member'.", serializer.errors['image'])
-
-    def test_empty_full_name(self):
-        invalid_data = {
-            "fullName": "",
-            "image": self.team_member_image.id,
-            'role': 'Test User',
-            'description': 'test description'
-        }
-        serializer = TeamMemberSerializer(data=invalid_data)
-        self.assertFalse(serializer.is_valid(), serializer.errors)
-        self.assertIn('fullName', serializer.errors)
+        self.assertIn('Image must be of type \'team_member\'.', serializer.errors['images'])
 
     def test_create_team_member_with_readonly_fields(self):
         data_with_readonly_fields = {
-            "fullName": "Test Team Member",
-            "image": self.team_member_image.id,
+            'fullNames': ['Test Team Member'],
+            'images': [self.team_member_image.id],
             'role': 'Test User',
             'description': 'test description',
-            "id": uuid.uuid4(),
-            "createAt": "2024-09-13T10:00:00Z",
-            "updateAt": "2024-09-13T10:00:00Z"
+            'id': uuid.uuid4(),
+            'createAt': '2024-09-13T10:00:00Z',
+            'updateAt': '2024-09-13T10:00:00Z'
         }
         serializer = TeamMemberSerializer(data=data_with_readonly_fields)
         self.assertTrue(serializer.is_valid(), serializer.errors)
@@ -102,65 +93,54 @@ class TeamMemberSerializerTests(TestCase):
 
     def test_team_member_update_with_partial_data(self):
         team_member = TeamMember.objects.create(
-            fullName="Old Team Member",
-            image=self.team_member_image,
+            fullNames=['Old Team Member'],
             role='Test User',
             description='test description',
             order=2
         )
+        team_member.images.set([self.team_member_image])
         updated_data = {
-            "fullName": "Partially Updated Team Member"
+            'fullNames': ['Partially Updated Team Member']
         }
         serializer = TeamMemberSerializer(instance=team_member, data=updated_data, partial=True)
         self.assertTrue(serializer.is_valid(), serializer.errors)
         updated_team_member = serializer.save()
 
-        self.assertEqual(updated_team_member.fullName, "Partially Updated Team Member")
-        self.assertEqual(updated_team_member.image, self.team_member_image)
+        images_id = list(updated_team_member.images.values_list('id', flat=True))
+        self.assertEqual(updated_team_member.fullNames, ['Partially Updated Team Member'])
+        self.assertEqual(images_id, [self.team_member_image.id])
 
-    def test_invalid_max_length_for_full_name(self):
+    def test_create_team_member_without_images(self):
         invalid_data = {
-            "fullName": "A" * 255,  # Longueur maximale est 100
-            "image": self.team_member_image.id,
-            'role': 'Test User',
-            'description': 'test description'
+            'fullNames': ['Test Team Member']
         }
         serializer = TeamMemberSerializer(data=invalid_data)
         self.assertFalse(serializer.is_valid(), serializer.errors)
-        self.assertIn('fullName', serializer.errors)
-        self.assertEqual(serializer.errors['fullName'][0], 'Ensure this field has no more than 250 characters.')
+        self.assertIn('images', serializer.errors)
 
-    def test_create_team_member_without_image(self):
-        invalid_data = {
-            "fullName": "Test Team Member"
-        }
-        serializer = TeamMemberSerializer(data=invalid_data)
-        self.assertFalse(serializer.is_valid(), serializer.errors)
-        self.assertIn('image', serializer.errors)
-
-    def test_update_team_member_invalid_image(self):
+    def test_update_team_member_invalid_images(self):
         team_member = TeamMember.objects.create(
-            fullName="Old Team Member",
-            image=self.team_member_image,
+            fullNames=['Old Team Member'],
             role='Test User',
             description='test description',
             order=2
         )
+        team_member.images.set([self.team_member_image])
         updated_data = {
-            "fullName": "Still Valid",
-            "image": self.invalid_image.id,
+            'fullNames': ['Still Valid'],
+            'images': [self.invalid_image.id],
             'role': 'Test User',
             'description': 'test description'
         }
         serializer = TeamMemberSerializer(instance=team_member, data=updated_data)
         self.assertFalse(serializer.is_valid(), serializer.errors)
-        self.assertIn("Image must be of type 'team_member'.", serializer.errors['image'])
+        self.assertIn('Image must be of type \'team_member\'.', serializer.errors['images'])
 
     def test_create_full(self):
         full_data = {
-            'fullName': 'Test Creation',
+            'fullNames': ['Test Creation'],
             'role': 'Test User',
-            'image': self.team_member_image.id,
+            'images': [self.team_member_image.id],
             'order': 1,
             'description': 'Test Description',
         }
@@ -169,17 +149,18 @@ class TeamMemberSerializerTests(TestCase):
         team_member = serializer.save()
         team_member.refresh_from_db()
 
-        self.assertEqual(full_data['fullName'], team_member.fullName, str(serializer.errors))
+        images_id = list(team_member.images.values_list('id', flat=True))
+        self.assertEqual(full_data['fullNames'], team_member.fullNames, str(serializer.errors))
         self.assertEqual(full_data['role'], team_member.role, str(serializer.errors))
-        self.assertEqual(full_data['image'], team_member.image.id, str(serializer.errors))
+        self.assertEqual(full_data['images'], images_id, str(serializer.errors))
         self.assertEqual(full_data['order'], team_member.order, str(serializer.errors))
         self.assertEqual(full_data['description'], team_member.description, str(serializer.errors))
 
     def test_update_full(self):
         full_data = {
-            'fullName': 'Test Creation',
+            'fullNames': ['Test Creation'],
             'role': 'Test User',
-            'image': self.team_member_image.id,
+            'images': [self.team_member_image.id],
             'order': 1,
             'description': 'Test Description',
         }
@@ -189,9 +170,9 @@ class TeamMemberSerializerTests(TestCase):
         team_member.refresh_from_db()
 
         update_data = {
-            'fullName': 'Updated Creation',
+            'fullNames': ['Updated Creation'],
             'role': 'Updated Test User',
-            'image': self.team_member_image.id,
+            'images': [self.team_member_image.id],
             'order': 6,
             'description': 'Updated Description',
         }
@@ -200,16 +181,17 @@ class TeamMemberSerializerTests(TestCase):
         serializer.save()
         team_member.refresh_from_db()
 
-        self.assertEqual(update_data['fullName'], team_member.fullName, str(serializer.errors))
+        images_id = list(team_member.images.values_list('id', flat=True))
+        self.assertEqual(update_data['fullNames'], team_member.fullNames, str(serializer.errors))
         self.assertEqual(update_data['role'], team_member.role, str(serializer.errors))
-        self.assertEqual(update_data['image'], team_member.image.id, str(serializer.errors))
+        self.assertEqual(list(update_data['images']), images_id, str(serializer.errors))
         self.assertEqual(update_data['order'], team_member.order, str(serializer.errors))
         self.assertEqual(update_data['description'], team_member.description, str(serializer.errors))
 
     def test_order_already_used(self):
         data = {
-            'fullName': 'First Team Member',
-            'image': self.team_member_image.id,
+            'fullNames': ['First Team Member'],
+            'images': [self.team_member_image.id],
             'order': 2,
             'role': 'Test User',
             'description': 'First Description',
@@ -223,8 +205,8 @@ class TeamMemberSerializerTests(TestCase):
         team_page.teamMembers.set([first_team_member])
 
         data = {
-            'fullName': 'New Team Member',
-            'image': self.team_member_image.id,
+            'fullNames': ['New Team Member'],
+            'images': [self.team_member_image.id],
             'order': 2,
             'role': 'Test User',
             'description': 'First Description',
@@ -243,21 +225,21 @@ class TeamMemberSerializerTests(TestCase):
         with self.assertRaises(
                 ValidationError,
                 msg='Save should failed on Team Member.clean with error : '
-                    f'Order [{data['order']}] of TeamMember [{new_team_member.fullName}]'
-                    f' already used by another TeamMember in the Team page "{team_page.teamMembersTitle}" .'
+                    f'Order [{data['order']}] of TeamMember [{new_team_member.id}]'
+                    f' already used by another TeamMember in the Team page "{team_page.id}".'
         ) as _exception:
             serializer_team_page.save()
 
         self.assertEqual(
-            f'Order [{data['order']}] of TeamMember [{new_team_member.fullName}]'
-            f' already used by another TeamMember in the Team page "{team_page.teamMembersTitle}" .',
+            f'Order [{data['order']}] of TeamMember [{new_team_member.id}]'
+            f' already used by another TeamMember in the Team page "{team_page.id}".',
             _exception.exception.message_dict['order'][0]
         )
 
     def test_update_order_used_by_other_team_page(self):
         data = {
-            'fullName': 'First Team Member',
-            'image': self.team_member_image.id,
+            'fullNames': ['First Team Member'],
+            'images': [self.team_member_image.id],
             'order': 2,
             'role': 'Test User',
             'description': 'First Description',
@@ -282,8 +264,8 @@ class TeamMemberSerializerTests(TestCase):
         self.assertIn(first_team_member.id, team_page_team_members, str(serializer_team_page.errors))
 
         data = {
-            'fullName': 'New Team Member',
-            'image': self.team_member_image.id,
+            'fullNames': ['New Team Member'],
+            'images': [self.team_member_image.id],
             'order': 2,
             'role': 'Test User',
             'description': 'New Description',
@@ -308,8 +290,8 @@ class TeamMemberSerializerTests(TestCase):
 
     def test_update_order_used_by_old_team_member(self):
         data = {
-            'fullName': 'First Team Member',
-            'image': self.team_member_image.id,
+            'fullNames': ['First Team Member'],
+            'images': [self.team_member_image.id],
             'order': 2,
             'role': 'Test User',
             'description': 'First Description',
@@ -334,8 +316,8 @@ class TeamMemberSerializerTests(TestCase):
         self.assertIn(first_team_member.id, team_page_team_members, str(serializer_team_page.errors))
 
         data = {
-            'fullName': 'New Team Member',
-            'image': self.team_member_image.id,
+            'fullNames': ['New Team Member'],
+            'images': [self.team_member_image.id],
             'order': 2,
             'role': 'Test User',
             'description': 'New Description',
@@ -359,8 +341,8 @@ class TeamMemberSerializerTests(TestCase):
 
     def test_update_order_of_team_member_saved_in_team_page(self):
         data = {
-            'fullName': 'First Team Member',
-            'image': self.team_member_image.id,
+            'fullNames': ['First Team Member'],
+            'images': [self.team_member_image.id],
             'order': 2,
             'role': 'Test User',
             'description': 'First Description',
@@ -374,8 +356,8 @@ class TeamMemberSerializerTests(TestCase):
         team_page.teamMembers.set([first_team_member])
 
         data = {
-            'fullName': 'New Team Member',
-            'image': self.team_member_image.id,
+            'fullNames': ['New Team Member'],
+            'images': [self.team_member_image.id],
             'order': 3,
             'role': 'Test User',
             'description': 'First Description',
@@ -403,21 +385,21 @@ class TeamMemberSerializerTests(TestCase):
         with self.assertRaises(
                 ValidationError,
                 msg='Save should failed on Team Member.clean with error : '
-                    f'Order [{data['order']}] of TeamMember [{new_team_member.fullName}]'
-                    f' already used by another TeamMember in the Team page "{team_page.teamMembersTitle}" .'
+                    f'Order [{data['order']}] of TeamMember [{new_team_member.id}]'
+                    f' already used by another TeamMember in the Team page "{team_page.id}".'
         ) as _exception:
             serializer_update_team_member.save()
 
         self.assertEqual(
-            f'Order [{data['order']}] of TeamMember [{new_team_member.fullName}]'
-            f' already used by another TeamMember in the Team page "{team_page.teamMembersTitle}" .',
+            f'Order [{data['order']}] of TeamMember [{new_team_member.id}]'
+            f' already used by another TeamMember in the Team page "{team_page.id}".',
             _exception.exception.message_dict['order'][0]
         )
 
     def test_order_already_used_at_page_creation(self):
         data = {
-            'fullName': 'First Team Member',
-            'image': self.team_member_image.id,
+            'fullNames': ['First Team Member'],
+            'images': [self.team_member_image.id],
             'order': 2,
             'role': 'Test User',
             'description': 'First Description',
@@ -428,8 +410,8 @@ class TeamMemberSerializerTests(TestCase):
         first_team_member = serializer_first_team_member.save()
 
         data = {
-            'fullName': 'New Team Member',
-            'image': self.team_member_image.id,
+            'fullNames': ['New Team Member'],
+            'images': [self.team_member_image.id],
             'order': 2,
             'role': 'Test User',
             'description': 'First Description',
@@ -449,13 +431,13 @@ class TeamMemberSerializerTests(TestCase):
         with self.assertRaises(
                 ValidationError,
                 msg='Save should failed on Team Member.clean with error : '
-                    f'Order [{data['order']}] of TeamMember [{first_team_member.fullName}]'
-                    f' already used by another TeamMember in the Team page "{data_team_page['teamMembersTitle']}" .'
+                    f'Order [{data['order']}] of TeamMember [{first_team_member.id}]'
+                    f' already used by another TeamMember in the Team page "{data_team_page['teamMembersTitle']}".'
         ) as _exception:
             serializer_team_page.save()
 
-        self.assertEqual(
-            f'Order [{data['order']}] of TeamMember [{first_team_member.fullName}]'
-            f' already used by another TeamMember in the Team page "{data_team_page['teamMembersTitle']}" .',
+        self.assertIn(
+            f'Order [{data['order']}] of TeamMember [{first_team_member.id}]'
+            f' already used by another TeamMember in the Team page',
             _exception.exception.message_dict['order'][0]
         )

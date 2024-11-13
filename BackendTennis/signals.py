@@ -32,7 +32,7 @@ def validate_sponsor_order(sender, instance, action, **kwargs):
         sponsors = Sponsor.objects.filter(id__in=sponsor_ids)
         for sponsor in sponsors:
             try:
-                sponsor.validate_unique_order(instance, sponsor.brandName, instance.clubTitle)
+                sponsor.validate_unique_order(instance)
             except ValidationError as e:
                 raise e
 
@@ -45,7 +45,7 @@ def validate_club_values_order(sender, instance, action, **kwargs):
         club_values = ClubValue.objects.filter(id__in=club_value_ids)
         for club_value in club_values:
             try:
-                club_value.validate_unique_order(instance, club_value.title, instance.clubTitle)
+                club_value.validate_unique_order(instance)
             except ValidationError as e:
                 raise e
 
@@ -58,7 +58,7 @@ def validate_professors_order(sender, instance, action, **kwargs):
         professors = Professor.objects.filter(id__in=professors_id)
         for professor in professors:
             try:
-                professor.validate_unique_order(instance, professor.fullName, instance.professorsTitle)
+                professor.validate_unique_order(instance)
             except ValidationError as e:
                 raise e
 
@@ -71,6 +71,6 @@ def validate_team_members_order(sender, instance, action, **kwargs):
         team_members = TeamMember.objects.filter(id__in=team_members_id)
         for team_member in team_members:
             try:
-                team_member.validate_unique_order(instance, team_member.fullName, instance.teamMembersTitle)
+                team_member.validate_unique_order(instance)
             except ValidationError as e:
                 raise e

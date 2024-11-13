@@ -1,3 +1,4 @@
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 from BackendTennis.mixins import UniqueOrderValidationMixin
@@ -5,20 +6,19 @@ from BackendTennis.models.base_model.BaseMember import BaseMember
 
 
 class TeamMember(BaseMember, UniqueOrderValidationMixin):
-    image = models.ForeignKey(
+    fullNames = ArrayField(models.CharField(max_length=255), blank=True, default=list)
+    images = models.ManyToManyField(
         'BackendTennis.Image',
-        on_delete=models.SET_NULL,
-        related_name='team_members',
-        null=True
+        related_name='team_members'
     )
     description = models.TextField()
 
     def __str__(self):
         to_return = {
             'id': self.id,
-            'fullName': self.fullName,
+            'fullNames': self.fullNames,
             'role': self.role,
-            'image': self.image,
+            'images': self.images,
             'description': self.description,
             'order': self.order,
             'createAt': self.createAt,
@@ -32,7 +32,7 @@ class TeamMember(BaseMember, UniqueOrderValidationMixin):
 
     def clean(self):
         for team_page in self.team_pages.all():
-            self.validate_unique_order(team_page, self.fullName, team_page.teamMembersTitle)
+            self.validate_unique_order(team_page)
 
     def save(self, *args, **kwargs):
         self.full_clean()

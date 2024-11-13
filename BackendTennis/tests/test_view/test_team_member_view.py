@@ -27,11 +27,11 @@ class TeamMemberViewTests(APITestCase):
         cls.image = Image.objects.create(title='TeamMember Image', type='team_member')
 
         cls.team_member = TeamMember.objects.create(
-            fullName='Test Team Member',
-            image=cls.image,
+            fullNames=['Test Team Member'],
             role='Test User',
             description='test description'
         )
+        cls.team_member.images.set([cls.image])
         cls.url = '/BackendTennis/team_member/'
         cls.detail_url = f'{cls.url}{cls.team_member.id}/'
 
@@ -48,12 +48,12 @@ class TeamMemberViewTests(APITestCase):
     def test_get_team_member_detail(self):
         response = self.client.get(self.detail_url, HTTP_API_KEY=self.key)
         self.assertEqual(response.status_code, status.HTTP_200_OK, str(response.data))
-        self.assertEqual(response.data['fullName'], self.team_member.fullName, str(response.data))
+        self.assertEqual(response.data['fullNames'], self.team_member.fullNames, str(response.data))
 
     def test_create_team_member_with_jwt_and_api_key(self):
         data = {
-            'fullName': 'New TeamMember',
-            'image': self.image.id,
+            'fullNames': ['New TeamMember'],
+            'images': [self.image.id],
             'role': 'Test User',
             'description': 'test description',
             'order': 2
@@ -70,12 +70,12 @@ class TeamMemberViewTests(APITestCase):
         self.assertEqual(TeamMember.objects.count(), 2, str(response.data))
 
     def test_create_team_member_without_jwt(self):
-        data = {'fullName': 'New TeamMember', 'image': self.image.id}
+        data = {'fullNames': ['New TeamMember'], 'images': [self.image.id]}
         response = self.client.post(self.url, data=data, HTTP_API_KEY=self.key)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, str(response.data))
 
     def test_update_team_member_with_jwt_and_api_key(self):
-        data = {'fullName': 'Updated TeamMember'}
+        data = {'fullNames': ['Updated TeamMember']}
         permission = Permission.objects.get(codename='change_teammember')
         self.user.user_permissions.add(permission)
         response = self.client.patch(
@@ -86,7 +86,7 @@ class TeamMemberViewTests(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK, str(response.data))
         self.team_member.refresh_from_db()
-        self.assertEqual(self.team_member.fullName, 'Updated TeamMember', str(response.data))
+        self.assertEqual(self.team_member.fullNames, ['Updated TeamMember'], str(response.data))
 
     def test_delete_team_member_with_jwt_and_api_key(self):
         permission = Permission.objects.get(codename='delete_teammember')
@@ -101,7 +101,7 @@ class TeamMemberViewTests(APITestCase):
 
     def test_invalid_image_type_for_team_member(self):
         invalid_image = Image.objects.create(title='Invalid Image', type='profile')
-        data = {'fullName': 'Invalid TeamMember', 'image': invalid_image.id}
+        data = {'fullNames': ['Invalid TeamMember'], 'images': [invalid_image.id]}
         permission = Permission.objects.get(codename='add_teammember')
         self.user.user_permissions.add(permission)
         response = self.client.post(

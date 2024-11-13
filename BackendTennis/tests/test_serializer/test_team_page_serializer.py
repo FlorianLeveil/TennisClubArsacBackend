@@ -32,20 +32,20 @@ class TeamPageSerializerTests(TestCase):
         )
 
         self.team_members_1 = TeamMember.objects.create(
-            fullName='Team Member 1',
-            image=self.team_member_image,
+            fullNames=['Team Member 1'],
             role='Test Member  1',
             description='test description',
             order=1
         )
+        self.team_members_1.images.set([self.team_member_image])
 
         self.team_members_2 = TeamMember.objects.create(
-            fullName='Team Member 2',
-            image=self.team_member_image,
+            fullNames=['Team Member 2'],
             role='Test Member  2',
             description='test description',
             order=2
         )
+        self.team_members_2.images.set([self.team_member_image])
 
         self.team_page_data = {}
 
