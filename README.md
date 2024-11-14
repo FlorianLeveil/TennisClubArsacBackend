@@ -44,7 +44,7 @@ source env/bin/activate  # Sur Windows utilisez `env\Scripts\activate`
 ### Installer les dépendances
 
 ```sh
-pip install -r requirement.txt
+pip install -r requirements.txt
 ```
 
 ## Configuration de la base de données

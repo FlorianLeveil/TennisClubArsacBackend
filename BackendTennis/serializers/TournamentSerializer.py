@@ -8,7 +8,7 @@ class TournamentSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     name = serializers.CharField(max_length=100, required=True)
     participants = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), many=True, required=False)
-    unregisteredParticipants = serializers.ListField(serializers.CharField(max_length=255), default=list)
+    unregisteredParticipants = serializers.ListField(child=serializers.CharField(max_length=255), default=list)
     cancel = serializers.BooleanField(default=False)
     start = serializers.DateTimeField(required=True)
     end = serializers.DateTimeField(required=True)

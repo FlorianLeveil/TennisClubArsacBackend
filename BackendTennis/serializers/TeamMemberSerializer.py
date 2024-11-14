@@ -7,7 +7,7 @@ from BackendTennis.serializers.base_serializer import BaseMemberSerializer
 
 
 class TeamMemberSerializer(BaseMemberSerializer):
-    fullNames = serializers.ListField(child=serializers.CharField(max_length=255))
+    fullNames = serializers.ListField(child=serializers.CharField(max_length=255), default=list)
     images = serializers.PrimaryKeyRelatedField(queryset=Image.objects.all(), many=True)
     description = serializers.CharField(max_length=10000)
 

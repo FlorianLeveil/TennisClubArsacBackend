@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 
 def compute_image_url(instance, filename):
-    return os.path.join('images', '{}.{}'.format(instance.pk, filename.split('.')[-1]))
+    return os.path.join('images', instance.type, '{}.{}'.format(instance.pk, filename.split('.')[-1]))
 
 
 def move_deleted_image_to_new_path(image):
