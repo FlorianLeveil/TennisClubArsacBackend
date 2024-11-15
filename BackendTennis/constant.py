@@ -1,5 +1,10 @@
+from __future__ import annotations
+
 import types
-from typing import List
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import List
 
 
 class Constant(types.SimpleNamespace):
@@ -16,6 +21,21 @@ class Constant(types.SimpleNamespace):
         SPONSOR='sponsor',
         TEAM_MEMBER='team_member',
         TEAM_PAGE='team_page',
+    )
+
+    IMAGE_TYPE_TRAD = types.SimpleNamespace(
+        ABOUT_PAGE={'key': 'about_page', 'label': {'en': 'About Page', 'fr': 'Page À Propos'}},
+        ADMIN={'key': 'admin', 'label': {'en': 'Admin', 'fr': 'Administration'}},
+        EVENT={'key': 'event', 'label': {'en': 'Event', 'fr': 'Événement'}},
+        NAVIGATION_BAR={'key': 'navigation_bar', 'label': {'en': 'Navigation Bar', 'fr': 'Barre de Navigation'}},
+        NAVIGATION_ITEM={'key': 'navigation_item', 'label': {'en': 'Home Page', 'fr': 'Page Accueil'}},
+        NEWS={'key': 'news', 'label': {'en': 'News', 'fr': 'Actualités'}},
+        PICTURE={'key': 'picture', 'label': {'en': 'Picture', 'fr': 'Image'}},
+        PRICING={'key': 'pricing', 'label': {'en': 'Pricing', 'fr': 'Tarifs'}},
+        PROFESSOR={'key': 'professor', 'label': {'en': 'Professor', 'fr': 'Professeur'}},
+        SPONSOR={'key': 'sponsor', 'label': {'en': 'Sponsor', 'fr': 'Sponsor'}},
+        TEAM_MEMBER={'key': 'team_member', 'label': {'en': 'Team Member', 'fr': 'Membre de l\'Équipe'}},
+        TEAM_PAGE={'key': 'team_page', 'label': {'en': 'Team Page', 'fr': 'Page d\'Équipe'}}
     )
 
     PRICING_TYPE: types.SimpleNamespace = types.SimpleNamespace(

@@ -15,7 +15,7 @@ from BackendTennis.views import ImageListCreateView, PricingListCreateView, TagV
     HomePageListCreateView, HomePageRetrieveUpdateDestroyView, RenderListCreateView, RenderRetrieveUpdateDestroyView, \
     PageRenderListCreateView, PageRenderRetrieveUpdateDestroyView, NavigationBarListCreateView, \
     NavigationBarRetrieveUpdateDestroyView, PricingPageListCreateView, PricingPageRetrieveUpdateDestroyView, \
-    UpdateNavigationItemsView
+    UpdateNavigationItemsView, ImageTypeListView
 
 app_name = 'BackendTennis'
 urlpatterns = [
@@ -125,6 +125,8 @@ urlpatterns = [
         PricingPageRetrieveUpdateDestroyView.as_view(),
         name='pricing_page_retrieve_update_destroy'
     ),
+
+    path('api/image-types/', ImageTypeListView.as_view(), name='image-types'),
 
     # path('admin/users/', UserAdminView.as_view(), name='user-admin'),
     # path('admin/users/<uuid:id>/', UserAdminView.as_view(), name='user-admin-detail'),
