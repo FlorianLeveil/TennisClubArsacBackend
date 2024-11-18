@@ -1,26 +1,42 @@
 import datetime
 import json
 import os
+from pathlib import Path
 
 from rest_framework import status
 from rest_framework.response import Response
 
+PROJECT_ROOT = Path(__file__).parent.parent.parent.resolve()
+DELETE_PATH = Path(PROJECT_ROOT, 'images_deleted')
+
+
+def ensure_directory_exists(path: Path):
+    if not path.exists():
+        path.mkdir(parents=True, exist_ok=True)
+
+
+def ensure_path_delete_exists():
+    today = datetime.date.today()
+    delete_path = Path(DELETE_PATH, str(today.year), str(today.month), str(today.day))
+    ensure_directory_exists(delete_path)
+    return delete_path
+
 
 def compute_image_url(instance, filename):
-    return os.path.join('images', instance.type, '{}.{}'.format(instance.pk, filename.split('.')[-1]))
+    return os.path.join(instance.type, f'{instance.pk}.{filename.split('.')[-1]}')
 
 
 def move_deleted_image_to_new_path(image):
-    old_path = image.imageUrl.__str__()
-    today_date = datetime.date.today()
-    new_path = 'image_delete/{}/{}/{}/{}.{}'.format(today_date.year, today_date.month, today_date.day, image.id,
-                                                    old_path.split('.')[-1])
-    if os.path.exists(old_path):
-        try:
-            os.rename(image.imageUrl.__str__(), new_path)
-        except:
-            os.makedirs(os.path.dirname(new_path))
-            os.rename(image.imageUrl.__str__(), new_path)
+    image_url = image.imageUrl.__str__()
+    file_to_move = Path(PROJECT_ROOT, 'images', image.imageUrl.__str__())
+
+    today = datetime.date.today()
+    delete_path = Path(DELETE_PATH, str(today.year), str(today.month), str(today.day))
+    ensure_directory_exists(delete_path)
+    new_path = Path(delete_path, f'{image.id}.{image_url.split('.')[-1]}')
+
+    if file_to_move.exists():
+        file_to_move.rename(new_path)
 
 
 def check_if_is_valid_save_and_return(serializer, serializer_detail=None, is_creation=False):

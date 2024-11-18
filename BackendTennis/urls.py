@@ -15,7 +15,7 @@ from BackendTennis.views import ImageListCreateView, PricingListCreateView, TagV
     HomePageListCreateView, HomePageRetrieveUpdateDestroyView, RenderListCreateView, RenderRetrieveUpdateDestroyView, \
     PageRenderListCreateView, PageRenderRetrieveUpdateDestroyView, NavigationBarListCreateView, \
     NavigationBarRetrieveUpdateDestroyView, PricingPageListCreateView, PricingPageRetrieveUpdateDestroyView, \
-    UpdateNavigationItemsView, ImageTypeListView
+    UpdateNavigationItemsView, ImageTypeListView, ImageBatchDeleteView
 
 app_name = 'BackendTennis'
 urlpatterns = [
@@ -25,6 +25,7 @@ urlpatterns = [
 
     path('image/', ImageListCreateView.as_view(), name='image-list-create'),
     path('image/<uuid:id>/', ImageRetrieveUpdateDestroyView.as_view(), name='image-retrieve-update-destroy'),
+    path('images/', ImageBatchDeleteView.as_view(), name='image-batch-delete'),
 
     path('pricing/', PricingListCreateView.as_view(), name='pricing-list-create'),
     path('pricing/<uuid:id>/', PricingRetrieveUpdateDestroyView.as_view(), name='pricing-retrieve-update-destroy'),
