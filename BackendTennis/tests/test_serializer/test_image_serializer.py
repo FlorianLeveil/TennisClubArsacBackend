@@ -91,7 +91,11 @@ class ImageSerializerTests(APITestCase):
 
     def test_image_serializer_valid_imageUrlLink(self):
         """ Teste si le lien de l'image est correctement généré """
-        image = Image.objects.create(title='Test Image', type=Constant.IMAGE_TYPE.SPONSOR, imageUrl=self.valid_image_file)
+        image = Image.objects.create(
+            title='Test Image',
+            type=Constant.IMAGE_TYPE.SPONSOR,
+            imageUrl=self.valid_image_file
+        )
         serializer = ImageSerializer(instance=image)
         self.assertEqual(serializer.data['imageUrlLink'], image.imageUrl.url)
 

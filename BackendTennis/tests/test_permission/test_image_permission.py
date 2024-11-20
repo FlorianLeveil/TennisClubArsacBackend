@@ -1,6 +1,7 @@
 from datetime import date
 
 from django.contrib.auth.models import Permission
+from rest_framework import status
 from rest_framework.test import APITestCase, APIRequestFactory
 from rest_framework_api_key.models import APIKey
 from rest_framework_simplejwt.tokens import AccessToken
@@ -37,6 +38,8 @@ class ImagePermissionsTests(APITestCase):
 
         cls.factory = APIRequestFactory()
         cls.permission = ImagePermissions()
+
+        cls.multiple_images_url = '/BackendTennis/images/'
 
     def test_safe_method_permissions(self):
         request = self.factory.get('/images/')
@@ -132,3 +135,29 @@ class ImagePermissionsTests(APITestCase):
         view = ImageRetrieveUpdateDestroyView()
 
         self.assertTrue(self.permission.has_permission(request, view))
+
+    def test_delete_navigation_item_no_permission(self):
+        response = self.client.delete(
+            self.multiple_images_url,
+            HTTP_AUTHORIZATION=f'Bearer {self.token}',
+            HTTP_API_KEY=self.key
+        )
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, str(response.data))
+
+    def test_delete_navigation_item_with_permission(self):
+        permission = Permission.objects.get(codename='delete_image')
+        self.user.user_permissions.add(permission)
+        response = self.client.delete(
+            self.multiple_images_url,
+            HTTP_AUTHORIZATION=f'Bearer {self.token}',
+            HTTP_API_KEY=self.key
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, str(response.data))
+
+    def test_superuser_can_delete_navigation_item(self):
+        response = self.client.delete(
+            self.multiple_images_url,
+            HTTP_AUTHORIZATION=f'Bearer {self.superuser_token}',
+            HTTP_API_KEY=self.key
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, str(response.data))

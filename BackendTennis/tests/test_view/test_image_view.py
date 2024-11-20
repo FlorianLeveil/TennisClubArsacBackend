@@ -1,7 +1,7 @@
-import os.path
-from pathlib import Path
+import json
 from datetime import datetime, date, timedelta
 from io import BytesIO
+from pathlib import Path
 
 from PIL import Image as PilImage
 from django.contrib.auth.models import Permission
@@ -42,6 +42,7 @@ class ImageViewTests(APITestCase):
         cls.image = Image.objects.create(type=Constant.IMAGE_TYPE.SPONSOR, imageUrl='test_image_url.jpg')
         cls.url = '/BackendTennis/image/'
         cls.multi_url = '/BackendTennis/images/'
+        cls.create_images_url = '/BackendTennis/images/batch-create/'
         cls.detail_url = f'{cls.url}{cls.image.id}/'
 
     @staticmethod
@@ -118,6 +119,46 @@ class ImageViewTests(APITestCase):
                                     HTTP_API_KEY=self.key, format='multipart')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertIn('imageUrlLink', response.data)
+
+    def test_create_images_with_permission(self):
+        image_file = self.create_test_image_file('test')
+        image_file2 = self.create_test_image_file('test2')
+
+        all_images = list(Image.objects.all().values_list('id', flat=True))
+        self.assertEqual(len(all_images), 1, 'Image count should be 1')
+
+        images_data = [
+            {
+                'index': 0,
+                'title': 'test',
+                'type': Constant.IMAGE_TYPE.SPONSOR,
+                'imageUrl': image_file.name
+            },
+            {
+                'index': 1,
+                'title': 'test2',
+                'type': Constant.IMAGE_TYPE.SPONSOR,
+                'imageUrl': image_file2.name
+            }
+        ]
+
+        permission = Permission.objects.get(codename='add_image')
+        self.user.user_permissions.add(permission)
+        response = self.client.post(
+            self.create_images_url,
+            data={
+                'images_data': json.dumps(images_data),
+                'image_0': image_file,
+                'image_1': image_file2
+            },
+            HTTP_AUTHORIZATION=f'Bearer {self.token}',
+            HTTP_API_KEY=self.key,
+            format='multipart'
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, str(response.data))
+        all_images = list(Image.objects.all().values_list('id', flat=True))
+        self.assertEqual(len(all_images), 3, str(response.data))
 
     def test_superuser_can_create_image(self):
         image_file = self.create_test_image_file('test')

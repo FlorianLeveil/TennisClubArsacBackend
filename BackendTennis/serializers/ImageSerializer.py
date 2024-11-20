@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from rest_framework.utils import json
 
 from BackendTennis.models import Image, Tag
 from BackendTennis.serializers import TagSerializer
@@ -20,7 +19,8 @@ class ImageSerializer(serializers.ModelSerializer):
         model = Image
         fields = "__all__"
 
-    def get_imageUrlLink(self, obj):
+    @staticmethod
+    def get_imageUrlLink(obj):
         if obj.imageUrl:
             return obj.imageUrl.url
         return None

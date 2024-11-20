@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+import json
 from datetime import datetime
 
 from django.db.models import Count
@@ -195,4 +198,84 @@ class ImageBatchDeleteView(RetrieveUpdateDestroyAPIView):
         return Response(
             {'success': True, 'message': 'All images deleted successfully.'},
             status=status.HTTP_200_OK,
+        )
+
+
+class BulkImageUploadView(ListCreateAPIView):
+    authentication_classes = [CustomAPIKeyAuthentication, JWTAuthentication]
+    permission_classes = [ImagePermissions]
+    serializer_class = ImageSerializer
+
+    @extend_schema(
+        summary='Batch create images',
+        request=ImageSerializer,
+        responses={
+            status.HTTP_201_CREATED: ImageDetailSerializer(many=True),
+            status.HTTP_400_BAD_REQUEST: {
+                'description': 'Validation error',
+                'type': 'object',
+                'properties': {
+                    'success': {'type': 'boolean'},
+                    'message': {'type': 'string'},
+                    'errors': {'type': 'array', 'items': {'type': 'string'}}
+                }
+            }
+        },
+        tags=['Images']
+    )
+    def create(self, request, *args, **kwargs):
+        files = request.FILES
+        try:
+            images_data = json.loads(request.data.get('images_data', '[]'))
+        except json.JSONDecodeError as e:
+            return Response({'error': f'Invalid images_data format : {e.msg}'}, status=status.HTTP_400_BAD_REQUEST)
+        if not images_data:
+            return Response(
+                {'success': False, 'message': 'No image data received.'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        created_images = []
+        errors = []
+        for image in images_data:
+            image_index = image.get('index')
+            if image_index is None:
+                errors.append({'data': image, 'error': 'Image data should have an index to correspond to image File'})
+                continue
+
+            file_from_image = files.get(f'image_{image['index']}')
+
+            if not file_from_image:
+                errors.append({'data': image, 'error': f'Image file not found for image with index {image_index}'})
+                continue
+
+            image['imageUrl'] = files.get(f'image_{image['index']}')
+            serializer = self.get_serializer(data=image)
+            if serializer.is_valid():
+                try:
+                    created_image = serializer.save()
+                    created_images.append(self.get_serializer(created_image).data)
+                except Exception as e:
+                    errors.append({'data': image, 'error': str(e)})
+            else:
+                errors.append({'data': image, 'error': serializer.errors})
+
+        if errors:
+            return Response(
+                {
+                    'success': False,
+                    'message': 'Some images could not be uploaded.',
+                    'created_images': created_images,
+                    'errors': errors,
+                },
+                status=status.HTTP_207_MULTI_STATUS,
+            )
+
+        return Response(
+            {
+                'success': True,
+                'message': 'All images uploaded successfully.',
+                'created_images': created_images,
+            },
+            status=status.HTTP_201_CREATED,
         )

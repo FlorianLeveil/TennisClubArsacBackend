@@ -8,7 +8,7 @@ from .EventView import EventListCreateView
 from .EventView import EventRetrieveUpdateDestroyView
 from .HomePageView import HomePageListCreateView, HomePageRetrieveUpdateDestroyView
 from .ImageTypeView import ImageTypeListView
-from .ImageView import ImageListCreateView, ImageRetrieveUpdateDestroyView, ImageBatchDeleteView
+from .ImageView import ImageListCreateView, ImageRetrieveUpdateDestroyView, ImageBatchDeleteView, BulkImageUploadView
 from .NavigationBarView import NavigationBarListCreateView, NavigationBarRetrieveUpdateDestroyView
 from .NavigationItemView import NavigationItemListCreateView, NavigationItemRetrieveUpdateDestroyView, \
     UpdateNavigationItemsView
