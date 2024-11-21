@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.locale.LocaleMiddleware'
 ]
 
 ROOT_URLCONF = 'Backend.urls'
@@ -189,7 +190,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DATETIME_FORMAT = '%d-%m-%Y %H:%M:%S'
-USE_L10N = False
+USE_L10N = True
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 AUTH_USER_MODEL = 'BackendTennis.User'
 
@@ -214,3 +215,14 @@ CORS_ALLOW_CREDENTIALS = True
 # DEV MEDIA
 MEDIA_URL = '/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
+
+# TRADUCTIONS
+LANGUAGES = [
+    ('en', 'English'),
+    ('fr', 'French'),
+]
+# Trad path
+print(BASE_DIR)
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
+]

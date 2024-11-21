@@ -16,6 +16,8 @@ from BackendTennis.models import Image
 from BackendTennis.pagination import ImagePagination
 from BackendTennis.permissions.image_permissions import ImagePermissions
 from BackendTennis.serializers import ImageSerializer, ImageDetailSerializer
+from BackendTennis.trads.image_message import IMAGES_MESSAGES
+from BackendTennis.utils.serializer_utils import SerializerUtils
 from BackendTennis.utils.utils import move_deleted_image_to_new_path
 from BackendTennis.validators import validate_image_type
 
@@ -230,9 +232,10 @@ class BulkImageUploadView(ListCreateAPIView):
         except json.JSONDecodeError as e:
             return Response({
                 'success': False,
-                'message': 'An error occurred',
-                'error': f'Invalid images_data format : {e.msg}',
-                'created_images': []
+                'message': IMAGES_MESSAGES['ERROR']['ERROR_OCCURRED'],
+                'error': IMAGES_MESSAGES['ERROR']['INVALID_FORMAT'].format(error_message=e.msg),
+                'created_images': [],
+                'error_images': []
             },
                 status=status.HTTP_400_BAD_REQUEST
             )
@@ -240,24 +243,27 @@ class BulkImageUploadView(ListCreateAPIView):
         if not images_data:
             return Response({
                 'success': False,
-                'message': 'An error occurred',
-                'error': 'No image data received.',
-                'created_images': []
+                'message': IMAGES_MESSAGES['ERROR']['ERROR_OCCURRED'],
+                'error': IMAGES_MESSAGES['ERROR']['NO_IMAGE_FOUND'],
+                'created_images': [],
+                'error_images': []
             }, status=status.HTTP_400_BAD_REQUEST)
 
         created_images = []
+        error_images = []
         errors = []
         for image in images_data:
             image_index = image.get('index')
             if image_index is None:
                 errors.append(
-                    f'Image data should have an index to correspond to image File : [{image.get('title', 'no title')}]')
+                    IMAGES_MESSAGES['ERROR']['NO_INDEX_ON_IMAGE'].format(image_title=image.get('title', 'no title'))
+                )
                 continue
 
             file_from_image = files.get(f'image_{image['index']}')
 
             if not file_from_image:
-                errors.append(f'Image file not found for image with index : [{image_index}]')
+                errors.append(IMAGES_MESSAGES['ERROR']['FILE_NOT_FOUND'].format(image_index=image_index))
                 continue
 
             image['imageUrl'] = files.get(f'image_{image['index']}')
@@ -267,26 +273,32 @@ class BulkImageUploadView(ListCreateAPIView):
                     created_image = serializer.save()
                     created_images.append(self.get_serializer(created_image).data)
                 except Exception as e:
-                    errors.append(f'Error occurred on image save : [{str(e)}]')
+                    image['imageUrl'] = image['imageUrl'].name
+                    error_images.append(image)
+                    errors.append(IMAGES_MESSAGES['ERROR']['SAVE_ERROR'].format(error=str(e)))
             else:
-                errors.append(f'Error occurred on image save : [{str(serializer.errors)}]')
+                image['imageUrl'] = image['imageUrl'].name
+                error_images.append(image)
+                errors.append(
+                    IMAGES_MESSAGES['ERROR']['SAVE_ERROR'].format(error=SerializerUtils.get_error_message(serializer)))
 
         if errors:
             return Response(
                 {
                     'success': False,
-                    'message': 'Some images could not be uploaded.',
+                    'message': IMAGES_MESSAGES['ERROR']['INCOMPLETE_SAVE'],
                     'created_images': created_images,
+                    'error_images': error_images,
                     'error': '\n'.join(errors),
                 },
                 status=status.HTTP_207_MULTI_STATUS,
             )
-
         return Response(
             {
                 'success': True,
-                'message': 'All images uploaded successfully.',
+                'message': IMAGES_MESSAGES['SUCCESS'],
                 'created_images': created_images,
+                'error_images': [],
                 'error': ''
             },
             status=status.HTTP_201_CREATED,

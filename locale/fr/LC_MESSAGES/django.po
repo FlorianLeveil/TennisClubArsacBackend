@@ -1,0 +1,55 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-21 16:40+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: BackendTennis/trads/image_message.py:4
+msgid "All images uploaded successfully."
+msgstr "Toutes les images ont été téléchargées avec succès."
+
+#: BackendTennis/trads/image_message.py:6
+msgid "An error has occurred, please try again. If the error persists, please contact your administrator."
+msgstr "Une erreur s'est produite, veuillez réessayer. Si l'erreur persiste, veuillez contacter votre administrateur."
+
+#: BackendTennis/trads/image_message.py:8
+#, python-brace-format
+msgid "Invalid format : {error_message}"
+msgstr "Format invalide : {error_message}"
+
+#: BackendTennis/trads/image_message.py:9
+msgid "No image data received."
+msgstr "Aucune donnée d'image reçue."
+
+#: BackendTennis/trads/image_message.py:10
+#, python-brace-format
+msgid "Image data should have an index to correspond to image File : [{image_title}]"
+msgstr "Les données de l'image doivent avoir un index correspondant au fichier image : [{image_title}]"
+
+#: BackendTennis/trads/image_message.py:11
+#, python-brace-format
+msgid "Image file not found for image with index : [{image_index}]"
+msgstr "Fichier image introuvable pour l'image avec l'index : [{image_index}]"
+
+#: BackendTennis/trads/image_message.py:12
+#, python-brace-format
+msgid "Error occurred on image save : {error}"
+msgstr "Une erreur s'est produite lors de l'enregistrement de l'image : {error}"
+
+#: BackendTennis/trads/image_message.py:13
+msgid "Some images could not be uploaded."
+msgstr "Certaines images n'ont pas pu être téléchargées."

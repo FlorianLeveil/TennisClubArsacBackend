@@ -43,7 +43,7 @@ source env/bin/activate  # Sur Windows utilisez `env\Scripts\activate`
 
 ### Installer les dépendances
 
-```sh
+```shell
 pip install -r requirements.txt
 ```
 
@@ -82,13 +82,13 @@ DATABASES = {
 
 ## Application des migrations
 
-```sh
+```shell
 python manage.py migrate
 ```
 
 ## Création d'un super utilisateur
 
-```sh
+```shell
 python manage.py createsuperuser
 ```
 ## Créer l'API key
@@ -128,7 +128,7 @@ python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_training
 
 ## Lancer le serveur de développement
 
-```sh
+```shell
 python manage.py runserver
 ```
 
@@ -142,4 +142,20 @@ CREATE DATABASE test_tennisarsacbackenddev;
 CREATE USER testuser WITH PASSWORD 'testpassword';
 GRANT ALL PRIVILEGES ON DATABASE test_tennisarsacbackenddev TO testuser;
 ALTER DATABASE test_tennisarsacbackenddev OWNER TO testuser;
+```
+
+
+
+## Traductions  
+### Génération des traductions
+Une fois génerer, il faut remplir les traductions, elles ne sont pas faites automatiquement, vous pouvouz trouver les fichiers dans "locale/"
+```shell
+django-admin makemessages -l fr --ignore 'venv/*'
+```
+
+
+
+### Compilation
+```shell
+django-admin compilemessages --ignore  'venv/*'
 ```
