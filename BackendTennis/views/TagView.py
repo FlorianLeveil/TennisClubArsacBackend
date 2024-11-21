@@ -1,4 +1,5 @@
 from drf_spectacular.utils import extend_schema, OpenApiParameter
+from rest_framework import status
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
@@ -18,7 +19,7 @@ class TagView(ListCreateAPIView):
     permission_classes = [TagPermissions]
 
     @extend_schema(
-        summary="Get a list of tag",
+        summary='Get a list of tag',
         parameters=[
             OpenApiParameter(name='page_size', description='Number of results to return per page', required=False,
                              type=int),
@@ -26,7 +27,7 @@ class TagView(ListCreateAPIView):
                              type=int),
             OpenApiParameter(name='name', type=str, description='Search by name'),
         ],
-        responses={200: TagSerializer(many=True)},
+        responses={status.HTTP_200_OK: TagSerializer(many=True)},
         tags=['Tags'],
     )
     def get(self, request, *args, **kwargs):
@@ -41,9 +42,9 @@ class TagView(ListCreateAPIView):
         return queryset.order_by('name')
 
     @extend_schema(
-        summary="Create a new tag",
+        summary='Create a new tag',
         request=TagSerializer,
-        responses={201: TagSerializer()},
+        responses={status.HTTP_201_CREATED: TagSerializer()},
         tags=['Tags']
     )
     def post(self, request, *args, **kwargs):
@@ -59,8 +60,8 @@ class TagRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     permission_classes = [TagPermissions]
 
     @extend_schema(
-        summary="Get tag with Id",
-        responses={200: TagSerializer()},
+        summary='Get tag with Id',
+        responses={status.HTTP_200_OK: TagSerializer()},
         request=serializer_class,
         tags=['Tags']
     )
@@ -68,8 +69,8 @@ class TagRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
         return super().get(request, *args, **kwargs)
 
     @extend_schema(
-        summary="Update a tag",
-        responses={200: TagSerializer()},
+        summary='Update a tag',
+        responses={status.HTTP_200_OK: TagSerializer()},
         request=serializer_class,
         tags=['Tags']
     )
@@ -77,8 +78,8 @@ class TagRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
         return super().patch(request, *args, **kwargs)
 
     @extend_schema(
-        summary="Update a tag",
-        responses={200: TagSerializer()},
+        summary='Update a tag',
+        responses={status.HTTP_200_OK: TagSerializer()},
         request=serializer_class,
         tags=['Tags']
     )
@@ -86,8 +87,8 @@ class TagRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
         return super().put(request, *args, **kwargs)
 
     @extend_schema(
-        summary="Delete a tag",
-        responses={204: None},
+        summary='Delete a tag',
+        responses={status.HTTP_204_NO_CONTENT: None},
         tags=['Tags']
     )
     def delete(self, request, *args, **kwargs):

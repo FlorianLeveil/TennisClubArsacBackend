@@ -24,7 +24,7 @@ from BackendTennis.validators import validate_image_type
 
 class ImageListCreateView(ListCreateAPIView):
     queryset = Image.objects.all()
-    serializer_class = ImageSerializer
+    serializer_class = ImageDetailSerializer
     pagination_class = ImagePagination
     authentication_classes = [CustomAPIKeyAuthentication, JWTAuthentication]
     permission_classes = [ImagePermissions]
