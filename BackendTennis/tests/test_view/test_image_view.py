@@ -160,6 +160,216 @@ class ImageViewTests(APITestCase):
         all_images = list(Image.objects.all().values_list('id', flat=True))
         self.assertEqual(len(all_images), 3, str(response.data))
 
+    def assert_image_creation_response_key(self, response):
+        self.assertIn('success', response.data, 'Key success need to be in response data')
+        self.assertEqual(False, response.data.get('success'), 'Success should be False')
+        self.assertIn('error', response.data, 'Key error need to be in response data')
+        self.assertIn('message', response.data, 'Key message need to be in response data')
+        self.assertIn('created_images', response.data, 'Key created_images need to be in response data')
+
+    def test_create_images_error_invalid_data_format(self):
+        image_file = self.create_test_image_file('test')
+        image_file2 = self.create_test_image_file('test2')
+
+        all_images = list(Image.objects.all().values_list('id', flat=True))
+        self.assertEqual(len(all_images), 1, 'Image count should be 1')
+
+        images_data = [
+            {
+                'index': 0,
+                'title': 'test',
+                'type': Constant.IMAGE_TYPE.SPONSOR,
+                'imageUrl': image_file.name
+            },
+            {
+                'index': 1,
+                'title': 'test2',
+                'type': Constant.IMAGE_TYPE.SPONSOR,
+                'imageUrl': image_file2.name
+            }
+        ]
+
+        permission = Permission.objects.get(codename='add_image')
+        self.user.user_permissions.add(permission)
+        response = self.client.post(
+            self.create_images_url,
+            data={
+                'images_data': images_data,
+                'image_0': image_file,
+                'image_1': image_file2
+            },
+            HTTP_AUTHORIZATION=f'Bearer {self.token}',
+            HTTP_API_KEY=self.key,
+            format='multipart'
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, str(response.data))
+        self.assert_image_creation_response_key(response)
+        self.assertIn('Invalid images_data format', response.data.get('error'), str(response.data))
+
+    def test_create_images_error_no_images(self):
+        image_file = self.create_test_image_file('test')
+        image_file2 = self.create_test_image_file('test2')
+
+        all_images = list(Image.objects.all().values_list('id', flat=True))
+        self.assertEqual(len(all_images), 1, 'Image count should be 1')
+
+        images_data = []
+
+        permission = Permission.objects.get(codename='add_image')
+        self.user.user_permissions.add(permission)
+        response = self.client.post(
+            self.create_images_url,
+            data={
+                'images_data': json.dumps(images_data),
+                'image_0': image_file,
+                'image_1': image_file2
+            },
+            HTTP_AUTHORIZATION=f'Bearer {self.token}',
+            HTTP_API_KEY=self.key,
+            format='multipart'
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, str(response.data))
+        self.assert_image_creation_response_key(response)
+        self.assertIn('No image data received.', response.data.get('error'), str(response.data))
+
+    def test_create_images_error_no_index(self):
+        image_file = self.create_test_image_file('test')
+        image_file2 = self.create_test_image_file('test2')
+
+        all_images = list(Image.objects.all().values_list('id', flat=True))
+        self.assertEqual(len(all_images), 1, 'Image count should be 1')
+
+        images_data = [
+            {
+                'title': 'test',
+                'type': Constant.IMAGE_TYPE.SPONSOR,
+                'imageUrl': image_file.name
+            },
+            {
+                'title': 'test2',
+                'type': Constant.IMAGE_TYPE.SPONSOR,
+                'imageUrl': image_file2.name
+            }
+        ]
+
+        permission = Permission.objects.get(codename='add_image')
+        self.user.user_permissions.add(permission)
+        response = self.client.post(
+            self.create_images_url,
+            data={
+                'images_data': json.dumps(images_data),
+                'image_0': image_file,
+                'image_1': image_file2
+            },
+            HTTP_AUTHORIZATION=f'Bearer {self.token}',
+            HTTP_API_KEY=self.key,
+            format='multipart'
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_207_MULTI_STATUS, str(response.data))
+        self.assert_image_creation_response_key(response)
+
+        self.assertIn(
+            'Image data should have an index to correspond to image File : [test]',
+            response.data.get('error'),
+            str(response.data)
+        )
+        self.assertIn(
+            'Image data should have an index to correspond to image File : [test2]',
+            response.data.get('error'),
+            str(response.data)
+        )
+
+    def test_create_images_error_file_not_found_for_image_index(self):
+        image_file = self.create_test_image_file('test')
+        image_file2 = self.create_test_image_file('test2')
+
+        all_images = list(Image.objects.all().values_list('id', flat=True))
+        self.assertEqual(len(all_images), 1, 'Image count should be 1')
+
+        images_data = [
+            {
+                'index': 0,
+                'title': 'test',
+                'type': Constant.IMAGE_TYPE.SPONSOR,
+                'imageUrl': image_file.name
+            },
+            {
+                'index': 1,
+                'title': 'test2',
+                'type': Constant.IMAGE_TYPE.SPONSOR,
+                'imageUrl': image_file2.name
+            }
+        ]
+
+        permission = Permission.objects.get(codename='add_image')
+        self.user.user_permissions.add(permission)
+        response = self.client.post(
+            self.create_images_url,
+            data={
+                'images_data': json.dumps(images_data),
+                'image_0': image_file,
+                'image_2': image_file2
+            },
+            HTTP_AUTHORIZATION=f'Bearer {self.token}',
+            HTTP_API_KEY=self.key,
+            format='multipart'
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_207_MULTI_STATUS, str(response.data))
+        self.assert_image_creation_response_key(response)
+
+        self.assertIn(
+            'Image file not found for image with index : [1]',
+            response.data.get('error'),
+            str(response.data)
+        )
+
+    def test_create_images_error_on_save(self):
+        image_file = self.create_test_image_file('test')
+        image_file2 = self.create_test_image_file('test2')
+
+        all_images = list(Image.objects.all().values_list('id', flat=True))
+        self.assertEqual(len(all_images), 1, 'Image count should be 1')
+
+        images_data = [
+            {
+                'index': 0,
+                'type': Constant.IMAGE_TYPE.SPONSOR,
+                'imageUrl': image_file.name
+            },
+            {
+                'index': 1,
+                'type': Constant.IMAGE_TYPE.SPONSOR,
+                'imageUrl': image_file2.name
+            }
+        ]
+
+        permission = Permission.objects.get(codename='add_image')
+        self.user.user_permissions.add(permission)
+        response = self.client.post(
+            self.create_images_url,
+            data={
+                'images_data': json.dumps(images_data),
+                'image_0': image_file,
+                'image_2': image_file2
+            },
+            HTTP_AUTHORIZATION=f'Bearer {self.token}',
+            HTTP_API_KEY=self.key,
+            format='multipart'
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_207_MULTI_STATUS, str(response.data))
+        self.assert_image_creation_response_key(response)
+
+        self.assertIn(
+            'Error occurred on image save',
+            response.data.get('error'),
+            str(response.data)
+        )
+
     def test_superuser_can_create_image(self):
         image_file = self.create_test_image_file('test')
         data = {

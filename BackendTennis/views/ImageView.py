@@ -228,25 +228,36 @@ class BulkImageUploadView(ListCreateAPIView):
         try:
             images_data = json.loads(request.data.get('images_data', '[]'))
         except json.JSONDecodeError as e:
-            return Response({'error': f'Invalid images_data format : {e.msg}'}, status=status.HTTP_400_BAD_REQUEST)
-        if not images_data:
-            return Response(
-                {'success': False, 'message': 'No image data received.'},
-                status=status.HTTP_400_BAD_REQUEST,
+            return Response({
+                'success': False,
+                'message': 'An error occurred',
+                'error': f'Invalid images_data format : {e.msg}',
+                'created_images': []
+            },
+                status=status.HTTP_400_BAD_REQUEST
             )
+
+        if not images_data:
+            return Response({
+                'success': False,
+                'message': 'An error occurred',
+                'error': 'No image data received.',
+                'created_images': []
+            }, status=status.HTTP_400_BAD_REQUEST)
 
         created_images = []
         errors = []
         for image in images_data:
             image_index = image.get('index')
             if image_index is None:
-                errors.append({'data': image, 'error': 'Image data should have an index to correspond to image File'})
+                errors.append(
+                    f'Image data should have an index to correspond to image File : [{image.get('title', 'no title')}]')
                 continue
 
             file_from_image = files.get(f'image_{image['index']}')
 
             if not file_from_image:
-                errors.append({'data': image, 'error': f'Image file not found for image with index {image_index}'})
+                errors.append(f'Image file not found for image with index : [{image_index}]')
                 continue
 
             image['imageUrl'] = files.get(f'image_{image['index']}')
@@ -256,9 +267,9 @@ class BulkImageUploadView(ListCreateAPIView):
                     created_image = serializer.save()
                     created_images.append(self.get_serializer(created_image).data)
                 except Exception as e:
-                    errors.append({'data': image, 'error': str(e)})
+                    errors.append(f'Error occurred on image save : [{str(e)}]')
             else:
-                errors.append({'data': image, 'error': serializer.errors})
+                errors.append(f'Error occurred on image save : [{str(serializer.errors)}]')
 
         if errors:
             return Response(
@@ -266,7 +277,7 @@ class BulkImageUploadView(ListCreateAPIView):
                     'success': False,
                     'message': 'Some images could not be uploaded.',
                     'created_images': created_images,
-                    'errors': errors,
+                    'error': '\n'.join(errors),
                 },
                 status=status.HTTP_207_MULTI_STATUS,
             )
@@ -276,6 +287,7 @@ class BulkImageUploadView(ListCreateAPIView):
                 'success': True,
                 'message': 'All images uploaded successfully.',
                 'created_images': created_images,
+                'error': ''
             },
             status=status.HTTP_201_CREATED,
         )
