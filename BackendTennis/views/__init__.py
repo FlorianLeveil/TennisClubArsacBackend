@@ -4,6 +4,7 @@ from .BookingView import BookingRetrieveUpdateDestroyView
 from .CategoryView import CategoryListCreateView
 from .CategoryView import CategoryRetrieveUpdateDestroyView
 from .ClubValueView import ClubValueListCreateView, ClubValueRetrieveUpdateDestroyView
+from .CustomTokenObtainPairView import CustomTokenObtainPairView
 from .EventView import EventListCreateView
 from .EventView import EventRetrieveUpdateDestroyView
 from .HomePageView import HomePageListCreateView, HomePageRetrieveUpdateDestroyView

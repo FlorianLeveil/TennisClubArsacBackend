@@ -128,6 +128,16 @@ python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_training
 
 ## Lancer le serveur de développement
 
+* Pour lancer le serveur en HTTPS
+  * Créer votre certificat auto-signé
+    ```shell
+    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout dev.key -out dev.crt 
+    ```
+  * Lancer le serveur avec votre certificat
+    ```shell
+    python manage.py runserver_plus --cert-file certs/dev.crt --key-file certs/dev.key
+    ```
+* Sinon 
 ```shell
 python manage.py runserver
 ```

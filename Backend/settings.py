@@ -22,6 +22,7 @@ SECRET_KEY = 'django-insecure-%$9n12_#b2)6hhgyr19s(qa$)7#$(p@_@_l#*zyz#z@%^4*^!z
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+DEV = True
 
 ALLOWED_HOSTS = []
 
@@ -37,8 +38,10 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'drf_spectacular',
     'rest_framework_api_key',
-    'corsheaders',
+    'corsheaders'
 ]
+if DEV:
+    INSTALLED_APPS.append('django_extensions')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -207,7 +210,8 @@ CORS_EXPOSE_HEADERS = ['Api-Key']
 
 CORS_ALLOW_HEADERS = [
     'content-type',
-    'Api-Key'
+    'Api-Key',
+    'Authorization',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -221,8 +225,16 @@ LANGUAGES = [
     ('en', 'English'),
     ('fr', 'French'),
 ]
-# Trad path
-print(BASE_DIR)
+# Translation path
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale')
 ]
+
+# SSL
+if not DEV:
+    SECURE_SSL_REDIRECT = True
+SECURE_HSTS_SECONDS = 3600
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True

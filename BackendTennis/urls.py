@@ -1,4 +1,5 @@
 from django.urls import path
+from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
 
 from BackendTennis.views import ImageListCreateView, PricingListCreateView, TagView, CategoryListCreateView, \
     CategoryRetrieveUpdateDestroyView, EventListCreateView, \
@@ -15,10 +16,16 @@ from BackendTennis.views import ImageListCreateView, PricingListCreateView, TagV
     HomePageListCreateView, HomePageRetrieveUpdateDestroyView, RenderListCreateView, RenderRetrieveUpdateDestroyView, \
     PageRenderListCreateView, PageRenderRetrieveUpdateDestroyView, NavigationBarListCreateView, \
     NavigationBarRetrieveUpdateDestroyView, PricingPageListCreateView, PricingPageRetrieveUpdateDestroyView, \
-    UpdateNavigationItemsView, ImageTypeListView, ImageBatchDeleteView, BulkImageUploadView
+    UpdateNavigationItemsView, ImageTypeListView, ImageBatchDeleteView, BulkImageUploadView, CustomTokenObtainPairView
 
 app_name = 'BackendTennis'
 urlpatterns = [
+
+    # Paths for JWT authentication endpoints
+    path('auth/sign-in/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    path('auth/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 
     path('booking/', BookingListCreateView.as_view(), name='booking_list_create'),
     path('booking/<uuid:id>/', BookingRetrieveUpdateDestroyView.as_view(), name='booking_retrieve_update_destroy'),

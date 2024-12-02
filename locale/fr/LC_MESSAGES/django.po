@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-21 16:40+0100\n"
+"POT-Creation-Date: 2024-11-29 12:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: BackendTennis/trads/auth_message.py:5
+msgid "Invalid email or password. Please try again."
+msgstr "Email ou mot de passe invalide. Veuillez réessayer."
+
+#: BackendTennis/trads/auth_message.py:6
+msgid "Your account is inactive. Please contact support."
+msgstr "Votre compte est inactif. Veuillez contacter votre support."
+
 #: BackendTennis/trads/image_message.py:4
 msgid "All images uploaded successfully."
 msgstr "Toutes les images ont été téléchargées avec succès."
 
 #: BackendTennis/trads/image_message.py:6
-msgid "An error has occurred, please try again. If the error persists, please contact your administrator."
+msgid ""
+"An error has occurred, please try again. If the error persists, please "
+"contact your administrator."
 msgstr "Une erreur s'est produite, veuillez réessayer. Si l'erreur persiste, veuillez contacter votre administrateur."
 
 #: BackendTennis/trads/image_message.py:8
@@ -37,7 +47,8 @@ msgstr "Aucune donnée d'image reçue."
 
 #: BackendTennis/trads/image_message.py:10
 #, python-brace-format
-msgid "Image data should have an index to correspond to image File : [{image_title}]"
+msgid ""
+"Image data should have an index to correspond to image File : [{image_title}]"
 msgstr "Les données de l'image doivent avoir un index correspondant au fichier image : [{image_title}]"
 
 #: BackendTennis/trads/image_message.py:11
