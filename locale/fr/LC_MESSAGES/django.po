@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-29 12:40+0100\n"
+"POT-Creation-Date: 2025-02-12 15:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,15 +26,48 @@ msgstr "Email ou mot de passe invalide. Veuillez réessayer."
 msgid "Your account is inactive. Please contact support."
 msgstr "Votre compte est inactif. Veuillez contacter votre support."
 
-#: BackendTennis/trads/image_message.py:4
-msgid "All images uploaded successfully."
-msgstr "Toutes les images ont été téléchargées avec succès."
+#: BackendTennis/trads/contact_form_message.py:4
+msgid "Mail send successfully."
+msgstr "Mail envoyé avec succès."
 
+#: BackendTennis/trads/contact_form_message.py:6
 #: BackendTennis/trads/image_message.py:6
 msgid ""
 "An error has occurred, please try again. If the error persists, please "
 "contact your administrator."
-msgstr "Une erreur s'est produite, veuillez réessayer. Si l'erreur persiste, veuillez contacter votre administrateur."
+msgstr ""
+"Une erreur s'est produite, veuillez réessayer. Si l'erreur persiste, "
+"veuillez contacter votre administrateur."
+
+#: BackendTennis/trads/contact_form_message.py:8
+msgid "The Firstname must not exceed 40 characters."
+msgstr "Le Prénom ne doit pas dépasser 40 caractères."
+
+#: BackendTennis/trads/contact_form_message.py:9
+msgid "The Lastname must not exceed 40 characters."
+msgstr "Le Nom ne doit pas dépasser 40 caractères."
+
+#: BackendTennis/trads/contact_form_message.py:11
+msgid "Enter a valid phone number."
+msgstr "Veuillez entrer un numéro de téléphone valide."
+
+#: BackendTennis/trads/contact_form_message.py:14
+msgid ""
+"The Email address must be in a valid format (ex: <ADDRESS>@<DOMAIN>.com)."
+msgstr ""
+"L'Email doit avoir un format valide (ex: <ADRESSE>@<DOMAINE>.com)."
+
+#: BackendTennis/trads/contact_form_message.py:17
+msgid "The Subject must not exceed 180 characters."
+msgstr "L'Objet ne doit pas dépasser 180 caractères."
+
+#: BackendTennis/trads/contact_form_message.py:18
+msgid "The Message must not exceed 1000 characters."
+msgstr "Le Message ne doit pas dépasser 180 caractères."
+
+#: BackendTennis/trads/image_message.py:4
+msgid "All images uploaded successfully."
+msgstr "Toutes les images ont été téléchargées avec succès."
 
 #: BackendTennis/trads/image_message.py:8
 #, python-brace-format
@@ -49,7 +82,9 @@ msgstr "Aucune donnée d'image reçue."
 #, python-brace-format
 msgid ""
 "Image data should have an index to correspond to image File : [{image_title}]"
-msgstr "Les données de l'image doivent avoir un index correspondant au fichier image : [{image_title}]"
+msgstr ""
+"Les données de l'image doivent avoir un index correspondant au fichier "
+"image : [{image_title}]"
 
 #: BackendTennis/trads/image_message.py:11
 #, python-brace-format
@@ -59,8 +94,12 @@ msgstr "Fichier image introuvable pour l'image avec l'index : [{image_index}]"
 #: BackendTennis/trads/image_message.py:12
 #, python-brace-format
 msgid "Error occurred on image save : {error}"
-msgstr "Une erreur s'est produite lors de l'enregistrement de l'image : {error}"
+msgstr ""
+"Une erreur s'est produite lors de l'enregistrement de l'image : {error}"
 
 #: BackendTennis/trads/image_message.py:13
 msgid "Some images could not be uploaded."
 msgstr "Certaines images n'ont pas pu être téléchargées."
+
+#~ msgid "The phone number must be in a format FR (ex: 06...).characters."
+#~ msgstr "Le numéro de téléphone doit être au format FR (ex: 06...)."

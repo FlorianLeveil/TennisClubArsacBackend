@@ -12,5 +12,4 @@ IMAGES_MESSAGES = {
         'SAVE_ERROR': _('Error occurred on image save : {error}'),
         'INCOMPLETE_SAVE': _('Some images could not be uploaded.'),
     }
-
 }

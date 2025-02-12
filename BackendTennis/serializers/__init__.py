@@ -22,3 +22,4 @@ from .page_serializer.HomePageSerializer import HomePageSerializer, HomePageDeta
 from .NavigationBarSerializer import NavigationBarSerializer, NavigationBarDetailSerializer
 from .page_serializer.PricingPageSerializer import PricingPageSerializer, PricingPageDetailSerializer
 from .CustomTokenObtainPairSerializer import CustomTokenObtainPairSerializer
+from .ContactFormSerializer import ContactFormSerializer

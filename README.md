@@ -65,6 +65,15 @@ ALTER DATABASE tennisarsacbackenddev OWNER TO tennisarsacuser;
 
 ````
 
+* Reset database
+```postgresql
+DROP DATABASE tennisarsacbackenddev;
+CREATE DATABASE tennisarsacbackenddev;
+GRANT ALL PRIVILEGES ON DATABASE tennisarsacbackenddev TO tennisarsacuser;
+ALTER DATABASE tennisarsacbackenddev OWNER TO tennisarsacuser;
+````
+
+
 3. Mettez à jour la section `DATABASES` dans `settings.py` :
 
 ```python
@@ -114,15 +123,14 @@ print("Clé générée :", key)
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_images.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_sponsors.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_club_value.json
+python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_pricings.json
+python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_training.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_routes.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_renders_navigation_items.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/pages/initial_home_pages.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/pages/initial_navigation_bars.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/pages/initial_pricing_pages.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/pages/initial_about_pages.json
-python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_pricings.json
-python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_training.json
-
 ```
 
 
@@ -147,6 +155,10 @@ python manage.py runserver
 Ouvrez votre navigateur et accédez à [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 ## SETUP des TU
+
+```bash
+sudo -u postgres psql
+```
 ```postgresql
 CREATE DATABASE test_tennisarsacbackenddev;
 CREATE USER testuser WITH PASSWORD 'testpassword';
@@ -158,14 +170,23 @@ ALTER DATABASE test_tennisarsacbackenddev OWNER TO testuser;
 
 ## Traductions  
 ### Génération des traductions
-Une fois génerer, il faut remplir les traductions, elles ne sont pas faites automatiquement, vous pouvouz trouver les fichiers dans "locale/"
 ```shell
 django-admin makemessages -l fr --ignore 'venv/*'
 ```
 
+Une fois génerer, il faut remplir les traductions, elles ne sont pas faites automatiquement, vous pouvouz trouver les fichiers dans "locale/"
 
 
 ### Compilation
 ```shell
 django-admin compilemessages --ignore  'venv/*'
 ```
+
+
+## Envoie de mail 
+### GMAIL
+Si le smpt de gmail est utilisé, il est nécessaire que le compte gmail utilisé pour se connecter ait un mot de passe pour l'application:
+* Connectez-vous a google avec le compte que vous voulez utiliser
+* Allez sur ce lien : https://myaccount.google.com/apppasswords
+* Créer un mot de passe pour l'application
+* Ajouter le mot de passe dans le .env dans la variable EMAIL_HOST_PASSWORD (sans crochet)
