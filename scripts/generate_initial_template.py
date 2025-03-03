@@ -1,12 +1,26 @@
 import json
 import uuid
 
+CATEGORY_PROPS = ['name', 'icon']
+
+
+EVENT_PROPS = ['title', 'description', 'dateType', 'start', 'end', 'image', 'category']
+
 IMAGE_PROPS = ['title', 'tags', 'type', 'imageUrl']
 
 NAVIGATION_ITEM_PROPS = ['title', 'description', 'image', 'route', 'navBarRender', 'pageRenders',
                          'childrenNavigationItems', 'enabled']
 
 RENDER_PROPS = ['order', 'navBarPosition', 'visible', 'type', 'color', 'isButton']
+
+TOURNAMENT_PROPS = [
+    'name',
+    'participants',
+    'unregisteredParticipants',
+    'cancel',
+    'start',
+    'end'
+]
 
 PAGE_RENDER_PROPS = ['route', 'render']
 
@@ -62,9 +76,9 @@ def get_initial_data_template(model_name, extra_props):
 
 
 def main():
-    nb_to_generate = 3
-    model_name = 'Professor'
-    extra_props = PROFESSOR_PROPS
+    nb_to_generate = 2
+    model_name = 'Tournament'
+    extra_props = TOURNAMENT_PROPS
 
     full_template = []
     for i in range(nb_to_generate):

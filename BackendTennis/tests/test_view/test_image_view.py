@@ -117,7 +117,7 @@ class ImageViewTests(APITestCase):
         self.user.user_permissions.add(permission)
         response = self.client.post(self.url, data=data, HTTP_AUTHORIZATION=f'Bearer {self.token}',
                                     HTTP_API_KEY=self.key, format='multipart')
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, str(response.data))
         self.assertIn('imageUrlLink', response.data)
 
     def test_create_images_with_permission(self):

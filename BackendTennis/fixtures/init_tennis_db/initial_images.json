@@ -27,6 +27,19 @@
   },
   {
     "model": "BackendTennis.Image",
+    "pk": "8ab63162-292d-4354-aa3a-c48888c720a3",
+    "fields": {
+      "id": "8ab63162-292d-4354-aa3a-c48888c720a3",
+      "title": "event__no_data",
+      "tags": [],
+      "type": "event",
+      "imageUrl": "no_data_image.png",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Image",
     "pk": "8ab63162-292d-4354-aa3a-c48998c720a1",
     "fields": {
       "id": "8ab63162-292d-4354-aa3a-c48998c720a1",

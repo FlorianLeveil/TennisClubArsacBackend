@@ -125,7 +125,12 @@ python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_sponsors
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_club_value.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_pricings.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_training.json
+python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_tournaments.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_routes.json
+python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_category.json
+
+
+python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_events.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_renders_navigation_items.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/pages/initial_home_pages.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/pages/initial_navigation_bars.json

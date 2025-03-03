@@ -105,13 +105,26 @@ def main():
             'end': datetime(2025, 5, 5, tzinfo=timezone(timedelta(hours=2)))
         }
     ]
+    tournament = [
+        {
+            'start': datetime(2025, 2, 3, 9, 0, 0, tzinfo=timezone(timedelta(hours=2))),
+            'end': datetime(2025, 2, 22, 23, 59, 59, tzinfo=timezone(timedelta(hours=2)))
+        },
+        {
+            'start': datetime(2025, 4, 12, 9, 0, 0, tzinfo=timezone(timedelta(hours=2))),
+            'end': datetime(2025, 5, 3, 23, 59, 59, tzinfo=timezone(timedelta(hours=2)))
+        },
+    ]
+
+    holidays_tournament = holidays + tournament
+
     training_end_date = datetime(2025, 7, 5, 0, 0, 0, tzinfo=timezone(timedelta(hours=2)))
 
     for training in trainings_old_format:
         new_training = format_new_training(training)
         trainings_new_format.append(new_training)
 
-        all_year_trainings = generate_training_until_date(new_training, training_end_date, holidays)
+        all_year_trainings = generate_training_until_date(new_training, training_end_date, holidays_tournament)
 
         trainings_new_format.extend(all_year_trainings)
 
