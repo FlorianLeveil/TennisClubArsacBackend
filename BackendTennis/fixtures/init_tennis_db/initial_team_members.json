@@ -1,0 +1,86 @@
+[
+  {
+    "model": "BackendTennis.TeamMember",
+    "pk": "7a76100a-5c6e-4fd1-a313-6f157cf66f43",
+    "fields": {
+      "id": "7a76100a-5c6e-4fd1-a313-6f157cf66f43",
+      "fullNames": ["Christophe Salerian"],
+      "role": "Président",
+      "images": ["8ab63162-292d-4354-aa3a-c48888c720a1"],
+      "description": "Christophe Salerian est le président du club depuis plus de 5 ans. En tant que responsable moral et juridique de l’association, il représente le club et veille à ce que chaque décision prise soit en accord avec ses valeurs. Engagé et passionné, il s’assure du bon fonctionnement de l’association et contribue à son développement, toujours dans l’intérêt des adhérents et de la communauté tennistique.",
+      "order": 1,
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.TeamMember",
+    "pk": "1d7bfcec-ef13-4fdf-b12b-6f157cf66f43",
+    "fields": {
+      "id": "1d7bfcec-ef13-4fdf-b12b-6f157cf66f43",
+      "fullNames": ["Anil Kumar"],
+      "role": "Trésorier",
+      "images": ["8ab63162-292d-4354-aa3a-c48888c720a1"],
+      "description": "En tant que trésorier, Anil Kumar est le garant de la bonne gestion financière du club. Il s’occupe de la comptabilité, veille à l’équilibre entre les revenus et les dépenses, et s’assure que chaque ressource est utilisée de manière optimale. Grâce à sa rigueur et son engagement, il contribue à la pérennité et au bon fonctionnement de l’association.",
+      "order": 2,
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.TeamMember",
+    "pk": "97b3d9ee-2610-463b-a9ec-0c48c8eee9c3",
+    "fields": {
+      "id": "97b3d9ee-2610-463b-a9ec-0c48c8eee9c3",
+      "fullNames": ["Victor Desforges"],
+      "role": "Secrétaire",
+      "images": ["8ab63162-292d-4354-aa3a-c48888c720a1"],
+      "description": "En tant que secrétaire, Victor Desforges joue un rôle clé dans la communication et l’organisation du club. Après chaque réunion du bureau, il rédige et transmet les comptes-rendus aux adhérents, assurant ainsi une information claire et transparente sur les projets et décisions de l’association. Grâce à son travail, chaque membre reste impliqué et informé de la vie du club.",
+      "order": 3,
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.TeamMember",
+    "pk": "ee97e9d2-7058-4d42-8e38-79f237051799",
+    "fields": {
+      "id": "ee97e9d2-7058-4d42-8e38-79f237051799",
+      "fullNames": ["Florian Léveil", "Antoine Nicolleau", "Thomas Nurbel", "Mélissa Barriere", "Sébastien Rambouli"],
+      "role": "Pôle animation",
+      "images": ["8ab63162-292d-4354-aa3a-c48888c720a1"],
+      "description": "Le pôle animation est le cœur battant du club ! Ses animateurs ont pour mission de créer de l’engagement et de faire vivre l’association au quotidien. Leur rôle est essentiel pour maintenir la motivation et l’implication des adhérents. Pour cela, ils organisent des activités et des événements adaptés à tous les niveaux, favorisant ainsi le plaisir du jeu et la convivialité. Ils sont également en charge des réseaux sociaux du club, partageant les moments forts et les actualités pour faire rayonner notre passion du tennis.",
+      "order": 4,
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.TeamMember",
+    "pk": "e0234aec-e3e3-482c-8868-10fa6263a76b",
+    "fields": {
+      "id": "e0234aec-e3e3-482c-8868-10fa6263a76b",
+      "fullNames": ["Coralie Augeau", "Marilyne Saintou"],
+      "role": "Responsable location des salles",
+      "images": ["8ab63162-292d-4354-aa3a-c48888c720a1"],
+      "description": "Toujours à l’écoute et disponibles, elles s’occupent de planifier les locations, de remettre les clés en main propre et d’effectuer un état des lieux avant et après chaque utilisation. Grâce à leur rigueur et à leur sens de l’organisation, elles veillent à ce que chaque utilisateur profite d’un espace propre et bien entretenu. Leur engagement garantit une expérience agréable et sans souci pour tous !",
+      "order": 5,
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.TeamMember",
+    "pk": "ed6b0b29-e8ab-487d-bac3-071f9854b9d3",
+    "fields": {
+      "id": "ed6b0b29-e8ab-487d-bac3-071f9854b9d3",
+      "fullNames": ["Elien Augeau"],
+      "role": "Technicien maintenance et entretien",
+      "images": ["8ab63162-292d-4354-aa3a-c48888c720a1"],
+      "description": "Elien Augeau, en tant que technicien maintenance et entretien, veille au bon état des équipements et des infrastructures du club. Il s’assure que les terrains, les installations et les salles réservables le week-end restent fonctionnels et accueillants. Toujours à l’écoute des besoins du club, il collabore avec les autres membres pour anticiper les améliorations nécessaires et proposer des solutions adaptées. Grâce à son travail, chacun peut profiter des meilleures conditions pour jouer et partager sa passion du tennis.",
+      "order": 6,
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  }
+]

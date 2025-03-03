@@ -1,0 +1,50 @@
+[
+  {
+    "model": "BackendTennis.Professor",
+    "pk": "b1bdd1f0-d865-48d3-ae3c-61d5be075f82",
+    "fields": {
+      "id": "b1bdd1f0-d865-48d3-ae3c-61d5be075f82",
+      "fullName": "Sébastien Fagot",
+      "role": "Directeur Sportif",
+      "image": "8ab63162-292d-4354-aa3a-c48888c720a2",
+      "diploma": "BE Tennis 1er degré",
+      "order": 1,
+      "year_experience": "20 années d'expériences",
+      "best_rank": "2/6",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Professor",
+    "pk": "c4b48fbf-14cf-46b9-859c-19d9089c883d",
+    "fields": {
+      "id": "c4b48fbf-14cf-46b9-859c-19d9089c883d",
+      "fullName": "Théo Rittori",
+      "role": "Professeur",
+      "image": "8ab63162-292d-4354-aa3a-c48888c720a2",
+      "diploma": "DES Tennis",
+      "order": 2,
+      "year_experience": "1 année d'expérience",
+      "best_rank": "4/6",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Professor",
+    "pk": "952b4303-bcb6-45e5-817a-ce4833bf7e71",
+    "fields": {
+      "id": "952b4303-bcb6-45e5-817a-ce4833bf7e71",
+      "fullName": "Adrien Augeau",
+      "role": "Apprenti Professeur",
+      "image": "8ab63162-292d-4354-aa3a-c48888c720a2",
+      "diploma": "Formation DES Tennis",
+      "order": 3,
+      "year_experience": "En cours de formation",
+      "best_rank": "5/6",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  }
+]

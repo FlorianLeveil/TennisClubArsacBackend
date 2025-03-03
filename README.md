@@ -131,6 +131,10 @@ python manage.py loaddata BackendTennis/fixtures/init_tennis_db/pages/initial_ho
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/pages/initial_navigation_bars.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/pages/initial_pricing_pages.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/pages/initial_about_pages.json
+python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_professors.json
+python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_team_members.json
+python manage.py loaddata BackendTennis/fixtures/init_tennis_db/pages/initial_team_pages.json
+
 ```
 
 

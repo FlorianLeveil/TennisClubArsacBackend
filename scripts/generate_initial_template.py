@@ -27,6 +27,21 @@ ABOUT_PAGE_PROPS = [
     'clubValueTitle', 'clubValues', 'sponsorTitle', 'sponsors'
 ]
 
+TEAM_PAGE_PROPS = [
+    'professorsTitle', 'professorsDescription', 'professors', 'teamMembersTitle',
+    'teamMembers', 'dataCounter',
+]
+
+TEAM_MEMBER_PROPS = [
+    'fullNames', 'role', 'images', 'description',
+    'order'
+]
+
+PROFESSOR_PROPS = [
+    'fullNames', 'role', 'images', 'diploma',
+    'order', 'year_experience', 'best_rank'
+]
+
 
 def get_initial_data_template(model_name, extra_props):
     _uuid = str(uuid.uuid4())
@@ -47,9 +62,9 @@ def get_initial_data_template(model_name, extra_props):
 
 
 def main():
-    nb_to_generate = 9
-    model_name = 'Image'
-    extra_props = IMAGE_PROPS
+    nb_to_generate = 3
+    model_name = 'Professor'
+    extra_props = PROFESSOR_PROPS
 
     full_template = []
     for i in range(nb_to_generate):
