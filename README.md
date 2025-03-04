@@ -131,6 +131,7 @@ python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_category
 
 
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_events.json
+python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_news.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/initial_renders_navigation_items.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/pages/initial_home_pages.json
 python manage.py loaddata BackendTennis/fixtures/init_tennis_db/pages/initial_navigation_bars.json

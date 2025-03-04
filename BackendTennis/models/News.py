@@ -19,20 +19,19 @@ class News(models.Model):
     )
     createAt = models.DateTimeField(auto_now_add=True)
     updateAt = models.DateTimeField(auto_now=True)
-    
-    
+
     def __str__(self):
         to_return = {
-            "id"         : self.id,
-            "title"      : self.title,
+            "id": self.id,
+            "title": self.title,
             "content": self.content,
             "subtitle": self.subtitle,
-            "images"     : self.images,
-            "category"   : self.category,
-            "createAt"   : self.createAt,
-            "updateAt"   : self.updateAt
+            "images": self.images,
+            "category": self.category,
+            "createAt": self.createAt,
+            "updateAt": self.updateAt
         }
         return "%s" % to_return
-    
+
     class Meta:
         app_label = "BackendTennis"

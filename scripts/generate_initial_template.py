@@ -1,8 +1,11 @@
+############################
+# Use this script to generate fixtures structures of MODEL
+############################
+
 import json
 import uuid
 
 CATEGORY_PROPS = ['name', 'icon']
-
 
 EVENT_PROPS = ['title', 'description', 'dateType', 'start', 'end', 'image', 'category']
 
@@ -10,6 +13,8 @@ IMAGE_PROPS = ['title', 'tags', 'type', 'imageUrl']
 
 NAVIGATION_ITEM_PROPS = ['title', 'description', 'image', 'route', 'navBarRender', 'pageRenders',
                          'childrenNavigationItems', 'enabled']
+
+NEWS_PROPS = ['title', 'content', 'subtitle', 'images', 'category']
 
 RENDER_PROPS = ['order', 'navBarPosition', 'visible', 'type', 'color', 'isButton']
 
@@ -76,9 +81,9 @@ def get_initial_data_template(model_name, extra_props):
 
 
 def main():
-    nb_to_generate = 2
-    model_name = 'Tournament'
-    extra_props = TOURNAMENT_PROPS
+    nb_to_generate = 7
+    model_name = 'Image'
+    extra_props = IMAGE_PROPS
 
     full_template = []
     for i in range(nb_to_generate):

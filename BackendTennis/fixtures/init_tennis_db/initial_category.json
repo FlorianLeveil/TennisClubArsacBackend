@@ -9,5 +9,27 @@
       "createAt": "2024-05-30T11:01:26.151680+02:00",
       "updateAt": "2024-05-30T11:01:26.151680+02:00"
     }
+  },
+  {
+    "model": "BackendTennis.Category",
+    "pk": "cc2a32f9-43ef-4daa-8513-f7f56b0656bc",
+    "fields": {
+      "id": "cc2a32f9-43ef-4daa-8513-f7f56b0656bc",
+      "name": "Tournoi",
+      "icon": "mdi-trophy",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Category",
+    "pk": "cc2a32f9-43ef-4daa-8513-f7f56b0656bd",
+    "fields": {
+      "id": "cc2a32f9-43ef-4daa-8513-f7f56b0656bd",
+      "name": "Divers",
+      "icon": "mdi-notebook",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
   }
 ]

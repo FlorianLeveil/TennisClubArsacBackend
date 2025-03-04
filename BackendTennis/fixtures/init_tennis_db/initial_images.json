@@ -401,5 +401,96 @@
       "createAt": "2024-05-30T11:01:26.151680+02:00",
       "updateAt": "2024-05-30T11:01:26.151680+02:00"
     }
+  },
+  {
+    "model": "BackendTennis.Image",
+    "pk": "a2074d91-b8cc-48ed-b49c-e7afd0b45ead",
+    "fields": {
+      "id": "a2074d91-b8cc-48ed-b49c-e7afd0b45ead",
+      "title": "Tournoi d'hiver 1",
+      "tags": [],
+      "type": "news",
+      "imageUrl": "news/481264625_1164307738821194_5813173886847582950_n.jpg",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Image",
+    "pk": "035b9e7f-2a00-47ef-8188-a92a2edb3101",
+    "fields": {
+      "id": "035b9e7f-2a00-47ef-8188-a92a2edb3101",
+      "title": "Tournoi d'hiver 2",
+      "tags": [],
+      "type": "news",
+      "imageUrl": "news/480665897_1164307822154519_2991970122330442412_n.jpg",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Image",
+    "pk": "934ff141-8712-4e3b-ab3a-edbfd9e5715a",
+    "fields": {
+      "id": "934ff141-8712-4e3b-ab3a-edbfd9e5715a",
+      "title": "Tournoi d'hiver 3",
+      "tags": [],
+      "type": "news",
+      "imageUrl": "news/482017645_1164307785487856_5923963504034922919_n.jpg",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Image",
+    "pk": "48c4869b-62b5-4e6a-a1e0-91cf3308492f",
+    "fields": {
+      "id": "48c4869b-62b5-4e6a-a1e0-91cf3308492f",
+      "title": "Tournoi d'hiver 4",
+      "tags": [],
+      "type": "news",
+      "imageUrl": "news/480590438_1164307858821182_2837943320331986971_n.jpg",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Image",
+    "pk": "32877805-5d65-4796-8639-f6110a3b2cd5",
+    "fields": {
+      "id": "32877805-5d65-4796-8639-f6110a3b2cd5",
+      "title": "Tournoi d'hiver 5",
+      "tags": [],
+      "type": "news",
+      "imageUrl": "news/480873996_1164307815487853_4575091400729600677_n.jpg",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Image",
+    "pk": "f8a0e6ce-3218-4e06-982b-22502324de12",
+    "fields": {
+      "id": "f8a0e6ce-3218-4e06-982b-22502324de12",
+      "title": "Tournoi d'hiver 6",
+      "tags": [],
+      "type": "news",
+      "imageUrl": "news/480683415_1164307778821190_6826769021742525693_n.jpg",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.Image",
+    "pk": "0b487122-c9cc-42ca-8f92-d0eb44d289fc",
+    "fields": {
+      "id": "0b487122-c9cc-42ca-8f92-d0eb44d289fc",
+      "title": "Tournoi d'hiver 7",
+      "tags": [],
+      "type": "news",
+      "imageUrl": "news/481975778_1164307732154528_5012948453085214467_n.jpg",
+      "createAt": "2024-05-30T11:01:26.151680+02:00",
+      "updateAt": "2024-05-30T11:01:26.151680+02:00"
+    }
   }
 ]

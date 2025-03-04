@@ -1,0 +1,52 @@
+[
+  {
+    "model": "BackendTennis.News",
+    "pk": "eeb79ea5-d73c-434d-a541-1d98b25d2527",
+    "fields": {
+      "id": "eeb79ea5-d73c-434d-a541-1d98b25d2527",
+      "title": "\uD83C\uDFBE Tournoi d'Hiver et vacance scolaire",
+      "content": "<br/>Le Tournoi d’Hiver démarre ce lundi ! Venez nombreux soutenir nos joueuses et joueurs Arsacais et partager avec eux l’intensité de la compétition.<br/><br/>\uD83D\uDCC5 Infos entraînements<br/>Les entraînements seront suspendus pendant toute la durée du tournoi ainsi que durant les vacances scolaires. La reprise est prévue pour le lundi 10 février.<br/>Merci pour votre compréhension et à très vite sur les courts ! \uD83C\uDFBE \uD83D\uDD25",
+      "subtitle": "Lundi 3 Février au Samedi 22 Février",
+      "images": "",
+      "category": "cc2a32f9-43ef-4daa-8513-f7f56b0656bc",
+      "createAt": "2024-01-31T11:01:26.151680+02:00",
+      "updateAt": "2024-01-31T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.News",
+    "pk": "fb43a668-a59b-44e2-bdca-f11454dbc055",
+    "fields": {
+      "id": "fb43a668-a59b-44e2-bdca-f11454dbc055",
+      "title": "\uD83C\uDFC6 Shannen Fagot brille sur la scène internationale !",
+      "content": "Notre jeune talent Shannen Fagot s’est envolée pour la Norvège afin de participer aux qualifications du tournoi international d’Oslo.<br/>Avec détermination, elle a brillamment franchi ses deux tours de qualification avant de poursuivre son aventure en remportant son 16e de finale. Son beau parcours s\\'est arrêté en 8e de finale.<br/><br/>Actuellement classée 5/6, 14e Française et 683e mondiale, Shannen continue de faire rayonner notre club au plus haut niveau.<br/><br/>Félicitations pour cette superbe performance ! \uD83D\uDC4F",
+      "subtitle": "Tournoi d'Oslo en Norvège \uD83C\uDDF3\uD83C\uDDF4",
+      "images": "",
+      "category": "cc2a32f9-43ef-4daa-8513-f7f56b0656bd",
+      "createAt": "2025-01-15T11:01:26.151680+02:00",
+      "updateAt": "2025-01-15T11:01:26.151680+02:00"
+    }
+  },
+  {
+    "model": "BackendTennis.News",
+    "pk": "c8755adb-bd1d-4274-80e2-2cf49248b6a8",
+    "fields": {
+      "id": "c8755adb-bd1d-4274-80e2-2cf49248b6a8",
+      "title": "Fin du tournoi",
+      "content": "\uD83C\uDFC6Le tournoi de février s’est terminé ce Samedi.<br/>Nous tenons à féliciter : <br/>SD<br/>\uD83E\uDD47Thais Vendramini<br/>\uD83E\uDD48Alexia Lapalu<br/>SM<br/>\uD83E\uDD47Jean-Jacques Rakotohasy<br/>\uD83E\uDD48Cyril Lafferranderie<br/>+35<br/>\uD83E\uDD47Nirouth Thao<br/>\uD83E\uDD48Sven Dayries.<br/>Merci à tous d’être venus supporter nos finalistes et demi-finalistes durant cette belle journée.<br/>Rendez-vous pour le tournoi des vignerons qui démarre le 12 avril !",
+      "subtitle": "",
+      "images": [
+        "a2074d91-b8cc-48ed-b49c-e7afd0b45ead",
+        "035b9e7f-2a00-47ef-8188-a92a2edb3101",
+        "934ff141-8712-4e3b-ab3a-edbfd9e5715a",
+        "48c4869b-62b5-4e6a-a1e0-91cf3308492f",
+        "32877805-5d65-4796-8639-f6110a3b2cd5",
+        "f8a0e6ce-3218-4e06-982b-22502324de12",
+        "0b487122-c9cc-42ca-8f92-d0eb44d289fc"
+      ],
+      "category": "cc2a32f9-43ef-4daa-8513-f7f56b0656bc",
+      "createAt": "2025-02-22T11:01:26.151680+02:00",
+      "updateAt": "2025-02-22T11:01:26.151680+02:00"
+    }
+  }
+]
