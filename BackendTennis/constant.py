@@ -64,6 +64,14 @@ class Constant(types.SimpleNamespace):
         NAV_BAR=('nav_bar', 'NAV_BAR'),
         HOME_PAGE=('home_page', 'HOME_PAGE'),
     )
+    FORM_INPUT_NAME_CHOICES: types.SimpleNamespace = types.SimpleNamespace(
+        FIRSTNAME=('firstname', 'prénom'),
+        LASTNAME=('lastname', 'nom'),
+        PHONE_NUMBER=('phone_number', 'numéro de téléphone'),
+        MAIL=('mail', 'email'),
+        SUBJECT=('subject', 'sujet'),
+        MESSAGE=('message', 'message')
+    )
 
     def __setattr__(self, *_):
         raise Exception('Tried to change the value of a constant')
@@ -75,3 +83,4 @@ constant_event_mode_list: List = list(vars(Constant.EVENT_MODE).values())
 constant_route_protocol_list: List = list(vars(Constant.ROUTE_PROTOCOL_CHOICES).values())
 constant_nav_bar_position_list: List = list(vars(Constant.NAV_BAR_POSITION_CHOICES).values())
 constant_render_type_list: List = list(vars(Constant.RENDER_TYPE_CHOICES).values())
+constant_form_input_name: List = list(vars(Constant.FORM_INPUT_NAME_CHOICES).values())
